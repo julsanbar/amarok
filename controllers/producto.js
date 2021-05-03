@@ -53,12 +53,12 @@ const getMasVendidos = async (req,res) => {
     for (let i = 0; i < productos.length; i++) {
         const element = productos[i];
         
-        if( productos[i]["referencia"] == Number.parseInt(resultadoKeys[0])
-        || productos[i]["referencia"] == Number.parseInt(resultadoKeys[1])
-        || productos[i]["referencia"] == Number.parseInt(resultadoKeys[2]) 
-        || productos[i]["referencia"] == Number.parseInt(resultadoKeys[3]) ){
+        if( element["referencia"] == Number.parseInt(resultadoKeys[0])
+        || element["referencia"] == Number.parseInt(resultadoKeys[1])
+        || element["referencia"] == Number.parseInt(resultadoKeys[2]) 
+        || element["referencia"] == Number.parseInt(resultadoKeys[3]) ){
 
-            resultado.push(productos[i]);
+            resultado.push(element);
 
         }
 
