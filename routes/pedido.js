@@ -5,6 +5,7 @@ const router = express.Router();
 const path = 'home';
 const controller = require('../controllers/pedido');
 
+//TEST
 router.get(
 
     `/${path}`,
@@ -12,6 +13,7 @@ router.get(
 
 );
 
+//TEST
 router.post(
 
     `/${path}`,

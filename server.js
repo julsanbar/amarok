@@ -1,11 +1,18 @@
 const express = require('express');
 const initDB = require('./config/db');
+const cors = require('cors');
 
 const app = express();
 const port = 8080;
 
 const productoRouters = require('./routes/producto');
 const pedidoRouters = require('./routes/pedido');
+
+app.use(cors({
+
+    origin: 'http://localhost:4200'
+
+}));
 
 app.use(
     express.json({

@@ -7,7 +7,7 @@ const ProductoScheme = new mongoose.Schema(
 
         referencia: {
 
-            type: String,
+            type: Number,
             unique: true,
             required: true
 
@@ -17,6 +17,7 @@ const ProductoScheme = new mongoose.Schema(
 
             type: String,
             enum: ['defensa','fuego','competicion','seguridad'],
+            default: 'seguridad',
             required: true
 
         },

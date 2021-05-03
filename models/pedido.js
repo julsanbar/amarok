@@ -18,6 +18,7 @@ const PedidoScheme = new mongoose.Schema(
 
             type: String,
             enum: ['cancelado','enviado','entregado'],
+            default: 'enviado',
             required: true
 
         },

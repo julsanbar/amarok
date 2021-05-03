@@ -1,5 +1,6 @@
 const pedido = require('../models/pedido');
 
+//TEST
 exports.getPedidos = (req, res) => {
 
     pedido.findOne({},(err,docs)=>{
@@ -15,6 +16,7 @@ exports.getPedidos = (req, res) => {
 
 }
 
+//TEST
 exports.insertData = (req,res) => {
 
     const data = req.body

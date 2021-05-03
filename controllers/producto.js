@@ -1,85 +1,72 @@
 const producto = require('../models/producto');
 const pedido = require('../models/pedido');
-//db.getCollection('producto').find({},{"referencia":1,"_id":0}).toArray()[0]["referencia"]
-//SE DEBE DE REALIZAR UN AGREGATE YA QUE SE TIENE QUE HACER OTRA QUERY
-/*exports.getMasVendidos = (req, res) => {
 
-    model.find({},{"referencia":1,"_id":0}).exec((err,productos) => {
+/**
+ * CONTEMPLAR CATCH PARA CADA QUERY
+*/
 
-        if(err) return res.status(500).send({message: 'Error en el servidor'});
-
-        if(productos){
-
-            //productos = productos[0]["referencia"];
-
-            //console.log(call[0]["referencia"])
-
-            for (let i = 0; i < productos.length; i++) {
-                const element = productos[i]["referencia"];
-                console.log(element);
-            }
-
-            return res.status(200).send({
-                productos
-            });
-        }else{
-            return res.status(404).send({
-                message: 'No hay productos'
-            });
-        }
-        
-    });
-
-}*/
-
+//Función para devolver los 4 productos más vendidos
 const getMasVendidos = async (req,res) => {
+    
+    const productos = await producto.find({},(err,docs)=>{})
+    const productosPedidos = await pedido.find({},{"productos":1,"_id":0},(err,docs)=>{})
 
-    const referencias = await producto.find({},{"referencia":1,"_id":0},(err,docs)=>{})
-    const nombres = await producto.find({},{"nombre":1,"_id":0},(err,docs)=>{})
+    var productsPed = [];
+    var cantidad = {};
+    var reset = new Set();
+    var result = new Map();
 
-    const result = referencias[0]["referencia"]+"  "+nombres[0]["nombre"];
+    for (let i = 0; i < productosPedidos.length; i++) {
+            
+        const productosPedido = productosPedidos[i]["productos"];
+        
+        for (let k = 0; k < productosPedido.length; k++) {
+            
+            const productoPedido = productosPedido[k];
 
-    res.send({
-        result
-    })
+            productsPed.push(productoPedido);
+            reset.add(productoPedido+"");
+
+        }
+
+    }
+
+    productsPed.forEach(function(i) { cantidad[i] = (cantidad[i]||0) + 1;});
+
+    for (const iterator of reset) {
+        
+        result.set(iterator,cantidad[iterator]);
+
+    }
+
+    const sortedMap = new Map( [...result].sort((x, y) => y[1] - x[1]));
+    const keys = sortedMap.keys();
+    var resultadoKeys = [];
+    var resultado = [];
+
+    for (let i = 0; i < 4; i++) {
+        
+        resultadoKeys.push(keys.next().value);
+
+    }
+
+    for (let i = 0; i < productos.length; i++) {
+        const element = productos[i];
+        
+        if( productos[i]["referencia"] == Number.parseInt(resultadoKeys[0])
+        || productos[i]["referencia"] == Number.parseInt(resultadoKeys[1])
+        || productos[i]["referencia"] == Number.parseInt(resultadoKeys[2]) 
+        || productos[i]["referencia"] == Number.parseInt(resultadoKeys[3]) ){
+
+            resultado.push(productos[i]);
+
+        }
+
+    }
+
+    res.send({productos:resultado});
 
 }
-
-/**
- * 
- *     model.find({},(err,docs)=>{
-
-        res.send({
-            items:docs
-        })
-
-    })
- * 
- * 
- */
-
-/**
- * function getNotas(req, res){
- 
-        // Usamos el método find sobre nuesta entidad Nota y ordenamos los resultados
-    Nota.find({}).sort({'_id':-1}).exec((err, notas) => {
-        if(err) return res.status(500).send({message: 'Error en el servidor'});
-         
-                     // Devolvemos el resultado de la query en json
-            if(notas){
-                return res.status(200).send({
-                    notas
-                });
-            }else{
-                return res.status(404).send({
-                    message: 'No hay notas'
-                });
-            }
-         
-    });
-}
-
- */
 
 module.exports = {
 
