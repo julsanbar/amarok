@@ -13,7 +13,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.productoService.productosMasVendidos().subscribe((res:any) => {
-      console.log(res);
+
+      console.log(res.productos);
     });
 
   }
