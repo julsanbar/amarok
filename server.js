@@ -7,6 +7,8 @@ const port = 8080;
 
 const productoRouters = require('./routes/producto');
 const pedidoRouters = require('./routes/pedido');
+const proveedorRouters = require('./routes/proveedor');
+const usuarioRouters = require('./routes/usuario');
 
 app.use(cors({
 
@@ -29,6 +31,8 @@ app.use(
 
 app.use(productoRouters);
 app.use(pedidoRouters);
+app.use(proveedorRouters);
+app.use(usuarioRouters);
 
 app.listen(port, () => {
     

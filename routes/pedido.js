@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 //PENSAR SI REDIRIGIR CON ANGULAR
-const path = 'home';
+//TEST
+const path = 'pedido';
 const controller = require('../controllers/pedido');
 
 //TEST
