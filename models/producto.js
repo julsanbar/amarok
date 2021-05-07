@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const Float = require('mongoose-float').loadType(mongoose,2);
 
 //FALTAN VALIDADORES ¿CONTROLLER O MODELS?
+/**
+ * REALIZAR VALIDACIONES EN EL MODELO MEDIANTE:
+ *  METHODS Y PRE DE SCHEMA DE ESTA FORMA VALIDAMOS LOS DATOS
+ *  RECIBIDOS
+ */
 const ProductoScheme = new mongoose.Schema(
     {
 

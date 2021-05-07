@@ -73,7 +73,13 @@ const insertData = async (req,res) => {
 
     const data = req.body
 
-    //res.send({data})
+    //console.log("ENVIO----------",data);
+
+    /*if(data.categoria === "asdn"){
+
+        console.log("ENVIO----------",data);
+
+    }*/
 
     const crear = await producto.create(data,(err,docs)=>{
 
