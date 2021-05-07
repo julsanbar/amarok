@@ -68,8 +68,33 @@ const getMasVendidos = async (req,res) => {
 
 }
 
+//TEST
+const insertData = async (req,res) => {
+
+    const data = req.body
+
+    //res.send({data})
+
+    const crear = await producto.create(data,(err,docs)=>{
+
+        if(err){
+            console.log(err);
+            res.send({error:'ERROR'},422)
+
+        }else{
+            
+            res.send({data:docs})
+
+        }
+
+        
+    });
+
+}
+
 module.exports = {
 
-    getMasVendidos
+    getMasVendidos,
+    insertData
 
 };
