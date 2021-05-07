@@ -67,8 +67,8 @@ const ProveedorScheme = new mongoose.Schema(
 
     },
     {
-        versionKey: false,
-        timestamps: false
+        versionKey: true,
+        timestamps: true
     }
 );
 

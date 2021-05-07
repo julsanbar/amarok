@@ -23,6 +23,13 @@ const PedidoScheme = new mongoose.Schema(
 
         },
 
+        fechaPedido: {
+
+          type: Date,
+          default: Date.now()
+          
+        },
+
         productos: {
 
             type: Array,
@@ -32,11 +39,15 @@ const PedidoScheme = new mongoose.Schema(
 
     },
     {
-        versionKey: false,
+        versionKey: true,
         timestamps: true
     }
 );
-
+/**
+ * REALIZAR EL CAMPO FECHA PEDIDO DE FORMA ORDINARIA.
+ * NO REALIZAR ESQUEMAS VIRTUALES
+ * 
+ */
 //Campo virtual: creación del pedido formato yyyy-mm-dd hh:mm:ss
 //Este campo solo sera visible cuando se envie al front toda la información
 PedidoScheme.virtual('fechaPedido')
