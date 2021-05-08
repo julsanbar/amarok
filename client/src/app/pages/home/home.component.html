@@ -2,4 +2,7 @@
 <div class="container">
   <h1 class="mt-5">CARRUSEL DE IMAGENES</h1>
   <p class="lead">PRODUCTOS MAS VENDIDOS</p>
+  
+  <img *ngFor="let ruta of this.srcMasVendidos" [src]="ruta">
+  
 </div>
