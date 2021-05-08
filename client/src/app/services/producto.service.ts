@@ -10,11 +10,11 @@ export class ProductoService {
     private http: HttpClient
   ) { }
 
-  uri: String = 'http://localhost:8080';
+  uri: String = 'http://localhost:8080/';
 
   productosMasVendidos(): any{
     
-    return this.http.get(this.uri+'/');
+    return this.http.get(this.uri+'masVendidos');
 
   }
 

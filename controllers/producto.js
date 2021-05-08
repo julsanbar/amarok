@@ -63,7 +63,7 @@ const getMasVendidos = async (req,res) => {
         }
 
     }
-
+    
     res.send({productos:resultado});
 
 }

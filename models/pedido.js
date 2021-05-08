@@ -18,7 +18,6 @@ const PedidoScheme = new mongoose.Schema(
 
             type: String,
             enum: ['cancelado','enviado','entregado'],
-            default: 'enviado',
             required: true
 
         },
@@ -39,7 +38,7 @@ const PedidoScheme = new mongoose.Schema(
 
     },
     {
-        versionKey: true,
+        versionKey: false,
         timestamps: true
     }
 );
@@ -50,22 +49,20 @@ const PedidoScheme = new mongoose.Schema(
  */
 //Campo virtual: creación del pedido formato yyyy-mm-dd hh:mm:ss
 //Este campo solo sera visible cuando se envie al front toda la información
-PedidoScheme.virtual('fechaPedido')
+PedidoScheme.virtual('creacionPedido')
   .set(function(fecha) {
     this.createdAt = new Date(fecha);
   })
   .get(function(){
     return this.createdAt.toISOString().substring(0,10)+" "+this.createdAt.toISOString().substring(11,19);
-  });
+});
 
-//Campo virtual: creación del pedido formato yyyy-mm-dd hh:mm:ss
-//Este campo solo sera visible cuando se envie al front toda la información
-PedidoScheme.virtual('fechaModificacionPedido')
+PedidoScheme.virtual('modificacionPedido')
   .set(function(fecha) {
     this.updatedAt = new Date(fecha);
   })
   .get(function(){
     return this.updatedAt.toISOString().substring(0,10)+" "+this.updatedAt.toISOString().substring(11,19);
-  });
+});
 
 module.exports = mongoose.model('pedidos',PedidoScheme);
