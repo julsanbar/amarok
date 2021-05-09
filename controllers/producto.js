@@ -80,15 +80,25 @@ const insertData = async (req,res) => {
         console.log("ENVIO----------",data);
 
     }*/
+    
+    const unico = await producto.findOne({ referencia: data.referencia}, (err,doc) => {
+        
+        return (err)? err: doc;
+        
+    });
 
-    const crear = await producto.create(data,(err,docs)=>{
+    console.log("------------------------------------------");
+    console.log(unico);
+    console.log("------------------------------------------");
+
+    await producto.create(data,(err,docs)=>{
 
         if(err){
-            console.log(err);
+            //console.log("ERROR---------------",err.message);
             res.send({error:'ERROR'},422)
 
         }else{
-            
+                        
             res.send({data:docs})
 
         }

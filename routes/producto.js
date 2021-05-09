@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-//PENSAR SI REDIRIGIR CON ANGULAR
+//TEST
 const path = "producto";
 const controller = require('../controllers/producto');
 

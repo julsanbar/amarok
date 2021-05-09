@@ -1,69 +1,111 @@
 const mongoose = require('mongoose');
 const Float = require('mongoose-float').loadType(mongoose,2);
 
-//FALTAN VALIDADORES ¿CONTROLLER O MODELS?
-/**
- * REALIZAR VALIDACIONES EN EL MODELO MEDIANTE:
- *  METHODS Y PRE DE SCHEMA DE ESTA FORMA VALIDAMOS LOS DATOS
- *  RECIBIDOS
- */
+//Variables para las validaciones propias
+let validaNombre = (nombre) => {
+
+    const regExp = new RegExp(/^[a-zA-Z0-9 ]+$/);
+
+    return (!nombre)? false: regExp.test(nombre.toString());
+
+};
+
+let validaNumero = (numero) => {
+
+    const regExp = new RegExp(/^\d+$/);
+
+    return (!numero)? false: regExp.test(numero.toString());
+
+};
+
+///Variables usadas para establecer el mensaje personalizado que se guarda en el log
+const numeroValidators = [
+    {
+
+        validator: validaNumero,
+        message: 'Debe ser un número entero positivo.'
+
+    }
+];
+
+const nombreValidators = [
+    {
+
+        validator: validaNombre,
+        message: 'El nombre del producto no puede contener carácteres especiales ni el carácter ñ.'
+
+    }
+];
+
+//Creación del esquema
 const ProductoScheme = new mongoose.Schema(
     {
 
         referencia: {
 
             type: Number,
-            unique: true,
-            required: true
+            unique: [true, 'Ya existe un producto con esta referencia.'],
+            required: [true, 'La referencia del producto es necesaria. '],
+            validate: numeroValidators
 
         },
 
         categoria: {
 
             type: String,
-            enum: ['defensa','fuego','competicion','seguridad'],
-            required: true
+            enum: {
+                    values: ['defensa','fuego','competicion','seguridad'],
+                    message: 'La categoría no esta soportada.'
+                },
+            required: [true, 'La categoria del producto es necesaria.']
 
         },
 
         nombre: {
 
             type: String,
-            required: true
+            required: [true, 'El nombre del producto es necesario.'],
+            minLength: [3, 'El nombre del producto no puede contener menos de 3 carácteres'],
+            validate: nombreValidators
 
         },
 
         descripcion: {
 
-            type: String
+            type: String,
+            required: [true, 'La descripción del producto es necesario.']
 
         },
 
         precio: {
 
             type: Float,
-            required: true
+            required: [true, 'El precio del producto es neceario.'],
+            min: [0.0, 'El precio del producto no puede ser negativo.']
 
         },
 
         tasa: {
 
             type: Number,
-            required: true
+            required: [true, 'La tasa del producto es necesario.'],
+            validate: numeroValidators
 
         },
 
         stock: {
 
             type: Number,
-            required: true
+            required: [true, 'El stock del producto es necesario.'],
+            validate: numeroValidators
 
         },
 
         stockMinimo:{
 
             type: Number,
-            required: true
+            required: [true, 'El stock mínimo del producto es necesario.'],
+            validate: numeroValidators
 
         },
 
@@ -80,6 +122,7 @@ const ProductoScheme = new mongoose.Schema(
     }
 );
 
+//Campos virtuales los cuales serán enviados a los servicios que los requieran
 ProductoScheme.virtual('creacionProducto')
   .set(function(fecha) {
     this.createdAt = new Date(fecha);
@@ -96,4 +139,5 @@ ProductoScheme.virtual('modificacionProducto')
     return this.updatedAt.toISOString().substring(0,10)+" "+this.updatedAt.toISOString().substring(11,19);
 });
 
+//Exportación y creación del modelo
 module.exports = mongoose.model('productos',ProductoScheme);
