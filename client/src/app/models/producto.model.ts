@@ -1,6 +1,6 @@
 export class Producto {
 
-    public id: Number;
+    public id: String;
     public referencia: Number;
     public categoria: String;
     public nombre: String;
@@ -12,7 +12,7 @@ export class Producto {
     public proveedores: String[];
 
     constructor(
-        id: Number,
+        id: String,
         referencia: Number,
         categoria: String,
         nombre: String,

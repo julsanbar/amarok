@@ -1,9 +1,62 @@
 @charset "UTF-8";
 
-img{
+.text-muted{
 
-    height: 250px; 
-    width: 250px;
-    border: 1px solid black;
+    margin-right: 25%;
+
+}
+
+.card-title{
+
+    font-weight: bold;
+
+}
+
+.card{
+
+    height: 350px!important;
+    width: 700px!important;
+    display: inline-flex!important;
+    max-height: max-content!important;
+    
+}
+
+.card:nth-child(5),.card:nth-child(3){
+
+    margin-left: 15rem!important;
+    margin-right: 4rem!important;
+
+}
+
+.card:nth-child(5),.card:nth-child(6){
+
+    margin-top: 2rem!important;
+    margin-bottom: 5rem!important;
+
+}
+
+.populares,.populares>img{
+
+    height: 200px; 
+    width: 200px;
+
+}
+
+#carouselExampleIndicators>.carousel-inner>div>img{
+
+    height: 37rem!important;
+
+}
+
+.informacion{
+
+    margin: 1rem 0rem;
+    padding: 2rem 0rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #212529!important;
+    color: rgb(236, 181, 78);
+    border-radius: 0.5rem;
 
 }

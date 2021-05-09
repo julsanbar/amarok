@@ -1,8 +1,46 @@
+<div class="container-fluid pt-4">
 
-<div class="container">
-  <h1 class="mt-5">CARRUSEL DE IMAGENES</h1>
-  <p class="lead">PRODUCTOS MAS VENDIDOS</p>
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../../../assets/img/banner/bannerI.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="../../../assets/img/banner/bannerII.jpg" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="btn-dark carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="btn-dark carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <p class="informacion">PRODUCTOS MÁS VENDIDOS</p>
   
-  <img *ngFor="let ruta of this.srcMasVendidos" [src]="ruta">
-  
+  <div *ngFor="let ruta of this.srcMasVendidos; let i = index ;trackBy: trackByItems" class="card mb-3">
+    <div class="row g-0">
+      <div class="populares col-md-4">
+        <img [src]="ruta">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{this.productosMasVendidos[i].nombre}}</h5>
+          <p class="card-text">{{this.productosMasVendidos[i].descripcion}}</p>
+          <p class="card-text justify-content-around">
+            <small class="text-muted">Unidades en stock: {{this.productosMasVendidos[i].stock}}</small>
+            <small class="text-muted">PVP: {{this.productosMasVendidos[i].precio}} €</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

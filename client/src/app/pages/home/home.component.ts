@@ -10,19 +10,19 @@ import { Producto } from "../../models/producto.model";
 export class HomeComponent implements OnInit, OnChanges {
 
   public srcMasVendidos: string[] = [];
-  public producto: Producto | undefined;
+  public productosMasVendidos: Producto[] = [];
 
   constructor(private productoService: ProductoService) { }
   
-  ngOnChanges(changes: SimpleChanges): void {
-    
-  }
+  ngOnChanges(changes: SimpleChanges): void { }
 
   ngOnInit(): void {
 
     this.imagenesProductosMasVendidos();
 
   }
+
+  trackByItems(index: number, item: any): number { /*console.log(index+"\n"+item);*/ return item.id; }
 
   imagenesProductosMasVendidos(): void{
 
@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit, OnChanges {
       for (const producto of res.productos) {
 
         this.srcMasVendidos.push("../../../assets/img/productos/"+producto.referencia+".jpg");
+        this.productosMasVendidos.push(producto);
 
       }
 

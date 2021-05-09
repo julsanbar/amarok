@@ -1,5 +1,15 @@
+@charset "UTF-8";
 /* You can add global styles to this file, and also import other style files */
+
 html {
+    
     position: relative;
     min-height: 100%!important;
+
+}
+
+body{
+
+    font-family: 'Raleway', 'Newsreader', 'Lato', sans-serif, serif;
+
 }
