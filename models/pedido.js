@@ -1,38 +1,64 @@
 const mongoose = require('mongoose');
 const Float = require('mongoose-float').loadType(mongoose,2);
 
-//FALTAN VALIDADORES ¿CONTROLLER O MODELS?
-//TIENE SENTIDO PONER EL PRECIO TOTAL DEL PEDIDO EN EL PEDIDO, O SE DEJA COMO CALCULO
+
+//Variables para las validaciones propias
+let validaReferencia = (referencia) => {
+
+  const regExp = new RegExp(/^[P]\d+$/);
+
+  return (!referencia)? false: regExp.test(referencia.toString());
+
+};
+
+///Variables usadas para establecer el mensaje personalizado que se guarda en el log
+const referenciaValidators = [
+  {
+
+      validator: validaReferencia,
+      message: 'La referencia debe ser P seguido de un número.'
+
+  }
+];
+
+
 const PedidoScheme = new mongoose.Schema(
     {
 
         referencia: {
 
             type: String,
-            unique: true,
-            required: true
+            unique: [true, 'La referencia debe ser única'],
+            required: [true, 'La referencia es necesario para el pedido'],
+            validate: referenciaValidators
 
         },
 
         estado: {
 
             type: String,
-            enum: ['cancelado','enviado','entregado'],
-            required: true
+            enum: 
+              {
+                values: ['cancelado','enviado','entregado'],
+                message: 'El estado no esta soportado'
+              },
+            required: [true, 'El estado es necesario']
 
         },
 
         fechaPedido: {
 
           type: Date,
-          default: Date.now()
-          
+          default: Date.now(),
+          min: '2019-01-01',
+          max: Date.now()
+
         },
 
         productos: {
 
             type: Array,
-            required: true
+            required: [true, 'Es necesario indicar los productos']
 
         },
 
