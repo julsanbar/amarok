@@ -103,7 +103,8 @@ const ProveedorScheme = new mongoose.Schema(
 
             type: String,
             required: [true, 'El campo nombre es necesario.'],
-            validate: nombreValidators
+            validate: nombreValidators,
+            minLength: [5, 'La nombre debe de tener al menos 5 carácteres']
 
         },
 
@@ -111,7 +112,9 @@ const ProveedorScheme = new mongoose.Schema(
 
             type: String,
             required: [true, 'El campo cif es necesario.'],
-            validate: cifValidators
+            validate: cifValidators,
+            minLength: [5, 'El cif debe de tener al menos 5 carácteres'],
+            maxLength: [50, 'El cif debe de tener menos de 50 carácteres']
 
         },
 
@@ -132,7 +135,9 @@ const ProveedorScheme = new mongoose.Schema(
             type: String,
             required: [true, 'El campo email es necesario.'],
             unique: [true, 'Ya existe este email.'],
-            validate: emailValidators
+            validate: emailValidators,
+            minLength: [5, 'El email debe de tener al menos 5 carácteres'],
+            maxLength: [50, 'El email debe de tener menos de 50 carácteres']
 
         },
 
@@ -140,13 +145,17 @@ const ProveedorScheme = new mongoose.Schema(
 
             type: String,
             required: [true, 'El campo teléfono es necesario.'],
-            validate: telefonoValidators
+            validate: telefonoValidators,
+            minLength: [9, 'El telefono debe de tener al menos 9 carácteres'],
+            maxLength: [15, 'El telefono debe de tener menos de 15 carácteres']
 
         },
 
         pais: {
 
-            type: String
+            type: String,
+            minLength: [2, 'El pais debe de tener al menos 2 carácteres'],
+            maxLength: [20, 'El pais debe de tener menos de 20 carácteres']
 
         },
 
