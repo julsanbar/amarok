@@ -12,6 +12,13 @@ router.get(
 
 );
 
+router.get(
+
+    '/pagination/:page',
+    controller.getPagination
+
+);
+
 //TEST
 router.post(
 

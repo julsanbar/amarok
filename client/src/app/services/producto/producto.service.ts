@@ -18,4 +18,9 @@ export class ProductoService {
 
   }
 
+  getPagination(pagina: number): any{
+
+    return this.http.get(this.uri+'pagination/'+pagina);
+  }
+
 }

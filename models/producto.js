@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Float = require('mongoose-float').loadType(mongoose,2);
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 //Variables para las validaciones propias
 let validaNombre = (nombre) => {
@@ -140,6 +141,9 @@ ProductoScheme.virtual('modificacionProducto')
   .get(function(){
     return this.updatedAt.toISOString().substring(0,10)+" "+this.updatedAt.toISOString().substring(11,19);
 });
+
+//Ejecución para activar la paginación en el modelo
+ProductoScheme.plugin(mongoosePaginate);
 
 //Exportación y creación del modelo
 module.exports = mongoose.model('productos',ProductoScheme);

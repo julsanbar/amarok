@@ -1,6 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ProductoService } from "../../services/producto.service";
+import { ProductoService } from "../../services/producto/producto.service";
 import { Producto } from "../../models/producto.model";
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -22,11 +23,11 @@ export class HomeComponent implements OnInit, OnChanges {
 
   }
 
-  trackByItems(index: number, item: any): number { /*console.log(index+"\n"+item);*/ return item.id; }
+  trackByItems(index: number, item: any): number { return item.id; }
 
   imagenesProductosMasVendidos(): void{
 
-    this.productoService.productosMasVendidos().subscribe((res:any) => {
+    this.productoService.productosMasVendidos().pipe(first()).subscribe((res:any) => {
 
       for (const producto of res.productos) {
 

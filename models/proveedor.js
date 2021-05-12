@@ -29,7 +29,7 @@ let validaCif = (cif) => {
 
     const regExp = new RegExp(/^[a-zA-Z0-9 ]+$/);
 
-    return (!cif)? false: !regExp.test(cif.toString());
+    return (!cif)? false: regExp.test(cif.toString());
 
 };
 

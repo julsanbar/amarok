@@ -1,9 +1,28 @@
 const producto = require('../models/producto');
 const pedido = require('../models/pedido');
 
-/**
- * CONTEMPLAR CATCH PARA CADA QUERY
-*/
+//Devuelve la paginación de los productos
+const getPagination = async (req,res) => {
+
+    const options = {
+        //empieza por 1
+        page: req.params.page,
+        limit: 6
+    
+    };
+
+    await producto.paginate({
+
+    },options,(err,docs)=>{
+        console.log("asd------",docs.totalDocs);
+        res.send({
+            docs
+        });
+    });
+
+    
+};
+
 
 //Función para devolver los 4 productos más vendidos
 const getMasVendidos = async (req,res) => {
@@ -110,6 +129,7 @@ const insertData = async (req,res) => {
 
 module.exports = {
 
+    getPagination,
     getMasVendidos,
     insertData
 
