@@ -38,17 +38,21 @@ export class ProductosComponent implements OnInit, OnChanges {
 
   descargarFactura(): void{
 
-      
-
       this.pedidoService.getFactura(1,1).pipe(first()).subscribe((res: any) => {
 
         console.log("CLIENTE---------",res);
 
-        //Create your invoice! Easy!
-        //easyinvoice.createInvoice(res, function (result: any) {
-          //The response will contain a base64 encoded PDF file
-          //console.log(result.pdf);
-          
+        //res;
+
+        //GENERAR EL PDF EN UNA PAGINA APARTE SIN LIBRERIAS 
+
+        window.print();
+
+        //res.object.createInvoice(res.data, function (result: any) {
+          //res.object.download('myInvoice.pdf', result.pdf);
+          //  you can download like this as well:
+          //  easyinvoice.download();
+          //  easyinvoice.download('myInvoice.pdf');   
         //});
 
       });
