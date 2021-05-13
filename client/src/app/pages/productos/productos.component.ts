@@ -3,6 +3,8 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import { Producto } from 'src/app/models/producto.model';
 import { ProductoService } from "../../services/producto/producto.service";
 import { first } from 'rxjs/operators';
+import { PedidoService } from "../../services/pedido/pedido.service";
+
 
 @Component({
   selector: 'app-productos',
@@ -11,13 +13,13 @@ import { first } from 'rxjs/operators';
 })
 export class ProductosComponent implements OnInit, OnChanges {
 
-  constructor(private productoService: ProductoService ,private route: ActivatedRoute, private router: Router ) { }
+  constructor(private productoService: ProductoService ,private route: ActivatedRoute, private router: Router, private pedidoService: PedidoService) { }
   
   public productos: Producto[] = [];
   public page: number = 1;
   public total: number = 0;
   public perPage: number = 6;
-
+  
   ngOnChanges(changes: SimpleChanges): void {
    
   }
@@ -34,7 +36,26 @@ export class ProductosComponent implements OnInit, OnChanges {
 
   }
 
-  getDatos(page: number) {
+  descargarFactura(): void{
+
+      
+
+      this.pedidoService.getFactura(1,1).pipe(first()).subscribe((res: any) => {
+
+        console.log("CLIENTE---------",res);
+
+        //Create your invoice! Easy!
+        //easyinvoice.createInvoice(res, function (result: any) {
+          //The response will contain a base64 encoded PDF file
+          //console.log(result.pdf);
+          
+        //});
+
+      });
+
+  }
+
+  getDatos(page: number): void {
   
     this.productoService.getPagination(page).pipe(first()).subscribe((res: any) => {
 
@@ -48,7 +69,7 @@ export class ProductosComponent implements OnInit, OnChanges {
 
   }
 
-  pageChanged(page: any) {
+  pageChanged(page: any): void{
     this.page = page;
 
     const queryParams: Params = {page};

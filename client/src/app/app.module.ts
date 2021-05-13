@@ -9,6 +9,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 
+import { PedidoService } from "../app/services/pedido/pedido.service";
 import { ProductoService } from "../app/services/producto/producto.service";
 import { ErrorComponent } from './pages/error/error.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
@@ -31,7 +32,8 @@ import { ProductosComponent } from './pages/productos/productos.component';
     NgxPaginationModule
   ],
   providers: [
-    ProductoService
+    ProductoService,
+    PedidoService
   ],
   bootstrap: [
     AppComponent

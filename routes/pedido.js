@@ -22,4 +22,12 @@ router.post(
 
 );
 
+//Test FACTURA
+router.get(
+    //OK PASO DE DATOS 
+    `/factura/:idCliente/:idPedido`,
+    controller.factura
+
+);
+
 module.exports = router;
