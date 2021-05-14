@@ -22,8 +22,10 @@
 }
 
 .card:nth-child(5),.card:nth-child(3){
-
-    margin-left: 15rem!important;
+    /*
+        Cambiar el margen izquierdo para responsive
+    */
+    margin-left: 0.3rem!important;
     margin-right: 4rem!important;
 
 }
