@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+input.ng-invalid.ng-touched{
+
+    border: solid 2px rgba(255, 99, 71, 0.644);
+
+}
+
+input.ng-valid.ng-dirty{
+
+    border: solid 2px rgb(59, 167, 59);
+    
+}
+
+#errorPass,#campoPass,#campoError,#nombreError,#campoNombre,#apellidoError,#campoApellidos,#telefonoError,#campoTelefono,#campoFecha,#emailError{
+
+    list-style-type: circle;
+    background: rgba(253, 213, 213, 0.788);
+    border: solid 2px tomato;
+    width: 300px;
+    height: auto;
+
+}
+
+.formulario{
+
+    margin-bottom: 5rem!important;
+
+}
+
+.enviar{
+
+    margin: 0rem 10rem!important;
+
+}

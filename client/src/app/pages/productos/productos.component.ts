@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto.model';
 import { ProductoService } from "../../services/producto/producto.service";
 import { first } from 'rxjs/operators';
@@ -43,9 +43,11 @@ export class ProductosComponent implements OnInit, OnChanges {
 
         //OBTENGO LA PATH-----------------
 
-        console.log("CLIENTE---------",res);
+        console.log("CLIENTE---------",res.ruta);
 
-        //window.open(res);
+        //window.location.href = res.ruta.toString();
+
+        window.open(res);
 
         //res;
 

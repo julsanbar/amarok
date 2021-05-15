@@ -1,0 +1,251 @@
+<div class="row formulario">
+    <div class="col-md-6 offset-md-3 p-5">
+        <form [formGroup]="registroForm" (ngSubmit)="enviar()" errorTailor>
+
+            <h4 class="text-center">Registro cliente</h4>
+            
+            <label for="inputNombre">Nombre</label>
+            <input type="text" id="inputNombre" class="form-control" formControlName="nombre" placeholder="Pepe" [controlErrorsTpl]="campoNombre">
+            <ng-container *ngTemplateOutlet="nombreError;context:{error:registroForm.get('nombre')?.errors}"></ng-container>
+
+            <label for="inputApellidos">Apellidos</label>
+            <input type="text" id="inputApellidos" class="form-control" formControlName="apellidos" placeholder="Reina Santos" [controlErrorsTpl]="campoApellidos">
+            <ng-container *ngTemplateOutlet="apellidoError;context:{error:registroForm.get('apellidos')?.errors}"></ng-container>
+
+            <label for="inputTelefono">Teléfono</label>
+            <input type="tel" id="inputTelefono" class="form-control" formControlName="telefono" placeholder="963852741" [controlErrorsTpl]="campoTelefono">
+            <ng-container *ngTemplateOutlet="telefonoError;context:{error:registroForm.get('telefono')?.errors}"></ng-container>
+
+            <label for="inputNacimiento">Fecha Nacimiento</label>
+            <input type="date" id="inputNacimiento" class="form-control" formControlName="nacimiento" min="1920-01-01" max="2003-02-28" [controlErrorsTpl]="campoFecha">
+            
+            <div class="form-group">
+                <label for="inputLicencia">Licencia</label>
+                <select class="form-control" id="inputLicencia" formControlName="licencia">
+                  <option value="null" selected>Sin licencia</option>
+                  <option value="competicion">Competición</option>
+                  <option value="seguridad">Seguridad</option>
+                  <option value="fuego">Fuego</option>
+                </select>
+            </div>
+
+            <label for="inputUsuario">Usuario</label>
+            <input type="text" id="inputUsuario" class="form-control" formControlName="usuario" placeholder="rubitokany" [controlErrorsTpl]="campoNombre">
+            <ng-container *ngTemplateOutlet="nombreError;context:{error:registroForm.get('usuario')?.errors}"></ng-container>
+
+            <label for="inputDni">DNI</label>
+            <input type="text" id="inputDni" class="form-control" formControlName="dni" placeholder="00112233N" [controlErrorsTpl]="campoDni">
+            <ng-container *ngTemplateOutlet="nombreError;context:{error:registroForm.get('dni')?.errors}"></ng-container>
+
+            <label for="inputDireccion">Dirección</label>
+            <input type="text" id="inputDireccion" class="form-control" formControlName="direccion" placeholder="Rúa Serafín del pazo, 65" [controlErrorsTpl]="campoDireccion">
+            <ng-container *ngTemplateOutlet="nombreError;context:{error:registroForm.get('direccion')?.errors}"></ng-container>
+
+            <label for="inputCodigoPostal">Código postal</label>
+            <input type="text" id="inputCodigoPostal" class="form-control" formControlName="codigoPostal" placeholder="36880" [controlErrorsTpl]="campoCodigoPostal">
+            <ng-container *ngTemplateOutlet="nombreError;context:{error:registroForm.get('codigoPostal')?.errors}"></ng-container>
+
+            <label for="inputEmail">Correo Electrónico</label>
+            <input type="email" id="inputEmail" class="form-control" formControlName="email" placeholder="email@email.com" [controlErrorsTpl]="errorEmail">
+            <div id="emailError" *ngIf="registroForm.get('email')?.hasError('email') && registroForm.get('email')?.touched">
+                Error en el email
+            </div>
+
+            <label for="inputPassword" class="mt-4">Contraseña</label>
+            <input type="password" id="inputPassword" class="form-control" formControlName="password" placeholder="*0Tes3As" [controlErrorsTpl]="campoPass">
+            <ng-container *ngTemplateOutlet="passwordError;context:{error:registroForm.get('password')?.errors}"></ng-container>
+            
+            <hr>
+            <button [disabled]="registroForm.invalid" type="submit" class="btn btn-primary enviar">Enviar</button>
+            <button type="reset" class="btn btn-danger ml-4 borrar">Borrar</button>
+        </form>
+    </div>
+</div>
+
+<!--TEMPLATES, ERRORES PERSONALIZADOS-->
+
+<!--** Código Postal **-->
+<ng-template let-error="error" #codigoPostalError>
+    
+    <div *ngIf="error?.pattern" id="codigoPostalError">
+
+        <ul>
+            <li>Debe tener una lóngitud máxima de 10 dígitos</li>
+            <li>Debe comenzar por digitos entre el 1 al 9</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoCodigoPostal>
+    
+    <div *ngIf="error?.required" id="campoCodigoPostal">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** Dirección **-->
+<ng-template let-error="error" #direccionError>
+    
+    <div *ngIf="error?.pattern" id="direccionError">
+
+        <ul>
+            <li>La dirección debe estar compuesta por letras y números</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoDireccion>
+    
+    <div *ngIf="error?.required" id="campoDireccion">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** DNI **-->
+<ng-template let-error="error" #dniError>
+    
+    <div *ngIf="error?.pattern" id="dniError">
+
+        <ul>
+            <li>Debe tener 8 dígitos y una letra</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoDni>
+    
+    <div *ngIf="error?.required" id="campoDni">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** NOMBRE, USUARIO **-->
+<ng-template let-error="error" #nombreError>
+    
+    <div *ngIf="error?.pattern" id="nombreError">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Debe empezar por mayúsculas</li>
+            <li>Solo debe contener caracteres alfabéticos</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoNombre>
+    
+    <div *ngIf="error?.required" id="campoNombre">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** APELLIDOS **-->
+<ng-template let-error="error" #apellidoError>
+    
+    <div *ngIf="error?.pattern" id="apellidoError">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Minimo 3 y maximo 15 carácteres.</li>
+            <li>Solo carácteres alfabéticos y un espacio entre apellidos</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoApellidos>
+    
+    <div *ngIf="error?.required" id="campoApellidos">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** TELEFONO **-->
+<ng-template let-error="error" #telefonoError>
+    
+    <div *ngIf="error?.pattern" id="telefonoError">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Son 9 dígitos.</li>
+            <li>Comienza por 6, 9, 7 ó 8.</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoTelefono>
+    
+    <div *ngIf="error?.required" id="campoTelefono">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** FECHA DE NACIMIENTO **-->
+<ng-template let-error let-text="text" #campoFecha>
+    
+    <div *ngIf="error?.required" id="campoFecha">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** CONTRASEÑA **-->
+<ng-template let-error="error" #passwordError>
+    
+    <div *ngIf="error?.pattern" id="errorPass">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Minimo 8 y maximo 15 carácteres.</li>
+            <li>Al menos una mayúscula, una minuscula, un caracter especial y un dígito.</li>
+            <li>No debe tener espacios en blanco</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoPass>
+    
+    <div *ngIf="error?.required" id="campoPass">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** EMAIL **-->
+<ng-template let-error let-text="text" #errorEmail>
+
+    <div *ngIf="error?.required" id="campoError">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>

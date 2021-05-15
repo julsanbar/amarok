@@ -15,18 +15,25 @@ const UsuarioScheme = new mongoose.Schema(
             type: String
 
         },
-
+        
         segundoApellido: {
 
             type: String
 
         },
 
-        tipo: {
+        fechaNacimiento: {
 
+            type: Date,
+            required: true
+
+        },
+
+        tipo: {
+            //El administrador dara permisos de empleado
             type: String,
             enum: ['registrado','administrador','empleado'],
-            required: true
+            default: 'registrado'
 
         },
 

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import {NgxPaginationModule} from 'ngx-pagination';
+import { ErrorTailorModule } from "@ngneat/error-tailor";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +17,7 @@ import { ErrorComponent } from './pages/error/error.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ProductosComponent } from './pages/productos/productos.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +28,26 @@ import { PedidosComponent } from './pages/pedidos/pedidos.component';
     ErrorComponent,
     PaginationComponent,
     ProductosComponent,
-    PedidosComponent
+    PedidosComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ErrorTailorModule.forRoot({
+      errors: {
+        useValue: {
+          required: 'Campo requerido',
+          minlength: ({ requiredLength, actualLength }) => 
+                      `Expect ${requiredLength} but got ${actualLength}`,
+          invalidAddress: error => `Address isn't valid`
+        }
+      }
+    })
   ],
   providers: [
     ProductoService,
