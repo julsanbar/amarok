@@ -121,7 +121,7 @@ const factura = async (req,res) => {
         
         //res.send({"create":download});
     //});
-    res.send({data});
+    res.send({read});
     //res.send({"object":easyinvoice, "data":data});
 
 };

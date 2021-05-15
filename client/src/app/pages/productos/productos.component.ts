@@ -41,9 +41,14 @@ export class ProductosComponent implements OnInit, OnChanges {
 
       this.pedidoService.getFactura(1,1).pipe(first()).subscribe((res: any) => {
         
-        console.log("CLIENTE---------",res.data.client.address);
+        console.log("CLIENTE---------",res);
 
-        res;
+        //res;
+
+        let file = new Blob([res], { type: 'application/pdf:base64' });            
+        var fileURL = URL.createObjectURL(file);
+        console.log(fileURL)
+        window.open(fileURL);
 
         //res.object.createInvoice(res.data, function (result: any) {
           //res.object.download('myInvoice.pdf', result.pdf);

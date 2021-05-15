@@ -14,7 +14,13 @@ export class PedidoService {
 
   getFactura(idCliente: number, idPedido: number): any{
     
-    return this.http.get(this.uri+'factura/'+idCliente+'/'+idPedido);
+    const httpOptions = {
+      'responseType'  : 'arraybuffer' as 'json'
+       //'responseType'  : 'blob' as 'json'        //This also worked
+    };
+    
+
+    return this.http.get(this.uri+'factura/'+idCliente+'/'+idPedido,httpOptions);
 
   }
 
