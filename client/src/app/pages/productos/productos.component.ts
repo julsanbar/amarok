@@ -4,8 +4,6 @@ import { Producto } from 'src/app/models/producto.model';
 import { ProductoService } from "../../services/producto/producto.service";
 import { first } from 'rxjs/operators';
 import { PedidoService } from "../../services/pedido/pedido.service";
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 @Component({
   selector: 'app-productos',
@@ -15,7 +13,7 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 export class ProductosComponent implements OnInit, OnChanges {
 
   constructor(private productoService: ProductoService ,private route: ActivatedRoute, private router: Router, private pedidoService: PedidoService) {
-    (window as any).pdfMake.vfs = pdfFonts.pdfMake.vfs;
+    
    }
   
   public productos: Producto[] = [];
@@ -40,19 +38,12 @@ export class ProductosComponent implements OnInit, OnChanges {
   }
 
   descargarFactura(): void{
-    
+
       this.pedidoService.getFactura(1,1).pipe(first()).subscribe((res: any) => {
         
-        const documentDefinition = { content: res.data.client.address };
-          pdfMake.createPdf(documentDefinition).download('factura.pdf');
-
         console.log("CLIENTE---------",res.data.client.address);
 
-        //res;
-
-        //GENERAR EL PDF EN UNA PAGINA APARTE SIN LIBRERIAS 
-
-        //window.print();
+        res;
 
         //res.object.createInvoice(res.data, function (result: any) {
           //res.object.download('myInvoice.pdf', result.pdf);

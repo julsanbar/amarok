@@ -14,6 +14,7 @@ import { ProductoService } from "../app/services/producto/producto.service";
 import { ErrorComponent } from './pages/error/error.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ProductosComponent } from './pages/productos/productos.component';
+import { PedidosComponent } from './pages/pedidos/pedidos.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ProductosComponent } from './pages/productos/productos.component';
     HomeComponent,
     ErrorComponent,
     PaginationComponent,
-    ProductosComponent
+    ProductosComponent,
+    PedidosComponent
   ],
   imports: [
     BrowserModule,

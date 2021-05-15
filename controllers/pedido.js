@@ -1,7 +1,7 @@
 const pedido = require('../models/pedido');
 
-//const easyinvoice = require('easyinvoice');
-//const fs = require('fs');
+const easyinvoice = require('easyinvoice');
+const fs = require('fs');
 
 //DATE yyyy-mm-dd
 //^(19|20)\d\d([- .])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$
@@ -49,7 +49,7 @@ const insertData = async (req,res) => {
 //TEST FACTURA
 const factura = async (req,res) => {
 
-    //console.log("Cliente",req.params);
+    console.log("Cliente",req.params);
 
     /*
     await pedido.findOne({},(err,docs)=>{
@@ -110,11 +110,11 @@ const factura = async (req,res) => {
         "bottomNotice": "Kindly pay your invoice within 15 days."
     };
      
-    //DESCARGAS
-    //const result = await easyinvoice.createInvoice(data);                       
-    //await fs.writeFileSync("invoice.pdf", result.pdf, 'base64');
+    //CREA
+    const result = await easyinvoice.createInvoice(data);                       
+    await fs.writeFileSync("invoice.pdf", result.pdf, 'base64');
 
-    //const read = await fs.readFileSync("invoice.pdf");
+    const read = await fs.readFileSync("invoice.pdf");
 
     //await easyinvoice.createInvoice(data,async function (result) {
       //      const download = await easyinvoice.download('myInvoice.pdf', result.pdf);
