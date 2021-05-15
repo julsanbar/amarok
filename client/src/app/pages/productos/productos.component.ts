@@ -40,15 +40,19 @@ export class ProductosComponent implements OnInit, OnChanges {
   descargarFactura(): void{
 
       this.pedidoService.getFactura(1,1).pipe(first()).subscribe((res: any) => {
-        
+
+        //OBTENGO LA PATH-----------------
+
         console.log("CLIENTE---------",res);
+
+        //window.open(res);
 
         //res;
 
-        let file = new Blob([res], { type: 'application/pdf:base64' });            
+        /*let file = new Blob([res], { type: 'application/pdf' });            
         var fileURL = URL.createObjectURL(file);
         console.log(fileURL)
-        window.open(fileURL);
+        window.open(fileURL);*/
 
         //res.object.createInvoice(res.data, function (result: any) {
           //res.object.download('myInvoice.pdf', result.pdf);

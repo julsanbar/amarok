@@ -2,6 +2,7 @@ const pedido = require('../models/pedido');
 
 const easyinvoice = require('easyinvoice');
 const fs = require('fs');
+const { pathToFileURL } = require('url');
 
 //DATE yyyy-mm-dd
 //^(19|20)\d\d([- .])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$
@@ -114,14 +115,20 @@ const factura = async (req,res) => {
     const result = await easyinvoice.createInvoice(data);                       
     await fs.writeFileSync("invoice.pdf", result.pdf, 'base64');
 
-    const read = await fs.readFileSync("invoice.pdf");
+    const read = await fs.readFileSync("invoice.pdf",{encoding:'base64'});
+
+    let ruta = pathToFileURL("invoice.pdf");
+
+    console.log(ruta)
 
     //await easyinvoice.createInvoice(data,async function (result) {
       //      const download = await easyinvoice.download('myInvoice.pdf', result.pdf);
         
         //res.send({"create":download});
     //});
-    res.send({read});
+    //{read}
+    res.send({ruta});
+    
     //res.send({"object":easyinvoice, "data":data});
 
 };

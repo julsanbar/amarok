@@ -20,7 +20,7 @@ export class PedidoService {
     };
     
 
-    return this.http.get(this.uri+'factura/'+idCliente+'/'+idPedido,httpOptions);
+    return this.http.get(this.uri+'factura/'+idCliente+'/'+idPedido/*,httpOptions*/);
 
   }
 
