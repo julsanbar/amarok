@@ -12,7 +12,11 @@ input.ng-valid.ng-dirty{
     
 }
 
-#errorPass,#campoPass,#campoError,#nombreError,#campoNombre,#apellidoError,#campoApellidos,#telefonoError,#campoTelefono,#campoFecha,#emailError{
+#errorPass,#campoPass,#campoError,#nombreError,
+#campoNombre,#apellidoError,#campoApellidos,
+#telefonoError,#campoTelefono,#campoFecha,#emailError,
+#usuarioError,#campoUsuario,#codigoPostalError,#campoCodigoPostal,
+#direccionError,#campoDireccion,#dniError,#campoDni{
 
     list-style-type: circle;
     background: rgba(253, 213, 213, 0.788);

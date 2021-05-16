@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
       nombre: ['',
       [
         Validators.required,
-        Validators.pattern(/^([A-Z]{1}[a-zñáéíóú]+[\s]*)+$/)
+        Validators.pattern(/^([A-Z]{1}[a-zñáéíóú]+[\s]*)+$/),
+        Validators.minLength(3)
       ]
     ],
       licencia: ['null',
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
       usuario: ['',
       [
         Validators.required,
-        Validators.pattern(/^([a-zA-Z0-9ñáéíóú]+[\s]*)+$/)
+        Validators.pattern(/^([a-zA-Z0-9ñáéíóú]+[\s]*)+$/),
+        Validators.minLength(5)
       ]
     ],
       codigoPostal: ['',
@@ -46,7 +48,8 @@ export class LoginComponent implements OnInit {
       [
         Validators.required,
         //No debe de contener carácteres especiales
-        Validators.pattern(/^[^$%#&|*+@<>.#]*$/)
+        Validators.pattern(/^[^$%#&|*+@<>.#]*$/),
+        Validators.minLength(10)
       ]
     ],
       dni: ['',
