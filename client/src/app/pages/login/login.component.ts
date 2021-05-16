@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
         Validators.pattern(/^([A-Z]{1}[a-zñáéíóú]+[\s]*)+$/)
       ]
     ],
-      licencia: ['',
+      licencia: ['null',
       [
         Validators.required
       ]
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       usuario: ['',
       [
         Validators.required,
-        Validators.pattern(/^([A-Z]{1}[a-zñáéíóú]+[\s]*)+$/)
+        Validators.pattern(/^([a-zA-Z0-9ñáéíóú]+[\s]*)+$/)
       ]
     ],
       codigoPostal: ['',
@@ -41,11 +41,11 @@ export class LoginComponent implements OnInit {
         Validators.pattern(/^(?:0[1-9]\d{3}|[1-4]\d{4}|5[0-2]\d{3})$/)
       ]
     ],
-      //FALTA VALIDACION
       direccion: ['',
       [
-        Validators.required/*,
-        Validators.pattern(/ /)*/
+        Validators.required,
+        //No debe de contener carácteres especiales
+        Validators.pattern(/^[^$%#&|*+@<>.#]*$/)
       ]
     ],
       dni: ['',
@@ -92,6 +92,8 @@ export class LoginComponent implements OnInit {
 
     //ENVIAR A LA BBDD, ASIGNAR A LA SESION Y REDIRECCIONAR
     
+    console.log("FORM---",this.registroForm.value);
+
     /**
      * , , 
      * , tipo['registrado','administrador','empleado'], 

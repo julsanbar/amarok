@@ -19,18 +19,16 @@
             <label for="inputNacimiento">Fecha Nacimiento</label>
             <input type="date" id="inputNacimiento" class="form-control" formControlName="nacimiento" min="1920-01-01" max="2003-02-28" [controlErrorsTpl]="campoFecha">
             
-            <div class="form-group">
-                <label for="inputLicencia">Licencia</label>
-                <select class="form-control" id="inputLicencia" formControlName="licencia">
-                  <option value="null" selected>Sin licencia</option>
-                  <option value="competicion">Competición</option>
-                  <option value="seguridad">Seguridad</option>
-                  <option value="fuego">Fuego</option>
-                </select>
-            </div>
+            <label for="inputLicencia">Licencia</label>
+            <select class="form-select" id="inputLicencia" formControlName="licencia">
+                <option value="null" selected>Sin licencia</option>
+                <option value="competicion">Competición</option>
+                <option value="seguridad">Seguridad</option>
+                <option value="fuego">Fuego</option>
+            </select>
 
             <label for="inputUsuario">Usuario</label>
-            <input type="text" id="inputUsuario" class="form-control" formControlName="usuario" placeholder="rubitokany" [controlErrorsTpl]="campoNombre">
+            <input type="text" id="inputUsuario" class="form-control" formControlName="usuario" placeholder="rubitokany" [controlErrorsTpl]="campoUsuario">
             <ng-container *ngTemplateOutlet="nombreError;context:{error:registroForm.get('usuario')?.errors}"></ng-container>
 
             <label for="inputDni">DNI</label>
@@ -64,6 +62,29 @@
 
 <!--TEMPLATES, ERRORES PERSONALIZADOS-->
 
+<!--** Usuario **-->
+<ng-template let-error="error" #usuarioError>
+    
+    <div *ngIf="error?.pattern" id="usuarioError">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Debe estar compuesto por letras y/o números</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoUsuario>
+    
+    <div *ngIf="error?.required" id="campoUsuario">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
 <!--** Código Postal **-->
 <ng-template let-error="error" #codigoPostalError>
     
@@ -93,7 +114,7 @@
     <div *ngIf="error?.pattern" id="direccionError">
 
         <ul>
-            <li>La dirección debe estar compuesta por letras y números</li>
+            <li>La dirección no puede contener carácteres especiales</li>
         </ul>
 
     </div>
@@ -131,7 +152,7 @@
 
 </ng-template>
 
-<!--** NOMBRE, USUARIO **-->
+<!--** NOMBRE **-->
 <ng-template let-error="error" #nombreError>
     
     <div *ngIf="error?.pattern" id="nombreError">
