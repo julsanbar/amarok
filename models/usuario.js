@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-node');
 
 const UsuarioScheme = new mongoose.Schema(
     {
@@ -10,19 +11,13 @@ const UsuarioScheme = new mongoose.Schema(
 
         },
 
-        primerApellido: {
+        apellidos: {
 
             type: String
 
         },
-        
-        segundoApellido: {
-
-            type: String
-
-        },
-
-        fechaNacimiento: {
+    
+        nacimiento: {
 
             type: Date,
             required: true
@@ -60,7 +55,7 @@ const UsuarioScheme = new mongoose.Schema(
 
         },
 
-        nombreUsuario: {
+        usuario: {
 
             type: String,
             required: true,
@@ -131,5 +126,24 @@ UsuarioScheme.virtual('modificacionUsuario')
   .get(function(){
     return this.updatedAt.toISOString().substring(0,10)+" "+this.updatedAt.toISOString().substring(11,19);
 });
+
+UsuarioScheme.pre('save', function(next) {
+    if (!this.isModified('password')) {
+      return next();
+    }
+  
+    bcrypt.hash(this.password, null, null, (err, hash) => {
+        if (err) {
+            return next(err);
+        } else {
+            this.password = hash;
+            next();
+        }
+    });
+});
+  
+UsuarioScheme.methods.comparePasswords = function(password) {
+    return bcrypt.compareSync(password, this.password);
+};
 
 module.exports = mongoose.model('usuarios',UsuarioScheme);

@@ -1,9 +1,9 @@
-const pedido = require('../models/usuario');
+const usuario = require('../models/usuario');
 
 //TEST
-exports.getUsuarios = (req, res) => {
+const getUsuarios = async (req, res) => {
 
-    pedido.findOne({},(err,docs)=>{
+    await usuario.findOne({},(err,docs)=>{
         
         //console.log("creacion---",docs.fechaPedido);
         //console.log("actualizacion---",docs.fechaModificacionPedido);
@@ -16,14 +16,16 @@ exports.getUsuarios = (req, res) => {
 
 }
 
-//TEST
-exports.insertData = (req,res) => {
+const crearUsuario = async (req,res) => {
 
     const data = req.body
 
+    console.log("PARAMETROS ----- ",data)
+    console.log("ESQUEMA ------",usuario)
+
     //res.send({data})
 
-    pedido.create(data,(err,docs)=>{
+    await usuario.create(data,(err,docs)=>{
 
         if(err){
             console.log(err);
@@ -39,3 +41,10 @@ exports.insertData = (req,res) => {
     });
 
 }
+
+module.exports = {
+
+    getUsuarios,
+    crearUsuario
+
+};

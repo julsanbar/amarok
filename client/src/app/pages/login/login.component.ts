@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Usuario } from "../../models/usuario.model"
+import { UsuarioService } from "../../services/usuario/usuario.service";
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { Usuario } from "../../models/usuario.model"
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private usuarioService: UsuarioService, private formBuilder: FormBuilder) { }
 
   public registroForm!: FormGroup;
 
@@ -90,30 +91,34 @@ export class LoginComponent implements OnInit {
 
   enviar(){
 
-    //ENVIAR A LA BBDD, ASIGNAR A LA SESION Y REDIRECCIONAR
-    
-    console.log("FORM---",this.registroForm.value);
+    //Por defecto el usuario estará habilitado y tendrá el rol de registrado puesto que
+    //para escalar en los roles solo lo podrá hacer el administrador.
+    const usuario = new Usuario();
 
-    /**
-     * , , 
-     * , tipo['registrado','administrador','empleado'], 
-     * , , 
-     * , , , , , 
-     * , habilitado
-    */
-    
-    /*this.restService.post('http://localhost:80/backendAngular/registro.php',this.registroForm.value).subscribe((respuesta: any) => {
+    usuario.nombre = this.registroForm.get('nombre')?.value,
+    usuario.licencia = this.registroForm.get('licencia')?.value,
+    usuario.usuario = this.registroForm.get('usuario')?.value,
+    usuario.codigoPostal = this.registroForm.get('codigoPostal')?.value,
+    usuario.direccion = this.registroForm.get('direccion')?.value,
+    usuario.dni = this.registroForm.get('dni')?.value,
+    usuario.apellidos = this.registroForm.get('apellidos')?.value,
+    usuario.telefono = this.registroForm.get('telefono')?.value,
+    usuario.nacimiento = this.registroForm.get('nacimiento')?.value,
+    usuario.email = this.registroForm.get('email')?.value,
+    usuario.password = this.registroForm.get('password')?.value,
+    usuario.habilitado = true,
+    usuario.tipo = 'registrado'
+
+    this.usuarioService.crearUsuario(usuario).subscribe((res: any) => {
+
+      console.log(res);
+
+    }, (err: any) => {
       
-      if(respuesta === true){
+      console.log(err)
 
-        this.sesionService.iniciarSesion(this.registroForm.get('nombre')?.value);
-        location.href = "/home";
-        //this.router.navigateByUrl("/home");
+    });
 
-      }
-    
-
-    });*/
 
   }
 

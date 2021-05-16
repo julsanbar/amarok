@@ -13,11 +13,10 @@ router.get(
 
 );
 
-//TEST
 router.post(
 
-    `/${path}`,
-    controller.insertData
+    `/crear`,
+    controller.crearUsuario
 
 );
 
