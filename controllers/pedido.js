@@ -2,6 +2,9 @@ const pedido = require('../models/pedido');
 
 const easyinvoice = require('easyinvoice');
 const fs = require('fs');
+const path = require('path');
+const dirPath = path.join(__dirname, '/invoices');
+
 const { pathToFileURL } = require('url');
 
 //DATE yyyy-mm-dd
@@ -48,6 +51,9 @@ const insertData = async (req,res) => {
 }
 
 //TEST FACTURA
+/**
+ * FINIQUITAR DE FORMA DINÁMICA
+ */
 const factura = async (req,res) => {
 
     console.log("Cliente",req.params);
@@ -111,25 +117,15 @@ const factura = async (req,res) => {
         "bottomNotice": "Kindly pay your invoice within 15 days."
     };
      
-    //CREA
-    const result = await easyinvoice.createInvoice(data);                       
-    await fs.writeFileSync("invoice.pdf", result.pdf, 'base64');
-
-    const read = await fs.readFileSync("invoice.pdf",{encoding:'base64'});
-
-    let ruta = pathToFileURL("invoice.pdf");
-
-    console.log(ruta)
-
-    //await easyinvoice.createInvoice(data,async function (result) {
-      //      const download = await easyinvoice.download('myInvoice.pdf', result.pdf);
-        
-        //res.send({"create":download});
-    //});
-    //{read}
-    res.send({ruta});
+    const result = await easyinvoice.createInvoice(data);     
     
-    //res.send({"object":easyinvoice, "data":data});
+    /**
+     * Indicar variable de entorno para mayor comodidad
+     */
+    
+    await fs.writeFileSync("./public/invoices/invoice.pdf", result.pdf, 'base64');
+
+    res.send({ruta:"http://localhost:8080/invoice.pdf"});
 
 };
 

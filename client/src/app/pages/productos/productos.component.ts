@@ -30,10 +30,7 @@ export class ProductosComponent implements OnInit, OnChanges {
     this.route.queryParams.subscribe(params => {
       this.page = parseInt(params.page, 6) || 1;
       this.getDatos(this.page);
-      //window.scrollTo(0, 0);
     });
-
-    //console.log("POPPPP---",this.productos)
 
   }
 
@@ -41,27 +38,8 @@ export class ProductosComponent implements OnInit, OnChanges {
 
       this.pedidoService.getFactura(1,1).pipe(first()).subscribe((res: any) => {
 
-        //OBTENGO LA PATH-----------------
+        window.open(res.ruta);
 
-        console.log("CLIENTE---------",res.ruta);
-
-        //window.location.href = res.ruta.toString();
-
-        window.open(res);
-
-        //res;
-
-        /*let file = new Blob([res], { type: 'application/pdf' });            
-        var fileURL = URL.createObjectURL(file);
-        console.log(fileURL)
-        window.open(fileURL);*/
-
-        //res.object.createInvoice(res.data, function (result: any) {
-          //res.object.download('myInvoice.pdf', result.pdf);
-          //  you can download like this as well:
-          //  easyinvoice.download();
-          //  easyinvoice.download('myInvoice.pdf');   
-        //});
 
       });
 
@@ -74,9 +52,6 @@ export class ProductosComponent implements OnInit, OnChanges {
       this.productos = res.docs.docs;
       this.total = res.docs.totalDocs;
       
-      //console.log("DATA-------",this.productos);
-      //console.log("TOTAL-------",this.total);
-
     });
 
   }
