@@ -1,11 +1,6 @@
 const pedido = require('../models/pedido');
-
 const easyinvoice = require('easyinvoice');
 const fs = require('fs');
-const path = require('path');
-const dirPath = path.join(__dirname, '/invoices');
-
-const { pathToFileURL } = require('url');
 
 //DATE yyyy-mm-dd
 //^(19|20)\d\d([- .])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$
