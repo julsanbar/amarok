@@ -169,7 +169,7 @@ const UsuarioScheme = new mongoose.Schema(
             minLength: [3, 'Longitud mínima de 3 carácteres']
 
         },
-
+        
         apellidos: {
 
             type: String,
@@ -177,7 +177,7 @@ const UsuarioScheme = new mongoose.Schema(
             validate: apellidosValidators
 
         },
-    
+        
         nacimiento: {
 
             type: Date,
@@ -196,7 +196,7 @@ const UsuarioScheme = new mongoose.Schema(
             default: 'registrado'
 
         },
-
+        
         dni: {
 
             type: String,
@@ -204,7 +204,7 @@ const UsuarioScheme = new mongoose.Schema(
             validate: dniValidators
 
         },
-
+        
         licencia: {
 
             type: String,
@@ -252,7 +252,7 @@ const UsuarioScheme = new mongoose.Schema(
             minLength: [10, 'Longitud mínima es de 10 carácteres']
 
         },
-
+        
         password: {
 
             type: String,
@@ -260,7 +260,7 @@ const UsuarioScheme = new mongoose.Schema(
             validate: passwordValidators
 
         },
-
+        
         habilitado: {
 
             type: Boolean,

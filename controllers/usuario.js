@@ -19,26 +19,63 @@ const getUsuarios = async (req, res) => {
 const crearUsuario = async (req,res) => {
 
     const data = req.body
+    let errors = [];
 
-    console.log("PARAMETROS ----- ",data)
-    console.log("ESQUEMA ------",usuario)
-
-    //res.send({data})
-
-    await usuario.create(data,(err,docs)=>{
-
-        if(err){
-            console.log(err);
-            res.send({error:'ERROR'},422)
-
-        }else{
+    for (const key in data) {
+        
+        if(!data[key]){
             
-            res.send({data:docs})
+            errors.push('El campo '+key+' no debe estar vacío.');
 
         }
 
-        
-    });
+    }
+
+    if(errors.length > 0){
+
+        return res.send({error:errors});
+
+    }
+
+    const duplicados = await usuario.findOne({$or:[{email: data.email},{usuario: data.usuario}]});
+    
+    if(duplicados){
+
+        //Compara la contraseña
+        console.log(duplicados.comparePasswords(data.password))
+
+        if(duplicados.email === data.email){
+
+            errors.push('El email ya esta registrado');
+
+        }
+
+        if(duplicados.usuario === data.usuario){
+         
+            errors.push('El nombre de usuario ya esta registrado');
+            
+        }
+
+        return res.send({error:errors});
+
+    }else{
+
+        await usuario.create(data,(err,user)=>{
+
+            if(err){
+
+                return res.send({error:'Error al intentar insertar al usuario'},422)
+    
+            }else{
+                
+                return res.send({data:user},200)
+    
+            }
+    
+            
+        });
+
+    }
 
 }
 

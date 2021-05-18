@@ -26,6 +26,17 @@ input.ng-valid.ng-dirty{
 
 }
 
+#emailUsuarioDuplicados{
+
+    list-style-type: circle;
+    background: rgba(253, 213, 213, 0.788);
+    border: solid 2px tomato;
+    width: 300px;
+    height: auto;
+    margin: 2rem auto;
+
+}
+
 .formulario{
 
     margin-bottom: 5rem!important;

@@ -13,12 +13,27 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link text-white" aria-current="page" routerLink="/producto">Productos TEST</a>
+            <a class="nav-link text-white" aria-current="page" routerLink="/producto">Productos</a>
           </li>
 
         </ul>
         
-          <button type="button" class="btn btn-outline-warning d-flex me-2" (click)="redireccionar()">Iniciar sesión</button>
+        <ng-container *ngIf="this.usuarioNoLogeado; else logeado">
+
+          <div class="btn-group" role="group">
+          
+            <button type="button" class="btn btn-outline-primary d-flex me-2" (click)="redireccionar()">Crear cuenta</button>
+            <button type="button" class="btn btn-outline-info d-flex me-2">Inicar sesion</button>
+
+          </div>
+
+        </ng-container>
+
+        <ng-template #logeado>
+
+          <button type="button" class="btn btn-outline-warning d-flex me-2">Perfil</button>
+
+        </ng-template>
 
       </div>
     </div>

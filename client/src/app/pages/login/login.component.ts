@@ -1,19 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Usuario } from "../../models/usuario.model"
 import { UsuarioService } from "../../services/usuario/usuario.service";
+import { SesionService } from "../../services/sesion/sesion.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-
-  constructor(private usuarioService: UsuarioService, private formBuilder: FormBuilder) { }
+export class LoginComponent implements OnInit, OnChanges {
 
   public registroForm!: FormGroup;
+  public errores: any[] = [];
+
+  constructor(private router: Router ,private sessionService: SesionService ,private usuarioService: UsuarioService, private formBuilder: FormBuilder) { }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+
+  }
 
   ngOnInit(): void {
 
@@ -98,23 +104,32 @@ export class LoginComponent implements OnInit {
     //para escalar en los roles solo lo podrá hacer el administrador.
     const usuario = new Usuario();
 
-    usuario.nombre = this.registroForm.get('nombre')?.value,
-    usuario.licencia = this.registroForm.get('licencia')?.value,
-    usuario.usuario = this.registroForm.get('usuario')?.value,
-    usuario.codigoPostal = this.registroForm.get('codigoPostal')?.value,
-    usuario.direccion = this.registroForm.get('direccion')?.value,
-    usuario.dni = this.registroForm.get('dni')?.value,
-    usuario.apellidos = this.registroForm.get('apellidos')?.value,
-    usuario.telefono = this.registroForm.get('telefono')?.value,
-    usuario.nacimiento = this.registroForm.get('nacimiento')?.value,
-    usuario.email = this.registroForm.get('email')?.value,
-    usuario.password = this.registroForm.get('password')?.value,
-    usuario.habilitado = true,
-    usuario.tipo = 'registrado'
+    usuario.nombre = this.registroForm.get('nombre')?.value;
+    usuario.licencia = this.registroForm.get('licencia')?.value;
+    usuario.usuario = this.registroForm.get('usuario')?.value;
+    usuario.codigoPostal = this.registroForm.get('codigoPostal')?.value;
+    usuario.direccion = this.registroForm.get('direccion')?.value;
+    usuario.dni = this.registroForm.get('dni')?.value;
+    usuario.apellidos = this.registroForm.get('apellidos')?.value;
+    usuario.telefono = this.registroForm.get('telefono')?.value;
+    usuario.nacimiento = this.registroForm.get('nacimiento')?.value;
+    usuario.email = this.registroForm.get('email')?.value;
+    usuario.password = this.registroForm.get('password')?.value;
+    usuario.habilitado = true;
 
     this.usuarioService.crearUsuario(usuario).subscribe((res: any) => {
 
-      console.log(res);
+      if(!res.error){
+
+        this.sessionService.iniciar(res.data);
+        location.href = 'producto';
+
+      }else{
+
+        this.registroForm.invalid;
+        this.errores = res.error;
+
+      }
 
     }, (err: any) => {
       

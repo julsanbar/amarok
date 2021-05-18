@@ -18,6 +18,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { ProductosComponent } from './pages/productos/productos.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { LoginComponent } from './pages/login/login.component';
+import { UsuarioService } from "../app/services/usuario/usuario.service";
+import { SesionService } from "../app/services/sesion/sesion.service";
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { LoginComponent } from './pages/login/login.component';
   ],
   providers: [
     ProductoService,
-    PedidoService
+    PedidoService,
+    UsuarioService,
+    SesionService
   ],
   bootstrap: [
     AppComponent

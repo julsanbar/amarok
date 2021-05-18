@@ -22,7 +22,6 @@ export class ProductosComponent implements OnInit, OnChanges {
   public perPage: number = 6;
   
   ngOnChanges(changes: SimpleChanges): void {
-   
   }
 
   ngOnInit(): void {

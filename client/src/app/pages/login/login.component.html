@@ -29,19 +29,19 @@
 
             <label for="inputUsuario">Usuario</label>
             <input type="text" id="inputUsuario" class="form-control" formControlName="usuario" placeholder="rubitokany" [controlErrorsTpl]="campoUsuario">
-            <ng-container *ngTemplateOutlet="nombreError;context:{error:registroForm.get('usuario')?.errors}"></ng-container>
+            <ng-container *ngTemplateOutlet="usuarioError;context:{error:registroForm.get('usuario')?.errors}"></ng-container>
 
             <label for="inputDni">DNI</label>
             <input type="text" id="inputDni" class="form-control" formControlName="dni" placeholder="00112233N" [controlErrorsTpl]="campoDni">
-            <ng-container *ngTemplateOutlet="nombreError;context:{error:registroForm.get('dni')?.errors}"></ng-container>
+            <ng-container *ngTemplateOutlet="dniError;context:{error:registroForm.get('dni')?.errors}"></ng-container>
 
             <label for="inputDireccion">Dirección</label>
             <input type="text" id="inputDireccion" class="form-control" formControlName="direccion" placeholder="Rúa Serafín del pazo, 65" [controlErrorsTpl]="campoDireccion">
-            <ng-container *ngTemplateOutlet="nombreError;context:{error:registroForm.get('direccion')?.errors}"></ng-container>
+            <ng-container *ngTemplateOutlet="direccionError;context:{error:registroForm.get('direccion')?.errors}"></ng-container>
 
             <label for="inputCodigoPostal">Código postal</label>
             <input type="text" id="inputCodigoPostal" class="form-control" formControlName="codigoPostal" placeholder="36880" [controlErrorsTpl]="campoCodigoPostal">
-            <ng-container *ngTemplateOutlet="nombreError;context:{error:registroForm.get('codigoPostal')?.errors}"></ng-container>
+            <ng-container *ngTemplateOutlet="codigoPostalError;context:{error:registroForm.get('codigoPostal')?.errors}"></ng-container>
 
             <label for="inputEmail">Correo Electrónico</label>
             <input type="email" id="inputEmail" class="form-control" formControlName="email" placeholder="email@email.com" [controlErrorsTpl]="errorEmail">
@@ -57,8 +57,23 @@
             <button [disabled]="registroForm.invalid" type="submit" class="btn btn-primary enviar">Enviar</button>
             <button type="reset" class="btn btn-danger ml-4 borrar">Borrar</button>
         </form>
+
+        <!-- Error duplicado email y/o nombre usuario -->
+
+        <div *ngIf="this.errores.length > 0" id="emailUsuarioDuplicados">
+
+            <ul *ngFor="let item of this.errores">
+
+                <li>{{item}}</li>
+
+            </ul>
+
+        </div>
+
     </div>
 </div>
+
+
 
 <!--TEMPLATES, ERRORES PERSONALIZADOS-->
 
