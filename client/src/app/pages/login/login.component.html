@@ -1,85 +1,178 @@
-<div class="row formulario">
-    <div class="col-md-6 offset-md-3 p-5">
-        <form [formGroup]="registroForm" (ngSubmit)="enviar()" errorTailor>
+<div class="container-fluid pt-4">
+    <div class="row formulario">
+        <div class="col-md-6 offset-md-3 p-3">
+            <form [formGroup]="registroForm" (ngSubmit)="enviar()" errorTailor>
 
-            <h4 class="text-center">Registrarse</h4>
-            
-            <label for="inputNombre">Nombre</label>
-            <input type="text" id="inputNombre" class="form-control" formControlName="nombre" placeholder="Pepe" [controlErrorsTpl]="campoNombre">
-            <ng-container *ngTemplateOutlet="nombreError;context:{error:registroForm.get('nombre')?.errors}"></ng-container>
+                <h4 class="text-center">Registrarse</h4>
 
-            <label for="inputApellidos">Apellidos</label>
-            <input type="text" id="inputApellidos" class="form-control" formControlName="apellidos" placeholder="Reina Santos" [controlErrorsTpl]="campoApellidos">
-            <ng-container *ngTemplateOutlet="apellidoError;context:{error:registroForm.get('apellidos')?.errors}"></ng-container>
+                <div class="row pt-2">
 
-            <label for="inputTelefono">Teléfono</label>
-            <input type="tel" id="inputTelefono" class="form-control" formControlName="telefono" placeholder="963852741" [controlErrorsTpl]="campoTelefono">
-            <ng-container *ngTemplateOutlet="telefonoError;context:{error:registroForm.get('telefono')?.errors}"></ng-container>
+                    <div class="col-md-5">
 
-            <label for="inputNacimiento">Fecha Nacimiento</label>
-            <input type="date" id="inputNacimiento" class="form-control" formControlName="nacimiento" min="1920-01-01" max="2003-02-28" [controlErrorsTpl]="campoFecha">
-            
-            <label for="inputLicencia">Licencia</label>
-            <select class="form-select" id="inputLicencia" formControlName="licencia">
-                <option value="null" selected>Sin licencia</option>
-                <option value="competicion">Competición</option>
-                <option value="seguridad">Seguridad</option>
-                <option value="fuego">Fuego</option>
-            </select>
+                        <label for="inputNombre">Nombre</label>
+                        <input type="text" id="inputNombre" class="form-control" formControlName="nombre"
+                            placeholder="Pepe" [controlErrorsTpl]="campoNombre">
+                        <ng-container
+                            *ngTemplateOutlet="nombreError;context:{error:registroForm.get('nombre')?.errors}">
+                        </ng-container>
 
-            <label for="inputUsuario">Usuario</label>
-            <input type="text" id="inputUsuario" class="form-control" formControlName="usuario" placeholder="rubitokany" [controlErrorsTpl]="campoUsuario">
-            <ng-container *ngTemplateOutlet="usuarioError;context:{error:registroForm.get('usuario')?.errors}"></ng-container>
+                    </div>
 
-            <label for="inputDni">DNI</label>
-            <input type="text" id="inputDni" class="form-control" formControlName="dni" placeholder="00112233N" [controlErrorsTpl]="campoDni">
-            <ng-container *ngTemplateOutlet="dniError;context:{error:registroForm.get('dni')?.errors}"></ng-container>
+                    <div class="col-md-7">
 
-            <label for="inputDireccion">Dirección</label>
-            <input type="text" id="inputDireccion" class="form-control" formControlName="direccion" placeholder="Rúa Serafín del pazo, 65" [controlErrorsTpl]="campoDireccion">
-            <ng-container *ngTemplateOutlet="direccionError;context:{error:registroForm.get('direccion')?.errors}"></ng-container>
+                        <label for="inputApellidos">Apellidos</label>
+                        <input type="text" id="inputApellidos" class="form-control" formControlName="apellidos"
+                            placeholder="Reina Santos" [controlErrorsTpl]="campoApellidos">
+                        <ng-container
+                            *ngTemplateOutlet="apellidoError;context:{error:registroForm.get('apellidos')?.errors}">
+                        </ng-container>
 
-            <label for="inputCodigoPostal">Código postal</label>
-            <input type="text" id="inputCodigoPostal" class="form-control" formControlName="codigoPostal" placeholder="36880" [controlErrorsTpl]="campoCodigoPostal">
-            <ng-container *ngTemplateOutlet="codigoPostalError;context:{error:registroForm.get('codigoPostal')?.errors}"></ng-container>
+                    </div>
 
-            <label for="inputEmail">Correo Electrónico</label>
-            <input type="email" id="inputEmail" class="form-control" formControlName="email" placeholder="email@email.com" [controlErrorsTpl]="errorEmail">
-            <div id="emailError" *ngIf="registroForm.get('email')?.hasError('email') && registroForm.get('email')?.touched">
-                Error en el email
+                </div>
+
+                <div class="row pt-2">
+
+                    <div class="col-md-5">
+
+                        <label for="inputTelefono">Teléfono</label>
+                        <input type="tel" id="inputTelefono" class="form-control" formControlName="telefono"
+                            placeholder="963852741" [controlErrorsTpl]="campoTelefono">
+                        <ng-container
+                            *ngTemplateOutlet="telefonoError;context:{error:registroForm.get('telefono')?.errors}">
+                        </ng-container>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <label for="inputNacimiento">Fecha Nacimiento</label>
+                        <input type="date" id="inputNacimiento" class="form-control" formControlName="nacimiento"
+                            min="1920-01-01" max="2003-02-28" [controlErrorsTpl]="campoFecha">
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <label for="inputLicencia">Licencia</label>
+                        <select class="form-select" id="inputLicencia" formControlName="licencia">
+                            <option value="null" selected>Sin licencia</option>
+                            <option value="competicion">Competición</option>
+                            <option value="seguridad">Seguridad</option>
+                            <option value="fuego">Fuego</option>
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+                <div class="row pt-2">
+
+                    <div class="col-md-9">
+
+                        <label for="inputDireccion">Dirección</label>
+                        <input type="text" id="inputDireccion" class="form-control" formControlName="direccion"
+                            placeholder="Rúa Serafín del pazo, 65" [controlErrorsTpl]="campoDireccion">
+                        <ng-container
+                            *ngTemplateOutlet="direccionError;context:{error:registroForm.get('direccion')?.errors}">
+                        </ng-container>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <label for="inputCodigoPostal">Código postal</label>
+                        <input type="text" id="inputCodigoPostal" class="form-control" formControlName="codigoPostal"
+                            placeholder="36880" [controlErrorsTpl]="campoCodigoPostal">
+                        <ng-container
+                            *ngTemplateOutlet="codigoPostalError;context:{error:registroForm.get('codigoPostal')?.errors}">
+                        </ng-container>
+
+                    </div>
+
+
+                </div>
+
+                <div class="row pt-2">
+
+                    <div class="col-md-7">
+
+                        <label for="inputUsuario">Usuario</label>
+                        <input type="text" id="inputUsuario" class="form-control" formControlName="usuario"
+                            placeholder="rubitokany" [controlErrorsTpl]="campoUsuario">
+                        <ng-container
+                            *ngTemplateOutlet="usuarioError;context:{error:registroForm.get('usuario')?.errors}">
+                        </ng-container>
+
+                    </div>
+
+                    <div class="col-md-5">
+
+                        <label for="inputDni">DNI</label>
+                        <input type="text" id="inputDni" class="form-control" formControlName="dni"
+                            placeholder="00112233N" [controlErrorsTpl]="campoDni">
+                        <ng-container *ngTemplateOutlet="dniError;context:{error:registroForm.get('dni')?.errors}">
+                        </ng-container>
+
+                    </div>
+
+                </div>
+
+                <div class="row pt-2">
+
+                    <div class="col-md-12">
+
+                        <label for="inputEmail">Correo Electrónico</label>
+                        <input type="email" id="inputEmail" class="form-control" formControlName="email"
+                            placeholder="email@email.com" [controlErrorsTpl]="errorEmail">
+                        <div id="emailError"
+                            *ngIf="registroForm.get('email')?.hasError('email') && registroForm.get('email')?.touched">
+                            Error en el email
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <label for="inputPassword" class="mt-4">Contraseña</label>
+                        <input type="password" id="inputPassword" class="form-control" formControlName="password"
+                            placeholder="*0Tes3As" [controlErrorsTpl]="campoPass">
+                        <ng-container
+                            *ngTemplateOutlet="passwordError;context:{error:registroForm.get('password')?.errors}">
+                        </ng-container>
+
+                    </div>
+
+                </div>
+
+                <hr>
+                <button [disabled]="registroForm.invalid" type="submit" class="btn btn-primary enviar">Enviar</button>
+                <button type="reset" class="btn btn-danger ml-4 borrar">Borrar</button>
+            </form>
+
+            <!-- Error duplicado email y/o nombre usuario -->
+
+            <div *ngIf="this.errores.length > 0" id="emailUsuarioDuplicados">
+
+                <ul *ngFor="let item of this.errores">
+
+                    <li>{{item}}</li>
+
+                </ul>
+
             </div>
 
-            <label for="inputPassword" class="mt-4">Contraseña</label>
-            <input type="password" id="inputPassword" class="form-control" formControlName="password" placeholder="*0Tes3As" [controlErrorsTpl]="campoPass">
-            <ng-container *ngTemplateOutlet="passwordError;context:{error:registroForm.get('password')?.errors}"></ng-container>
-            
-            <hr>
-            <button [disabled]="registroForm.invalid" type="submit" class="btn btn-primary enviar">Enviar</button>
-            <button type="reset" class="btn btn-danger ml-4 borrar">Borrar</button>
-        </form>
-
-        <!-- Error duplicado email y/o nombre usuario -->
-
-        <div *ngIf="this.errores.length > 0" id="emailUsuarioDuplicados">
-
-            <ul *ngFor="let item of this.errores">
-
-                <li>{{item}}</li>
-
-            </ul>
-
         </div>
-
     </div>
 </div>
-
 
 
 <!--TEMPLATES, ERRORES PERSONALIZADOS-->
 
 <!--** Usuario **-->
 <ng-template let-error="error" #usuarioError>
-    
+
     <div *ngIf="error?.pattern" id="usuarioError">
 
         <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
@@ -91,7 +184,7 @@
 
 </ng-template>
 <ng-template let-error let-text="text" #campoUsuario>
-    
+
     <div *ngIf="error?.required" id="campoUsuario">
 
         <p class="text-center">Campo obligatorio</p>
@@ -102,7 +195,7 @@
 
 <!--** Código Postal **-->
 <ng-template let-error="error" #codigoPostalError>
-    
+
     <div *ngIf="error?.pattern" id="codigoPostalError">
 
         <ul>
@@ -114,7 +207,7 @@
 
 </ng-template>
 <ng-template let-error let-text="text" #campoCodigoPostal>
-    
+
     <div *ngIf="error?.required" id="campoCodigoPostal">
 
         <p class="text-center">Campo obligatorio</p>
@@ -125,7 +218,7 @@
 
 <!--** Dirección **-->
 <ng-template let-error="error" #direccionError>
-    
+
     <div *ngIf="error?.pattern" id="direccionError">
 
         <ul>
@@ -136,7 +229,7 @@
 
 </ng-template>
 <ng-template let-error let-text="text" #campoDireccion>
-    
+
     <div *ngIf="error?.required" id="campoDireccion">
 
         <p class="text-center">Campo obligatorio</p>
@@ -147,7 +240,7 @@
 
 <!--** DNI **-->
 <ng-template let-error="error" #dniError>
-    
+
     <div *ngIf="error?.pattern" id="dniError">
 
         <ul>
@@ -158,7 +251,7 @@
 
 </ng-template>
 <ng-template let-error let-text="text" #campoDni>
-    
+
     <div *ngIf="error?.required" id="campoDni">
 
         <p class="text-center">Campo obligatorio</p>
@@ -169,7 +262,7 @@
 
 <!--** NOMBRE **-->
 <ng-template let-error="error" #nombreError>
-    
+
     <div *ngIf="error?.pattern" id="nombreError">
 
         <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
@@ -182,7 +275,7 @@
 
 </ng-template>
 <ng-template let-error let-text="text" #campoNombre>
-    
+
     <div *ngIf="error?.required" id="campoNombre">
 
         <p class="text-center">Campo obligatorio</p>
@@ -193,7 +286,7 @@
 
 <!--** APELLIDOS **-->
 <ng-template let-error="error" #apellidoError>
-    
+
     <div *ngIf="error?.pattern" id="apellidoError">
 
         <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
@@ -206,7 +299,7 @@
 
 </ng-template>
 <ng-template let-error let-text="text" #campoApellidos>
-    
+
     <div *ngIf="error?.required" id="campoApellidos">
 
         <p class="text-center">Campo obligatorio</p>
@@ -217,7 +310,7 @@
 
 <!--** TELEFONO **-->
 <ng-template let-error="error" #telefonoError>
-    
+
     <div *ngIf="error?.pattern" id="telefonoError">
 
         <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
@@ -230,7 +323,7 @@
 
 </ng-template>
 <ng-template let-error let-text="text" #campoTelefono>
-    
+
     <div *ngIf="error?.required" id="campoTelefono">
 
         <p class="text-center">Campo obligatorio</p>
@@ -241,7 +334,7 @@
 
 <!--** FECHA DE NACIMIENTO **-->
 <ng-template let-error let-text="text" #campoFecha>
-    
+
     <div *ngIf="error?.required" id="campoFecha">
 
         <p class="text-center">Campo obligatorio</p>
@@ -252,7 +345,7 @@
 
 <!--** CONTRASEÑA **-->
 <ng-template let-error="error" #passwordError>
-    
+
     <div *ngIf="error?.pattern" id="errorPass">
 
         <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
@@ -266,7 +359,7 @@
 
 </ng-template>
 <ng-template let-error let-text="text" #campoPass>
-    
+
     <div *ngIf="error?.required" id="campoPass">
 
         <p class="text-center">Campo obligatorio</p>
