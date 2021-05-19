@@ -21,12 +21,22 @@ export class HeaderComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  redireccionar():void{
+  redireccionar(evt: any):void{
 
-    this.router.navigateByUrl('/header', { skipLocationChange: false }).then(() => {
-      this.router.navigate(['login']);
-    }); 
+    if(evt.target.firstChild.nodeValue.includes("Crear")){
 
+      this.router.navigateByUrl('/header', { skipLocationChange: false }).then(() => {
+        this.router.navigate(['login']);
+      });
+
+    }else{
+
+      this.router.navigateByUrl('/header', { skipLocationChange: false }).then(() => {
+        this.router.navigate(['iniciar']);
+      });
+
+    }
+ 
   }
 
 }

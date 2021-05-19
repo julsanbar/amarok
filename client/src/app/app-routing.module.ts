@@ -4,6 +4,7 @@ import { HomeComponent } from "../app/pages/home/home.component";
 import { ErrorComponent } from "../app/pages/error/error.component";
 import { ProductosComponent } from './pages/productos/productos.component';
 import { LoginComponent } from './pages/login/login.component';
+import { IniciarComponent } from './pages/iniciar/iniciar.component';
 
 const routes: Routes = [
   { 
@@ -17,6 +18,11 @@ const routes: Routes = [
   },
   {
     path: 'login', component: LoginComponent
+  },
+  {
+
+    path: 'iniciar', component: IniciarComponent
+
   },
   {
     path: '**', component: ErrorComponent

@@ -19,4 +19,10 @@ export class UsuarioService {
 
   }
 
+  iniciarUsuario(usuario: Usuario): any{
+
+    return this.http.post(this.uri+"iniciar",usuario);
+
+  }
+
 }

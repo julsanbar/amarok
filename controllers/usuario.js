@@ -42,7 +42,7 @@ const crearUsuario = async (req,res) => {
     if(duplicados){
 
         //Compara la contraseña
-        console.log(duplicados.comparePasswords(data.password))
+        //console.log(duplicados.comparePasswords(data.password))
 
         if(duplicados.email === data.email){
 
@@ -79,9 +79,69 @@ const crearUsuario = async (req,res) => {
 
 }
 
+const iniciarSesion = async (req,res) => {
+
+    const data = req.body
+    let errors = [];
+
+    for (const key in data) {
+        
+        if(!data[key]){
+            
+            errors.push('El campo '+key+' no debe estar vacío.');
+
+        }
+
+    }
+
+    if(errors.length > 0){
+
+        return res.send({error:errors});
+
+    }
+
+    const checkEmail = await usuario.findOne({email: data.email});
+    const checkUsuario = await usuario.findOne({usuario: data.usuario});
+    
+
+    if(checkEmail === null){
+
+        errors.push('El email indicado no esta registrado');
+
+    }
+    
+    if(checkUsuario === null){
+
+        errors.push('El nombre de usuario no esta registrado');
+
+    }
+
+    if(errors.length > 0){
+
+        return res.send({error:errors});
+
+    }else{
+
+        if(checkUsuario.comparePasswords(data.password)){
+
+            return res.send({data:checkUsuario},200);
+            
+        }else{
+
+            errors.push('La contraseña no es correcta.');
+
+            return res.send({error:errors});
+
+        }
+
+    }
+
+}
+
 module.exports = {
 
     getUsuarios,
-    crearUsuario
+    crearUsuario,
+    iniciarSesion
 
 };

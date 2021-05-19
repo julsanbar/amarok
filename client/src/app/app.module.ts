@@ -20,6 +20,7 @@ import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UsuarioService } from "../app/services/usuario/usuario.service";
 import { SesionService } from "../app/services/sesion/sesion.service";
+import { IniciarComponent } from './pages/iniciar/iniciar.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SesionService } from "../app/services/sesion/sesion.service";
     PaginationComponent,
     ProductosComponent,
     PedidosComponent,
-    LoginComponent
+    LoginComponent,
+    IniciarComponent
   ],
   imports: [
     BrowserModule,

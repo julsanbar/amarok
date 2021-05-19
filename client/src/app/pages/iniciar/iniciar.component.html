@@ -1,0 +1,111 @@
+
+<div class="row">
+    <div class="col-md-6 offset-md-3 p-5">
+        <form [formGroup]="registroForm" (ngSubmit)="enviar()" errorTailor>
+
+            <h4 class="text-center">Iniciar sesión</h4>
+            
+            <label for="inputUsuario">Usuario</label>
+            <input type="text" id="inputUsuario" class="mb-3 form-control" formControlName="usuario" placeholder="rubitokany" [controlErrorsTpl]="campoUsuario">
+            <ng-container *ngTemplateOutlet="usuarioError;context:{error:registroForm.get('usuario')?.errors}"></ng-container>
+
+            <label for="inputEmail">Correo Electrónico</label>
+            <input type="email" id="inputEmail" class="form-control" formControlName="email" placeholder="email@email.com" [controlErrorsTpl]="errorEmail">
+            <div id="emailError" *ngIf="registroForm.get('email')?.hasError('email') && registroForm.get('email')?.touched">
+                Error en el email
+            </div>
+
+            <label for="inputPassword" class="mt-4">Contraseña</label>
+            <input type="password" id="inputPassword" class="form-control" formControlName="password" [controlErrorsTpl]="campoPass" placeholder="*0Tes3As">
+            <ng-container *ngTemplateOutlet="passwordError;context:{error:registroForm.get('password')?.errors}"></ng-container>
+
+            <hr>
+            <button [disabled]="registroForm.invalid" type="submit" class="iniciar btn btn-primary">Iniciar</button>
+            <button type="reset" class="btn btn-danger ml-4">Limpiar</button>
+        </form>
+
+        <div *ngIf="this.errores.length > 0" id="emailUsuarioNoRegistrados">
+
+            <ul *ngFor="let item of this.errores">
+
+                <li>{{item}}</li>
+
+            </ul>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3 pb-3">
+
+        <h4 class="text-center">¿No tienes cuenta?</h4>
+        
+        <br>
+
+        <a routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="/login" class="offset-md-5 btn btn-success btn-lg" role="button">¡Crear!</a>
+
+    </div>
+</div>
+
+<!-- TEMPLATES ERRORES -->
+
+<!--** Usuario **-->
+<ng-template let-error="error" #usuarioError>
+    
+    <div *ngIf="error?.pattern" id="usuarioError">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Debe estar compuesto por letras y/o números</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoUsuario>
+    
+    <div *ngIf="error?.required" id="campoUsuario">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** CONTRASEÑA **-->
+<ng-template let-error="error" #passwordError>
+    
+    <div *ngIf="error?.pattern" id="errorPass">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Minimo 8 y maximo 15 carácteres.</li>
+            <li>Al menos una mayúscula, una minuscula, un caracter especial y un dígito.</li>
+            <li>No debe tener espacios en blanco</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoPass>
+    
+    <div *ngIf="error?.required" id="campoPass">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** EMAIL **-->
+<ng-template let-error let-text="text" #errorEmail>
+
+    <div *ngIf="error?.required" id="campoError">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
