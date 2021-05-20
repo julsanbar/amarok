@@ -11,10 +11,88 @@ const getPagination = async (req,res) => {
     
     };
 
-    await producto.paginate({
+    await producto.paginate({},options,(err,docs)=>{
+        //console.log("asd------",docs.totalDocs);
+        res.send({
+            docs
+        });
+    });
 
-    },options,(err,docs)=>{
-        console.log("asd------",docs.totalDocs);
+    
+};
+
+//Devuelve la paginación de los productos
+const getPaginationCompeticion = async (req,res) => {
+
+    const options = {
+        //empieza por 1
+        page: req.params.page,
+        limit: 6
+    
+    };
+
+    await producto.paginate({categoria: "competicion"},options,(err,docs)=>{
+        //console.log("asd------",docs.totalDocs);
+        res.send({
+            docs
+        });
+    });
+
+    
+};
+
+//Devuelve la paginación de los productos
+const getPaginationFuego = async (req,res) => {
+
+    const options = {
+        //empieza por 1
+        page: req.params.page,
+        limit: 6
+    
+    };
+
+    await producto.paginate({categoria: "fuego"},options,(err,docs)=>{
+        //console.log("asd------",docs.totalDocs);
+        res.send({
+            docs
+        });
+    });
+
+    
+};
+
+//Devuelve la paginación de los productos
+const getPaginationSeguridad = async (req,res) => {
+
+    const options = {
+        //empieza por 1
+        page: req.params.page,
+        limit: 6
+    
+    };
+
+    await producto.paginate({categoria: "seguridad"},options,(err,docs)=>{
+        //console.log("asd------",docs.totalDocs);
+        res.send({
+            docs
+        });
+    });
+
+    
+};
+
+//Devuelve la paginación de los productos
+const getPaginationDefensa = async (req,res) => {
+
+    const options = {
+        //empieza por 1
+        page: req.params.page,
+        limit: 6
+    
+    };
+
+    await producto.paginate({categoria: "defensa"},options,(err,docs)=>{
+        //console.log("asd------",docs.totalDocs);
         res.send({
             docs
         });
@@ -129,6 +207,10 @@ const insertData = async (req,res) => {
 
 module.exports = {
 
+    getPaginationSeguridad,
+    getPaginationCompeticion,
+    getPaginationFuego,
+    getPaginationDefensa,
     getPagination,
     getMasVendidos,
     insertData

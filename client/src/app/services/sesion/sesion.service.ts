@@ -9,6 +9,7 @@ export class SesionService {
 
   user!: any;
   token: string = 'auth';
+  tabla: string = "categoria";
 
   iniciar(usuario: any): void{
 
@@ -30,5 +31,22 @@ export class SesionService {
 
   }
 
+  creaCategoriaTabla(categoria: string): void{
+
+    sessionStorage.setItem(this.tabla,categoria);
+
+  } 
+
+  getCategoriaTabla(): string|null{
+
+    return sessionStorage.getItem(this.tabla);
+
+  }
+
+  removeCategoriaTabla(): void{
+
+    sessionStorage.removeItem(this.tabla);
+
+  }
 
 }

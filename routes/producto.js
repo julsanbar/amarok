@@ -19,6 +19,34 @@ router.get(
 
 );
 
+router.get(
+
+    '/paginationCompeticion/:page',
+    controller.getPaginationCompeticion
+
+);
+
+router.get(
+
+    '/paginationFuego/:page',
+    controller.getPaginationFuego
+
+);
+
+router.get(
+
+    '/paginationDefensa/:page',
+    controller.getPaginationDefensa
+
+);
+
+router.get(
+
+    '/paginationSeguridad/:page',
+    controller.getPaginationSeguridad
+
+);
+
 //TEST
 router.post(
 

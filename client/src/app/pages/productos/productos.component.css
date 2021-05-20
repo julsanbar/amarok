@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.color{
+
+    background: black!important;
+    color: white!important;
+
+}
+
+.color-todas{
+
+    color: white!important;
+    background: rgb(194, 127, 50)!important;
+
+}
