@@ -53,6 +53,21 @@ const factura = async (req,res) => {
 
     console.log("Cliente",req.params);
 
+    const prd = [
+        {
+            "quantity": "22",
+            "description": "Test1",
+            "tax": 6,
+            "price": 33.87
+        },
+        {
+            "quantity": "64",
+            "description": "Test2",
+            "tax": 21,
+            "price": 10.45
+        }
+    ];
+
     /**
      * PONER LOS DATOS DE FORMA DINÁMICA 
     */
@@ -89,20 +104,7 @@ const factura = async (req,res) => {
         },
         "invoiceNumber": "2020.0001",
         "invoiceDate": "05-01-2020",
-        "products": [
-            {
-                "quantity": "2",
-                "description": "Test1",
-                "tax": 6,
-                "price": 33.87
-            },
-            {
-                "quantity": "4",
-                "description": "Test2",
-                "tax": 21,
-                "price": 10.45
-            }
-        ],
+        "products": prd,
         "bottomNotice": "Kindly pay your invoice within 15 days."
     };
      
