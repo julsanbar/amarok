@@ -65,7 +65,7 @@ const factura = async (req,res) => {
         "marginRight": 25,
         "marginLeft": 25,
         "marginBottom": 25,
-        "logo": "", //or base64
+        "logo": "https://i.imgur.com/U0n85py.png", //or base64
         //"logoExtension": "png", //only when logo is base64
         "sender": {
             "company": "Sample Corp",

@@ -28,7 +28,7 @@ app.use(
         extended: true
     })
 );
-//---
+
 app.use(express.static('public/invoices'));
 
 app.use(productoRouters);
