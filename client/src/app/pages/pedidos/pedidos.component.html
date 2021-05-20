@@ -1,1 +1,25 @@
-<p>pedidos works!</p>
+<table>
+    <thead>
+      <tr>
+        <th>REFERENCIA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of this.productos | paginate: { itemsPerPage: perPage, currentPage: page, totalItems: total }">
+        <td>{{item.referencia}}</td>
+        <td>{{item.nombre}}</td>
+        <td>{{item.proveedores}}</td>
+        <td><button (click)="this.descargarFactura()">FACTURA</button></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>
+          <pagination-controls
+            [previousLabel]="'Anterior'"
+            [nextLabel]="'Siguiente'"
+            (pageChange)="pageChanged($event)"></pagination-controls>
+        </td>
+      </tr>
+    </tfoot>
+  </table>

@@ -14,7 +14,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { PedidoService } from "../app/services/pedido/pedido.service";
 import { ProductoService } from "../app/services/producto/producto.service";
 import { ErrorComponent } from './pages/error/error.component';
-import { PaginationComponent } from './components/pagination/pagination.component';
 import { ProductosComponent } from './pages/productos/productos.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -29,7 +28,6 @@ import { IniciarComponent } from './pages/iniciar/iniciar.component';
     FooterComponent,
     HomeComponent,
     ErrorComponent,
-    PaginationComponent,
     ProductosComponent,
     PedidosComponent,
     LoginComponent,

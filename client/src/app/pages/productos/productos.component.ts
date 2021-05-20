@@ -3,7 +3,6 @@ import {ActivatedRoute, Params, Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto.model';
 import { ProductoService } from "../../services/producto/producto.service";
 import { first } from 'rxjs/operators';
-import { PedidoService } from "../../services/pedido/pedido.service";
 
 @Component({
   selector: 'app-productos',
@@ -12,7 +11,7 @@ import { PedidoService } from "../../services/pedido/pedido.service";
 })
 export class ProductosComponent implements OnInit, OnChanges {
 
-  constructor(private productoService: ProductoService ,private route: ActivatedRoute, private router: Router, private pedidoService: PedidoService) {
+  constructor(private productoService: ProductoService ,private route: ActivatedRoute, private router: Router) {
     
    }
   
@@ -30,17 +29,6 @@ export class ProductosComponent implements OnInit, OnChanges {
       this.page = parseInt(params.page, 6) || 1;
       this.getDatos(this.page);
     });
-
-  }
-
-  descargarFactura(): void{
-
-      this.pedidoService.getFactura(1,1).pipe(first()).subscribe((res: any) => {
-        
-        window.open(res.ruta);
-
-
-      });
 
   }
 
