@@ -36,7 +36,7 @@ export class ProductosComponent implements OnInit, OnChanges {
   descargarFactura(): void{
 
       this.pedidoService.getFactura(1,1).pipe(first()).subscribe((res: any) => {
-
+        
         window.open(res.ruta);
 
 

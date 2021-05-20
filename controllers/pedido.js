@@ -1,5 +1,5 @@
 const pedido = require('../models/pedido');
-const easyinvoice = require('easyinvoice');
+var easyinvoice = require('easyinvoice');
 const fs = require('fs');
 
 //DATE yyyy-mm-dd
@@ -53,17 +53,11 @@ const factura = async (req,res) => {
 
     console.log("Cliente",req.params);
 
-    /*
-    await pedido.findOne({},(err,docs)=>{
-        
-        res.send({
-            item:docs
-        })
-
-    })
+    /**
+     * PONER LOS DATOS DE FORMA DINÁMICA 
     */
-
-    var data = {
+   
+    let data = {
         //"documentTitle": "RECEIPT", //Defaults to INVOICE
         "currency": "USD",
         "taxNotation": "vat", //or gst
@@ -71,7 +65,7 @@ const factura = async (req,res) => {
         "marginRight": 25,
         "marginLeft": 25,
         "marginBottom": 25,
-        "logo": "https://www.easyinvoice.cloud/img/logo.png", //or base64
+        "logo": "", //or base64
         //"logoExtension": "png", //only when logo is base64
         "sender": {
             "company": "Sample Corp",
@@ -112,14 +106,9 @@ const factura = async (req,res) => {
         "bottomNotice": "Kindly pay your invoice within 15 days."
     };
      
-    const result = await easyinvoice.createInvoice(data);     
+    const result = await easyinvoice.createInvoice(data);                       
+    await fs.writeFileSync("public/invoices/invoice.pdf", result.pdf, 'base64');   
     
-    /**
-     * Indicar variable de entorno para mayor comodidad
-     */
-    
-    await fs.writeFileSync("./public/invoices/invoice.pdf", result.pdf, 'base64');
-
     res.send({ruta:"http://localhost:8080/invoice.pdf"});
 
 };
