@@ -100,19 +100,11 @@ const iniciarSesion = async (req,res) => {
 
     }
 
-    const checkEmail = await usuario.findOne({email: data.email});
-    const checkUsuario = await usuario.findOne({usuario: data.usuario});
-    
+    const checkUsuario = await usuario.findOne({usuario: data.usuario, email: data.email});
 
-    if(checkEmail === null){
-
-        errors.push('El email indicado no esta registrado');
-
-    }
-    
     if(checkUsuario === null){
 
-        errors.push('El nombre de usuario no esta registrado');
+        errors.push('El nombre de usuario y correo indicados no coinciden');
 
     }
 

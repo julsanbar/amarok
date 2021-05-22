@@ -20,6 +20,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { UsuarioService } from "../app/services/usuario/usuario.service";
 import { SesionService } from "../app/services/sesion/sesion.service";
 import { IniciarComponent } from './pages/iniciar/iniciar.component';
+import { FormatoFechaPipe } from './pipes/formato-fecha.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { IniciarComponent } from './pages/iniciar/iniciar.component';
     ProductosComponent,
     PedidosComponent,
     LoginComponent,
-    IniciarComponent
+    IniciarComponent,
+    FormatoFechaPipe
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Float = require('mongoose-float').loadType(mongoose,2);
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 
 //Variables para las validaciones propias
@@ -90,5 +91,17 @@ PedidoScheme.virtual('modificacionPedido')
   .get(function(){
     return this.updatedAt.toISOString().substring(0,10)+" "+this.updatedAt.toISOString().substring(11,19);
 });
+
+PedidoScheme.virtual('fecha')
+  .get(function(){
+    return this.fechaPedido.toISOString().substring(0,10);
+});
+
+PedidoScheme.virtual('hora')
+  .get(function(){
+    return this.fechaPedido.toISOString().substring(11,19);
+});
+
+PedidoScheme.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('pedidos',PedidoScheme);

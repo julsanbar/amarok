@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Pedido } from 'src/app/models/pedido.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,15 @@ export class PedidoService {
 
   uri: String = 'http://localhost:8080/';
 
-  getFactura(idCliente: number, idPedido: number): any{
+  getFactura(idCliente: String|null, pedido: Pedido): any{
     
-    return this.http.get(this.uri+'factura/'+idCliente+'/'+idPedido);
+    return this.http.get(this.uri+'factura/'+idCliente+'/'+JSON.stringify(pedido));
+
+  }
+
+  getPaginationPedidos(page: number, id: string|null): any{
+    
+    return this.http.get(this.uri+'paginationPedidos/'+page+'/'+id);
 
   }
 

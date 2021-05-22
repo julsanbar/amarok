@@ -121,7 +121,7 @@ export class LoginComponent implements OnInit, OnChanges {
 
       if(!res.error){
 
-        this.sessionService.iniciar(res.data);
+        this.sessionService.iniciar(res.data._id);
         location.href = 'producto';
 
       }else{

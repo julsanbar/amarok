@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router } from '@angular/router';
-import { Producto } from 'src/app/models/producto.model';
+import { Pedido } from 'src/app/models/pedido.model';
 import { ProductoService } from "../../services/producto/producto.service";
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { first } from 'rxjs/operators';
+import { SesionService } from 'src/app/services/sesion/sesion.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -12,9 +13,9 @@ import { first } from 'rxjs/operators';
 })
 export class PedidosComponent implements OnInit {
 
-  constructor(private pedidoService: PedidoService, private productoService: ProductoService ,private route: ActivatedRoute, private router: Router) { }
+  constructor(private sessionService: SesionService ,private pedidoService: PedidoService, private productoService: ProductoService ,private route: ActivatedRoute, private router: Router) { }
 
-  public productos: Producto[] = [];
+  public pedidos: Pedido[] = [];
   public page: number = 1;
   public total: number = 0;
   public perPage: number = 6;
@@ -31,9 +32,11 @@ export class PedidosComponent implements OnInit {
 
   getDatos(page: number): void {
   
-    this.productoService.getPagination(page).pipe(first()).subscribe((res: any) => {
+    const idUsuario = this.sessionService.getUsuarioLogeado();
 
-      this.productos = res.docs.docs;
+    this.pedidoService.getPaginationPedidos(page,idUsuario).pipe(first()).subscribe((res: any) => {
+      
+      this.pedidos = res.docs.docs;
       this.total = res.docs.totalDocs;
       
     });
@@ -56,9 +59,11 @@ export class PedidosComponent implements OnInit {
     this.getDatos(this.page);
   }
 
-  descargarFactura(): void{
-    //Pasar datos ped y cli
-    this.pedidoService.getFactura(1,1).pipe(first()).subscribe((res: any) => {
+  descargarFactura(pedido: Pedido): void{
+
+    const idCliente = this.sessionService.getUsuarioLogeado();
+
+    this.pedidoService.getFactura(idCliente,pedido).pipe(first()).subscribe((res: any) => {
       
       window.open(res.ruta);
 

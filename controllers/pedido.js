@@ -1,4 +1,6 @@
 const pedido = require('../models/pedido');
+const producto = require('../models/producto');
+const usuario = require('../models/usuario');
 var easyinvoice = require('easyinvoice');
 const fs = require('fs');
 
@@ -45,73 +47,105 @@ const insertData = async (req,res) => {
 
 }
 
-//TEST FACTURA
-/**
- * FINIQUITAR DE FORMA DINÁMICA
- */
+const getPaginationPedidos = async (req,res) => {
+
+    const pedidosUsuario = await usuario.findById(req.params.id);
+
+    const options = {
+        //empieza por 1
+        page: req.params.page,
+        limit: 6
+    
+    };
+
+    await pedido.paginate({referencia:{$in:pedidosUsuario.pedidos}},options,(err,docs)=>{
+
+        res.send({
+            docs
+        });
+    });
+
+    
+};
+
 const factura = async (req,res) => {
 
-    console.log("Cliente",req.params);
+    const idCliente = req.params.idCliente;
+    const pedido = JSON.parse(req.params.pedido);
+    const title = "Pedido Ref."+pedido.referencia;
+    const fecha = pedido.fechaPedido.toString().substring(0,10);
+    const fechaFactura = new Date(Date.now()).toISOString().substring(0,10);
+    const nombreFactura = "facturaRef"+pedido.referencia;
+    const productos = [];
+    const productosPedido = await producto.find({referencia:{$in:pedido.productos}});
+    const cliente = await usuario.findById(idCliente);
+    const marca = (pedido.estado === 'cancelado')? "https://i.imgur.com/PGKU68G.png": "";
+    
+    for (const key in productosPedido) {
 
-    const prd = [
-        {
+        const product = {
+
             "quantity": "22",
-            "description": "Test1",
-            "tax": 6,
-            "price": 33.87
-        },
-        {
-            "quantity": "64",
-            "description": "Test2",
-            "tax": 21,
-            "price": 10.45
-        }
-    ];
+            "description": "Ref. "+productosPedido[key].referencia+": "+productosPedido[key].nombre,
+            "tax": productosPedido[key].tasa,
+            "price": productosPedido[key].precio
 
-    /**
-     * PONER LOS DATOS DE FORMA DINÁMICA 
-    */
+        };
+
+        productos.push(product);
+
+    }
+
    
     let data = {
-        //"documentTitle": "RECEIPT", //Defaults to INVOICE
-        "currency": "USD",
-        "taxNotation": "vat", //or gst
+        "documentTitle": title, 
+        "currency": "EUR",
+        "locale":"es-ES", //Formato numerico tambien podria ser ca-ES
+        "taxNotation": "vat", //or gst = POR CONSUMO Y O SERVICIO vat = IVA
         "marginTop": 25,
         "marginRight": 25,
         "marginLeft": 25,
         "marginBottom": 25,
-        "logo": "https://i.imgur.com/U0n85py.png", //or base64
-        //"logoExtension": "png", //only when logo is base64
+        "logo": "https://i.imgur.com/U0n85py.png", //o en base64
+        //"logoExtension": "png", //solo cuando el logo esta en base64
+        "background": marca,
         "sender": {
-            "company": "Sample Corp",
-            "address": "Sample Street 123",
-            "zip": "1234 AB",
-            "city": "Sampletown",
-            "country": "Samplecountry"
-            //"custom1": "custom value 1",
-            //"custom2": "custom value 2",
-            //"custom3": "custom value 3"
+            "company": "Armería Amarok S.L.",
+            "address": "Calle de Juan de Urbieta, 22, Local",
+            "zip": "28007",
+            "city": "Madrid",
+            "country": "España",
+            "custom1": "Email: info@amarok.com",
+            "custom2": "Teléfono: (+34)914-332-442",
+            "custom3": "Horario: De lunes a Sabados, de 10:00 a 20:00"
         },
         "client": {
-            "company": "Client Corp",
-            "address": "Clientstreet 456",
-            "zip": "4567 CD",
-            "city": "Clientcity",
-            "country": "Clientcountry"
-            //"custom1": "custom value 1",
-            //"custom2": "custom value 2",
-            //"custom3": "custom value 3"
+            "company": cliente.nombre+" "+cliente.apellidos,
+            "address": cliente.dni,
+            "zip": cliente.direccion,
+            "city": cliente.codigoPostal,
+            "country": cliente.email,
+            "custom1": "Licencia de "+cliente.licencia
         },
-        "invoiceNumber": "2020.0001",
-        "invoiceDate": "05-01-2020",
-        "products": prd,
-        "bottomNotice": "Kindly pay your invoice within 15 days."
+        "invoiceNumber": fechaFactura,
+        "invoiceDate": fecha,
+        "products": productos,
+        "bottomNotice": "En caso de reclamaciones y/o sugerencias sobre la factura expedida, póngase en contacto con nosotros lo antes posible.\nGracias por confiar en Armería Amarok.",
+        "translate": { 
+         "invoiceNumber": "Fecha de factura",
+         "invoiceDate": "Fecha de pedido",
+         "products": "Productos", 
+         "quantity": "Cantidad", 
+         "price": "Precio\nUnitario",
+         "subtotal": "Subtotal",
+         "total": "Total"
+        }
     };
      
     const result = await easyinvoice.createInvoice(data);                       
-    await fs.writeFileSync("public/invoices/invoice.pdf", result.pdf, 'base64');   
+    await fs.writeFileSync("public/invoices/"+nombreFactura+".pdf", result.pdf, 'base64');   
     
-    res.send({ruta:"http://localhost:8080/invoice.pdf"});
+    res.send({ruta:"http://localhost:8080/"+nombreFactura+".pdf"});
 
 };
 
@@ -119,6 +153,7 @@ module.exports = {
     
     getPedidos,
     insertData,
-    factura
+    factura,
+    getPaginationPedidos
 
 };

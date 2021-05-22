@@ -7,21 +7,18 @@ export class SesionService {
 
   constructor() { }
 
-  user!: any;
   token: string = 'auth';
   tabla: string = "categoria";
 
-  iniciar(usuario: any): void{
+  iniciar(id: string): void{
 
-    this.user = {
+    sessionStorage.setItem(this.token,id);
 
-      id: usuario._id,
-      tipo: usuario.tipo,
-      habilitado: usuario.habilitado
+  }
 
-    };
+  getUsuarioLogeado(): string|null{
 
-    sessionStorage.setItem(this.token,JSON.stringify(this.user));
+    return sessionStorage.getItem(this.token);
 
   }
 

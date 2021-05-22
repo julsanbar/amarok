@@ -57,7 +57,7 @@ export class IniciarComponent implements OnInit {
 
       if(!res.error){
 
-        this.sessionService.iniciar(res.data);
+        this.sessionService.iniciar(res.data._id);
         location.href = 'producto';
 
       }else{
