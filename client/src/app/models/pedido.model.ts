@@ -1,6 +1,6 @@
 export class Pedido {
 
-    id!: String;
+    _id!: String;
     referencia!: String;
     estado!: String;
     fechaPedido!: Date;

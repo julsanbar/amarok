@@ -4,9 +4,6 @@ const usuario = require('../models/usuario');
 var easyinvoice = require('easyinvoice');
 const fs = require('fs');
 
-//DATE yyyy-mm-dd
-//^(19|20)\d\d([- .])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$
-
 //TEST
 const getPedidos = async (req, res) => {
 
@@ -47,6 +44,25 @@ const insertData = async (req,res) => {
 
 }
 
+const cancelarPedido = async (req,res) => {
+    
+    const idPedido = req.body._id;
+    const estadoPedido = req.body.estado;
+
+    if(estadoPedido === 'enviado'){
+
+        const cancelado = await pedido.findByIdAndUpdate(idPedido,{estado: 'cancelado'},{new: true, upsert:true});
+
+        res.send(cancelado);
+
+    }else{
+
+        res.send({error:'No se puede cancelar un pedido entregado o ya cancelado.'});
+
+    }
+ 
+};
+
 const getPaginationPedidos = async (req,res) => {
 
     const pedidosUsuario = await usuario.findById(req.params.id);
@@ -65,6 +81,41 @@ const getPaginationPedidos = async (req,res) => {
         });
     });
 
+    
+};
+
+const getProductosPedidos = async (req,res) => {
+
+    const referenciasProductos = JSON.parse(req.params.refProductos);
+    let productoCantidad = {};
+    let items = [];
+
+    await producto.find({referencia:{$in:referenciasProductos}},(err,docs) => {
+ 
+        referenciasProductos.forEach(function(x) { productoCantidad[x] = (productoCantidad[x] || 0)+1; });
+
+        for (const key in docs) {
+
+            const productoResultante = {
+
+                referencia: docs[key].referencia,
+                categoria: docs[key].categoria,
+                nombre: docs[key].nombre,
+                precio: docs[key].precio,
+                tasa: docs[key].tasa,
+                cantidad: productoCantidad[docs[key].referencia]
+    
+            };
+
+            items.push(productoResultante);
+
+        }
+
+        res.send({
+            productos: items
+        })
+
+    });
     
 };
 
@@ -89,7 +140,7 @@ const factura = async (req,res) => {
         const product = {
 
             "quantity": productoCantidad[productosPedido[key].referencia],
-            "description": "Ref. "+productosPedido[key].referencia+": "+productosPedido[key].nombre,
+            "description": "<b>Ref. "+productosPedido[key].referencia+"</b>: "+productosPedido[key].nombre,
             "tax": productosPedido[key].tasa,
             "price": productosPedido[key].precio
 
@@ -157,6 +208,8 @@ module.exports = {
     getPedidos,
     insertData,
     factura,
-    getPaginationPedidos
+    getPaginationPedidos,
+    getProductosPedidos,
+    cancelarPedido
 
 };

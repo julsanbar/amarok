@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.modal-content{
+
+    min-height: max-content!important;
+    min-width: max-content!important;
+    /*background: rgba(255, 255, 255, 0.795)!important;*/
+
+}
+
+.modal-header{
+    
+    /*background: #212529ad!important;*/
+
+}

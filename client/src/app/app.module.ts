@@ -20,7 +20,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { UsuarioService } from "../app/services/usuario/usuario.service";
 import { SesionService } from "../app/services/sesion/sesion.service";
 import { IniciarComponent } from './pages/iniciar/iniciar.component';
-import { FormatoFechaPipe } from './pipes/formato-fecha.pipe';
+import { FormatoFechaPipe } from './pipes/fecha/formato-fecha.pipe';
+import { FormatoMonedaPipe } from './pipes/moneda/formato-moneda.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FormatoFechaPipe } from './pipes/formato-fecha.pipe';
     PedidosComponent,
     LoginComponent,
     IniciarComponent,
-    FormatoFechaPipe
+    FormatoFechaPipe,
+    FormatoMonedaPipe
   ],
   imports: [
     BrowserModule,

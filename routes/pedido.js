@@ -22,9 +22,8 @@ router.post(
 
 );
 
-//Test FACTURA
 router.get(
-    //OK PASO DE DATOS 
+
     `/factura/:idCliente/:pedido`,
     controller.factura
 
@@ -34,6 +33,20 @@ router.get(
 
     '/paginationPedidos/:page/:id',
     controller.getPaginationPedidos
+
+);
+
+router.get(
+
+    '/getProductosPedidos/:refProductos',
+    controller.getProductosPedidos
+
+);
+
+router.post(
+
+    '/cancelarPedido',
+    controller.cancelarPedido
 
 );
 

@@ -25,4 +25,17 @@ export class PedidoService {
 
   }
 
+
+  getProductosPedidos(refProductos: Number[]): any{
+    
+    return this.http.get(this.uri+'getProductosPedidos/'+JSON.stringify(refProductos));
+
+  }
+
+  cancelarPedido(pedido: Pedido): any{
+    
+    return this.http.post(this.uri+'cancelarPedido',pedido);
+
+  }
+
 }
