@@ -80,12 +80,15 @@ const factura = async (req,res) => {
     const productosPedido = await producto.find({referencia:{$in:pedido.productos}});
     const cliente = await usuario.findById(idCliente);
     const marca = (pedido.estado === 'cancelado')? "https://i.imgur.com/PGKU68G.png": "";
+    let productoCantidad = {};
     
+    pedido.productos.forEach(function(x) { productoCantidad[x] = (productoCantidad[x] || 0)+1; });
+
     for (const key in productosPedido) {
 
         const product = {
 
-            "quantity": "22",
+            "quantity": productoCantidad[productosPedido[key].referencia],
             "description": "Ref. "+productosPedido[key].referencia+": "+productosPedido[key].nombre,
             "tax": productosPedido[key].tasa,
             "price": productosPedido[key].precio
@@ -130,13 +133,13 @@ const factura = async (req,res) => {
         "invoiceNumber": fechaFactura,
         "invoiceDate": fecha,
         "products": productos,
-        "bottomNotice": "En caso de reclamaciones y/o sugerencias sobre la factura expedida, póngase en contacto con nosotros lo antes posible.\nGracias por confiar en Armería Amarok.",
+        "bottomNotice": "En caso de reclamaciones y/o sugerencias sobre la factura expedida, póngase en contacto con nosotros lo antes posible.<br><i>Gracias por confiar en Armería Amarok.</i>",
         "translate": { 
          "invoiceNumber": "Fecha de factura",
          "invoiceDate": "Fecha de pedido",
          "products": "Productos", 
          "quantity": "Cantidad", 
-         "price": "Precio\nUnitario",
+         "price": "Precio<br>Unitario",
          "subtotal": "Subtotal",
          "total": "Total"
         }
