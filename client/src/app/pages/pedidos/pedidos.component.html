@@ -70,28 +70,30 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>REFERENCIA</th>
-                <th>CATEGORIA</th>
-                <th>NOMBRE</th>
-                <th>PRECIO</th>
-                <th>TASA</th>
-                <th>CANTIDAD</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of this.productos">
-                <td>{{item.referencia}}</td>
-                <td>{{item.categoria}}</td>
-                <td>{{item.nombre}}</td>
-                <td>{{item.precio | formatoMoneda : '€'}}</td>
-                <td>{{item.tasa | formatoMoneda : '%'}}</td>
-                <td>{{item.cantidad}}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive-md">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>REFERENCIA</th>
+                  <th>CATEGORIA</th>
+                  <th>NOMBRE</th>
+                  <th>PRECIO</th>
+                  <th>TASA</th>
+                  <th>CANTIDAD</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of this.productos">
+                  <td>{{item.referencia}}</td>
+                  <td>{{item.categoria}}</td>
+                  <td>{{item.nombre}}</td>
+                  <td>{{item.precio | formatoMoneda : '€'}}</td>
+                  <td>{{item.tasa | formatoMoneda : '%'}}</td>
+                  <td>{{item.cantidad}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div class="modal-footer">

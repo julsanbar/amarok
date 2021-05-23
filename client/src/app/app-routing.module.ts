@@ -6,6 +6,7 @@ import { ProductosComponent } from './pages/productos/productos.component';
 import { LoginComponent } from './pages/login/login.component';
 import { IniciarComponent } from './pages/iniciar/iniciar.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
+import { PerfilComponent } from "./pages/perfil/perfil.component";
 
 const routes: Routes = [
   { 
@@ -28,6 +29,11 @@ const routes: Routes = [
   {
 
     path: 'iniciar', component: IniciarComponent
+
+  },
+  {
+
+    path: 'perfil', component: PerfilComponent
 
   },
   {

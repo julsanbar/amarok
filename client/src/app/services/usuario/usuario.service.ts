@@ -25,4 +25,10 @@ export class UsuarioService {
 
   }
 
+  deshabilitarUsuario(id: any): any{
+
+    return this.http.post(this.uri+"deshabilitar",{id:id});
+
+  }
+
 }

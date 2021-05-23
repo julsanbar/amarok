@@ -29,5 +29,19 @@ router.post(
 
 );
 
+router.get(
+
+    '/getRol/:id',
+    controller.getRol
+
+);
+
+router.post(
+
+    '/deshabilitar',
+    controller.deshabilitar
+
+);
+
 
 module.exports = router;

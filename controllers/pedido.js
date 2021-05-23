@@ -12,7 +12,7 @@ const getPedidos = async (req, res) => {
         //console.log("creacion---",docs.fechaPedido);
         //console.log("actualizacion---",docs.fechaModificacionPedido);
 
-        res.send({
+        res.status(200).send({
             item:docs
         })
 
@@ -31,11 +31,11 @@ const insertData = async (req,res) => {
 
         if(err){
             //console.log(err);
-            res.send({error:'ERROR'},422)
+            res.status(200).send({error:'ERROR'},422)
 
         }else{
             
-            res.send({data:docs})
+            res.status(200).send({data:docs})
 
         }
 
@@ -53,11 +53,11 @@ const cancelarPedido = async (req,res) => {
 
         const cancelado = await pedido.findByIdAndUpdate(idPedido,{estado: 'cancelado'},{new: true, upsert:true});
 
-        res.send(cancelado);
+        res.status(200).send(cancelado);
 
     }else{
 
-        res.send({error:'No se puede cancelar un pedido entregado o ya cancelado.'});
+        res.status(200).send({error:'No se puede cancelar un pedido entregado o ya cancelado.'});
 
     }
  
@@ -76,7 +76,7 @@ const getPaginationPedidos = async (req,res) => {
 
     await pedido.paginate({referencia:{$in:pedidosUsuario.pedidos}},options,(err,docs)=>{
 
-        res.send({
+        res.status(200).send({
             docs
         });
     });
@@ -111,7 +111,7 @@ const getProductosPedidos = async (req,res) => {
 
         }
 
-        res.send({
+        res.status(200).send({
             productos: items
         })
 
@@ -199,7 +199,7 @@ const factura = async (req,res) => {
     const result = await easyinvoice.createInvoice(data);                       
     await fs.writeFileSync("public/invoices/"+nombreFactura+".pdf", result.pdf, 'base64');   
     
-    res.send({ruta:"http://localhost:8080/"+nombreFactura+".pdf"});
+    res.status(200).send({ruta:"http://localhost:8080/"+nombreFactura+".pdf"});
 
 };
 

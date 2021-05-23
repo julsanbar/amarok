@@ -4,13 +4,11 @@ import { HttpClientModule } from "@angular/common/http";
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ErrorTailorModule } from "@ngneat/error-tailor";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
-
 import { PedidoService } from "../app/services/pedido/pedido.service";
 import { ProductoService } from "../app/services/producto/producto.service";
 import { ErrorComponent } from './pages/error/error.component';
@@ -22,6 +20,8 @@ import { SesionService } from "../app/services/sesion/sesion.service";
 import { IniciarComponent } from './pages/iniciar/iniciar.component';
 import { FormatoFechaPipe } from './pipes/fecha/formato-fecha.pipe';
 import { FormatoMonedaPipe } from './pipes/moneda/formato-moneda.pipe';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { RolService } from "../app/services/rol/rol.service";
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { FormatoMonedaPipe } from './pipes/moneda/formato-moneda.pipe';
     LoginComponent,
     IniciarComponent,
     FormatoFechaPipe,
-    FormatoMonedaPipe
+    FormatoMonedaPipe,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +60,8 @@ import { FormatoMonedaPipe } from './pipes/moneda/formato-moneda.pipe';
     ProductoService,
     PedidoService,
     UsuarioService,
-    SesionService
+    SesionService,
+    RolService
   ],
   bootstrap: [
     AppComponent

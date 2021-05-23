@@ -13,7 +13,7 @@ const getPagination = async (req,res) => {
 
     await producto.paginate({},options,(err,docs)=>{
         //console.log("asd------",docs.totalDocs);
-        res.send({
+        res.status(200).send({
             docs
         });
     });
@@ -33,7 +33,7 @@ const getPaginationCompeticion = async (req,res) => {
 
     await producto.paginate({categoria: "competicion"},options,(err,docs)=>{
         //console.log("asd------",docs.totalDocs);
-        res.send({
+        res.status(200).send({
             docs
         });
     });
@@ -53,7 +53,7 @@ const getPaginationFuego = async (req,res) => {
 
     await producto.paginate({categoria: "fuego"},options,(err,docs)=>{
         //console.log("asd------",docs.totalDocs);
-        res.send({
+        res.status(200).send({
             docs
         });
     });
@@ -73,7 +73,7 @@ const getPaginationSeguridad = async (req,res) => {
 
     await producto.paginate({categoria: "seguridad"},options,(err,docs)=>{
         //console.log("asd------",docs.totalDocs);
-        res.send({
+        res.status(200).send({
             docs
         });
     });
@@ -93,7 +93,7 @@ const getPaginationDefensa = async (req,res) => {
 
     await producto.paginate({categoria: "defensa"},options,(err,docs)=>{
         //console.log("asd------",docs.totalDocs);
-        res.send({
+        res.status(200).send({
             docs
         });
     });
@@ -161,7 +161,7 @@ const getMasVendidos = async (req,res) => {
 
     }
     
-    res.send({productos:resultado});
+    res.status(200).send({productos:resultado});
 
 }
 
@@ -192,11 +192,11 @@ const insertData = async (req,res) => {
 
         if(err){
             //console.log("ERROR---------------",err.message);
-            res.send({error:'ERROR'},422)
+            res.status(200).send({error:'ERROR'},422)
 
         }else{
                         
-            res.send({data:docs})
+            res.status(200).send({data:docs})
 
         }
 

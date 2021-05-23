@@ -8,13 +8,22 @@ const getUsuarios = async (req, res) => {
         //console.log("creacion---",docs.fechaPedido);
         //console.log("actualizacion---",docs.fechaModificacionPedido);
 
-        res.send({
+        res.status(200).send({
             item:docs
         })
 
     })
 
 }
+
+const getRol = async (req,res) => {
+
+    const idUsuario = JSON.parse(req.params.id);
+    const usuarioLogueado = await usuario.findById(idUsuario);
+    
+    res.status(200).send({rol:usuarioLogueado.tipo})
+
+};
 
 const crearUsuario = async (req,res) => {
 
@@ -33,16 +42,13 @@ const crearUsuario = async (req,res) => {
 
     if(errors.length > 0){
 
-        return res.send({error:errors});
+        return res.status(200).send({error:errors});
 
     }
 
     const duplicados = await usuario.findOne({$or:[{email: data.email},{usuario: data.usuario}]});
     
     if(duplicados){
-
-        //Compara la contraseña
-        //console.log(duplicados.comparePasswords(data.password))
 
         if(duplicados.email === data.email){
 
@@ -56,7 +62,7 @@ const crearUsuario = async (req,res) => {
             
         }
 
-        return res.send({error:errors});
+        return res.status(200).send({error:errors});
 
     }else{
 
@@ -64,11 +70,11 @@ const crearUsuario = async (req,res) => {
 
             if(err){
 
-                return res.send({error:'Error al intentar insertar al usuario'},422)
+                return res.status(200).send({error:'Error al intentar insertar al usuario'},422)
     
             }else{
                 
-                return res.send({data:user},200)
+                return res.status(200).send({data:user},200)
     
             }
     
@@ -78,6 +84,25 @@ const crearUsuario = async (req,res) => {
     }
 
 }
+
+const deshabilitar = async (req, res) => {
+
+    const idUsuario = req.body.id;
+    const actualizaHabilitado = await usuario.findByIdAndUpdate(idUsuario,{habilitado: false},{new: true, upsert:true});
+
+    if(actualizaHabilitado.habilitado){
+
+        res.status(200).send({resul:false});
+
+    }else{
+
+        res.status(200).send({resul:true});
+
+    }
+
+    
+
+};
 
 const iniciarSesion = async (req,res) => {
 
@@ -96,7 +121,7 @@ const iniciarSesion = async (req,res) => {
 
     if(errors.length > 0){
 
-        return res.send({error:errors});
+        return res.status(200).send({error:errors});
 
     }
 
@@ -108,21 +133,27 @@ const iniciarSesion = async (req,res) => {
 
     }
 
+    if(!checkUsuario.habilitado){
+
+        errors.push('El usuario indicado no esta habilitado');
+
+    }
+
     if(errors.length > 0){
 
-        return res.send({error:errors});
+        return res.status(200).send({error:errors});
 
     }else{
 
         if(checkUsuario.comparePasswords(data.password)){
 
-            return res.send({data:checkUsuario},200);
+            return res.status(200).send({data:checkUsuario},200);
             
         }else{
 
             errors.push('La contraseña no es correcta.');
 
-            return res.send({error:errors});
+            return res.status(200).send({error:errors});
 
         }
 
@@ -134,6 +165,8 @@ module.exports = {
 
     getUsuarios,
     crearUsuario,
-    iniciarSesion
+    iniciarSesion,
+    getRol,
+    deshabilitar
 
 };

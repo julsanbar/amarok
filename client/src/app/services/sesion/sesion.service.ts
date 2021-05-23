@@ -16,6 +16,12 @@ export class SesionService {
 
   }
 
+  cerrar(): void{
+
+    sessionStorage.removeItem(this.token);
+
+  }
+
   getUsuarioLogeado(): string|null{
 
     return sessionStorage.getItem(this.token);
