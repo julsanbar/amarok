@@ -43,5 +43,18 @@ router.post(
 
 );
 
+router.post(
+
+    '/perfil',
+    controller.perfil
+
+);
+
+router.post(
+
+    '/modificaPerfil',
+    controller.modificaPerfil
+
+);
 
 module.exports = router;

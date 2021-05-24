@@ -20,3 +20,9 @@
     color: rgb(236, 181, 78)!important;
 
 }
+
+.dropstart .dropdown-toggle::before{
+
+    color: #212529!important;
+
+}

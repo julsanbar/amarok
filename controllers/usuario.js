@@ -1,4 +1,5 @@
 const usuario = require('../models/usuario');
+const bcrypt = require('bcrypt-node');
 
 //TEST
 const getUsuarios = async (req, res) => {
@@ -22,6 +23,74 @@ const getRol = async (req,res) => {
     const usuarioLogueado = await usuario.findById(idUsuario);
     
     res.status(200).send({rol:usuarioLogueado.tipo})
+
+};
+
+const modificaPerfil = async (req,res) => {
+
+    let nuevoPerfil = req.body;
+    let errors = [];
+
+    const duplicados = await usuario.findOne({$or:[{email: nuevoPerfil.email},{usuario: nuevoPerfil.usuario}]});
+
+    if(duplicados){
+
+        if(duplicados.email === nuevoPerfil.email){
+
+            errors.push('El email ya esta registrado');
+
+        }
+
+        if(duplicados.usuario === nuevoPerfil.usuario){
+         
+            errors.push('El nombre de usuario ya esta registrado');
+            
+        }
+
+        return res.status(200).send({error:errors});
+
+    }else{
+
+        bcrypt.hash(nuevoPerfil.password, null, null, async (err, hash) => {
+            
+            if (!err) {
+                
+                nuevoPerfil.password = hash;
+
+                const actualizaPerfil = await usuario.findByIdAndUpdate(nuevoPerfil.id,nuevoPerfil,{new: true, upsert:true});
+
+                res.status(200).send({resul:actualizaPerfil});
+            }
+
+        });
+
+    }
+
+};
+
+const perfil = async (req,res) => {
+
+    const idUsuario = req.body.id;
+    const perfil = await usuario.findById(idUsuario);
+
+    const datos = {
+
+        usuario: perfil.usuario,
+        telefono: perfil.telefono,
+        nombre: perfil.nombre,
+        nacimiento: perfil.nacimiento,
+        licencia: perfil.licencia,
+        email: perfil.email,
+        dni: perfil.dni,
+        direccion: perfil.direccion,
+        apellidos: perfil.apellidos,
+        codigoPostal: perfil.codigoPostal,
+        password: perfil.password
+
+
+    }
+
+    res.status(200).send({datos})
 
 };
 
@@ -100,8 +169,6 @@ const deshabilitar = async (req, res) => {
 
     }
 
-    
-
 };
 
 const iniciarSesion = async (req,res) => {
@@ -167,6 +234,8 @@ module.exports = {
     crearUsuario,
     iniciarSesion,
     getRol,
-    deshabilitar
+    deshabilitar,
+    perfil,
+    modificaPerfil
 
 };

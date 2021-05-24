@@ -31,4 +31,16 @@ export class UsuarioService {
 
   }
 
+  perfil(id: any): any{
+
+    return this.http.post(this.uri+"perfil",{id:id});
+
+  }
+
+  modificaPerfil(usuario: any): any{
+
+    return this.http.post(this.uri+"modificaPerfil",usuario);
+
+  }
+
 }

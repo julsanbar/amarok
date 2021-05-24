@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-node');
 
-//^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$
-
 //Variables para las validaciones propias
 let validaNombre = (nombre) => {
 
