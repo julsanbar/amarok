@@ -12,10 +12,8 @@ import { SesionService } from 'src/app/services/sesion/sesion.service';
 })
 export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
-  constructor(private productoService: ProductoService ,private route: ActivatedRoute, private router: Router, private sessionService: SesionService) {
-    
-   }
-  
+  constructor(private productoService: ProductoService ,private route: ActivatedRoute, private router: Router, private sessionService: SesionService) {}
+
   public productos: Producto[] = [];
   public page: number = 1;
   public total: number = 0;
@@ -113,13 +111,15 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
+  trackByItems(index: number, item: any): number { return item.id; }
+
   getDatosCompeticion(page: number): void {
   
     this.productoService.getPaginationCompeticion(page).pipe(first()).subscribe((res: any) => {
 
       this.productos = res.docs.docs;
       this.total = res.docs.totalDocs;
-      
+
     });
 
   }

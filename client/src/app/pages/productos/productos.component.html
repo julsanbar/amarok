@@ -1,34 +1,37 @@
 <div class="container-fluid pt-4">
   
-  <div>Productos por categoria</div>
-
-  <div class="btn-group" role="group">
-    <button type="button" (click)="this.categoria($event)" class="btn color-todas">Todas</button>
-    <button type="button" (click)="this.categoria($event)" class="btn color">Competición</button>
-    <button type="button" (click)="this.categoria($event)" class="btn color">Fuego</button>
-    <button type="button" (click)="this.categoria($event)" class="btn color">Seguridad</button>
-    <button type="button" (click)="this.categoria($event)" class="btn color">Defensa</button>
+  <div class="row">
+    <div class="col" class="text-center categorias">
+      <div class="btn-group" role="group">
+        <button type="button" (click)="this.categoria($event)" class="btn color">Todas</button>
+        <button type="button" (click)="this.categoria($event)" class="btn color">Competición</button>
+        <button type="button" (click)="this.categoria($event)" class="btn color">Fuego</button>
+        <button type="button" (click)="this.categoria($event)" class="btn color">Seguridad</button>
+        <button type="button" (click)="this.categoria($event)" class="btn color">Defensa</button>
+      </div>
+    </div>
   </div>
 
-  <table>
-    <tbody>
-      <tr *ngFor="let item of this.productos | paginate: { itemsPerPage: perPage, currentPage: page, totalItems: total }">
-        <td>{{item.referencia}}</td>
-        <td>{{item.nombre}}</td>
-        <td>{{item.proveedores}}</td>
-        <td>{{item.categoria}}</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td>
-          <pagination-controls
-            [previousLabel]="'Anterior'"
-            [nextLabel]="'Siguiente'"
-            (pageChange)="pageChanged($event)"></pagination-controls>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+  <div class="row row-cols-3 row-cols-md-3 g-6 pt-4">
+    <div class="col" *ngFor="let item of this.productos | paginate: { itemsPerPage: perPage, currentPage: page, totalItems: total } ;trackBy: trackByItems">
+      <div class="card">
+        <img [src]="'../../../assets/img/productos/'+item.referencia+'.jpg'" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{item.nombre}}</h5>
+          <p class="card-text">{{item.descripcion}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col" class="clearfix">
+      <pagination-controls class="pagination text-center"
+      [previousLabel]="'Anterior'"
+      [nextLabel]="'Siguiente'"
+      (pageChange)="pageChanged($event)">
+      </pagination-controls>
+    </div>
+  </div>
 
 </div>

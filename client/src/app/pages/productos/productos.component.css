@@ -2,14 +2,82 @@
 
 .color{
 
-    background: black!important;
     color: white!important;
+    transition: background-color .3s;
+    margin: auto 2rem !important;
 
 }
 
-.color-todas{
+.color:hover{
 
+    color: black !important;
+    background-color: white!important;
+
+}
+
+.categorias{
+
+    background: #212529!important;
+    margin-top: -2rem !important;
+    font-size: 1.1rem!important;
+    
+}
+
+.clearfix {
+
+    background: #212529!important;
     color: white!important;
-    background: rgb(194, 127, 50)!important;
+    margin-bottom: 4rem!important;
+    margin-top: 2rem!important;
+    
+
+}
+
+.pagination{
+
+    background: #212529!important;
+    color: white!important;
+    transition: background-color .3s;
+    max-width: 24rem!important;
+    display:block !important;
+    margin:auto !important;
+    font-size: 1.1rem!important;
+}
+
+.pagination:hover {
+
+    background: #212529!important;
+    color: black!important;
+
+}
+
+.clearfix ::ng-deep .ngx-pagination .current {
+    background: #212529!important;
+    color: white!important;
+}
+
+.card-img-top{
+
+    max-height: 230px !important;
+    max-width: 230px !important;
+    display:block !important;
+    margin:auto !important;
+
+}
+
+.card{
+
+    width: 400px !important;
+    height: 600px !important;
+    border: 0 !important;
+    margin: 3rem !important;
+    transition: background-color .3s;
+
+}
+
+.card:hover{
+
+    background: #212529!important;
+    color: white!important;
 
 }

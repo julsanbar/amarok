@@ -23,17 +23,17 @@ const routes: Routes = [
   },
   {
 
+    path: 'contacto', component: ContactoComponent
+
+  },
+  {
+
     path: 'proveedores', component: ProveedoresComponent, canActivate: [SesionGuard, RolGuard]
 
   },
   {
 
     path: 'usuarios', component: UsuariosComponent, canActivate: [SesionGuard, RolGuard]
-
-  },
-  {
-
-    path: 'contacto', component: ContactoComponent
 
   },
   {

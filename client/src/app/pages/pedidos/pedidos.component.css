@@ -10,11 +10,13 @@
 .clearfix {
 
     background: #212529!important;
+    color: white!important;
 
 }
 
 .clearfix ::ng-deep .ngx-pagination .current {
     background: #212529!important;
+    color: white!important;
 }
 
 .customTabla{

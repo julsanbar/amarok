@@ -26,8 +26,8 @@
                 </ng-container>
 
                 <hr>
-                <button [disabled]="registroForm.invalid" type="submit" class="iniciar btn btn-primary">Iniciar</button>
-                <button type="reset" class="btn btn-danger ml-4">Limpiar</button>
+                <button [disabled]="registroForm.invalid" type="submit" class="iniciar btn btn-outline-success">Iniciar</button>
+                <button type="reset" class="btn btn-outline-danger ml-4">Limpiar</button>
             </form>
 
             <div *ngIf="this.errores.length > 0" id="emailUsuarioNoRegistrados">
