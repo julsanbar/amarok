@@ -22,6 +22,9 @@ import { FormatoFechaPipe } from './pipes/fecha/formato-fecha.pipe';
 import { FormatoMonedaPipe } from './pipes/moneda/formato-moneda.pipe';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { RolService } from "../app/services/rol/rol.service";
+import { ContactoComponent } from './pages/contacto/contacto.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { RolService } from "../app/services/rol/rol.service";
     IniciarComponent,
     FormatoFechaPipe,
     FormatoMonedaPipe,
-    PerfilComponent
+    PerfilComponent,
+    ContactoComponent,
+    UsuariosComponent,
+    ProveedoresComponent
   ],
   imports: [
     BrowserModule,

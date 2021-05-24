@@ -19,10 +19,10 @@
             <a class="nav-link text-white" aria-current="page" routerLink="/pedido">Pedidos</a>
           </li>
           <li class="nav-item" *ngIf="this.rolUsuario === 'administrador' || this.rolUsuario === 'empleado'">
-            <a class="nav-link text-white" aria-current="page" routerLink="/pedido">Proveedores</a>
+            <a class="nav-link text-white" aria-current="page" routerLink="/proveedores">Proveedores</a>
           </li>
           <li class="nav-item" *ngIf="this.rolUsuario === 'administrador' || this.rolUsuario === 'empleado'">
-            <a class="nav-link text-white" aria-current="page" routerLink="/pedido">Usuarios</a>
+            <a class="nav-link text-white" aria-current="page" routerLink="/usuarios">Usuarios</a>
           </li>
         </ul>
         
@@ -80,9 +80,9 @@
           <h6 class="text-center">Si acepta, para poder habilitar de nuevo su cuenta deberá ponerse en contacto con el administrador.</h6>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="this.deshabilitar()">Si</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+      <div class="modal-footer justify-content-around">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" (click)="this.deshabilitar()">Si</button>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">No</button>
       </div>
     </div>
   </div>

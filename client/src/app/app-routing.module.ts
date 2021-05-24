@@ -7,6 +7,12 @@ import { LoginComponent } from './pages/login/login.component';
 import { IniciarComponent } from './pages/iniciar/iniciar.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { PerfilComponent } from "./pages/perfil/perfil.component";
+import { ContactoComponent } from './pages/contacto/contacto.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
+import { SesionGuard } from './guards/sesion/sesion.guard';
+import { RolGuard } from './guards/rol/rol.guard';
+import { LoginGuard } from './guards/login/login.guard';
 
 const routes: Routes = [
   { 
@@ -16,28 +22,45 @@ const routes: Routes = [
     path: 'home', component: HomeComponent 
   },
   {
-    path: 'producto', component: ProductosComponent
-  },
-  {
 
-    path: 'pedido', component: PedidosComponent
-
-  },
-  {
-    path: 'login', component: LoginComponent
-  },
-  {
-
-    path: 'iniciar', component: IniciarComponent
+    path: 'proveedores', component: ProveedoresComponent, canActivate: [SesionGuard, RolGuard]
 
   },
   {
 
-    path: 'perfil', component: PerfilComponent
+    path: 'usuarios', component: UsuariosComponent, canActivate: [SesionGuard, RolGuard]
 
   },
   {
+
+    path: 'contacto', component: ContactoComponent
+
+  },
+  {
+    path: 'producto', component: ProductosComponent, canActivate: [SesionGuard]
+  },
+  {
+
+    path: 'pedido', component: PedidosComponent, canActivate: [SesionGuard]
+
+  },
+  {
+    path: 'login', component: LoginComponent, canActivate: [LoginGuard]
+  },
+  {
+
+    path: 'iniciar', component: IniciarComponent, canActivate: [LoginGuard]
+
+  },
+  {
+
+    path: 'perfil', component: PerfilComponent, canActivate: [SesionGuard]
+
+  },
+  {
+
     path: '**', component: ErrorComponent
+  
   }
 
 ];
