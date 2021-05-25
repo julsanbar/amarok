@@ -44,6 +44,51 @@ const insertData = async (req,res) => {
 
 }
 
+const crearPedido = async (req,res) => {
+    
+    const idCliente = req.body.id;
+    const nuevosProductos = req.body.pedido.productos;
+    const ultimaReferencia = await pedido.find({}).sort({$natural:-1}).limit(1);
+    const digito = Number.parseInt(ultimaReferencia[0].referencia.slice(1))+1;
+    const nuevaReferencia = "P"+digito;
+
+    const nuevoPedido = {
+
+        referencia:nuevaReferencia,
+        estado:'enviado',
+        productos:nuevosProductos
+
+    };
+
+    await pedido.create(nuevoPedido,async (err,ped)=>{
+
+        if(err){
+
+            return res.status(200).send({error:'Error al intentar insertar al pedido'},422)
+
+        }else{
+            
+            /**
+            * VER LICENCIA DE ARMAS QUE SEA OPTIMA 
+            *  CAMBIAR STOCK REDUCIR STOCK DEL PRODUCTO
+            */
+
+            const pedidosCliente = await usuario.findById(idCliente);
+            pedidosCliente.pedidos.push(nuevoPedido.referencia);
+
+            await usuario.findByIdAndUpdate(idCliente,{pedidos: pedidosCliente.pedidos},{new: true, upsert:true});
+            
+            return res.status(200).send({data:ped},200)
+
+        }
+
+        
+    });
+
+
+
+};
+
 const cancelarPedido = async (req,res) => {
     
     const idPedido = req.body._id;
@@ -210,6 +255,7 @@ module.exports = {
     factura,
     getPaginationPedidos,
     getProductosPedidos,
-    cancelarPedido
+    cancelarPedido,
+    crearPedido
 
 };

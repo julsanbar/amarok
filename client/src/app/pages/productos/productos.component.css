@@ -1,5 +1,20 @@
 @charset "UTF-8";
 
+.pagar{
+
+    color: rgb(236, 181, 78);
+    transition: background-color .3s;
+    border: rgb(236, 181, 78) 1px solid;
+
+}
+
+.pagar:hover{
+
+    color: black !important;
+    background-color: rgb(236, 181, 78)!important;
+
+}
+
 .color{
 
     color: white!important;
@@ -56,6 +71,13 @@
     color: white!important;
 }
 
+.card:hover{
+
+    background: #212529!important;
+    color: white!important;
+
+}
+
 .card-img-top{
 
     max-height: 230px !important;
@@ -68,16 +90,29 @@
 .card{
 
     width: 400px !important;
-    height: 600px !important;
+    height: 450px !important;
     border: 0 !important;
-    margin: 3rem !important;
+    margin: 1rem!important;
+    padding: 1rem!important;
     transition: background-color .3s;
+    
+}
+
+.precio{
+
+    margin: 0 2rem!important;
 
 }
 
-.card:hover{
+.pie{
 
-    background: #212529!important;
-    color: white!important;
+    display:block !important;
+    margin:auto !important;
+
+}
+
+.descripcion{
+
+    max-height: 100px!important;
 
 }

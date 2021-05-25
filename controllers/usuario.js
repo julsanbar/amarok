@@ -198,11 +198,13 @@ const iniciarSesion = async (req,res) => {
 
         errors.push('El nombre de usuario y correo indicados no coinciden');
 
-    }
+    }else{
 
-    if(!checkUsuario.habilitado){
+        if(!checkUsuario.habilitado){
 
-        errors.push('El usuario indicado no esta habilitado');
+            errors.push('El usuario indicado no esta habilitado');
+    
+        }
 
     }
 

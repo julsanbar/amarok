@@ -1,47 +1,50 @@
 @charset "UTF-8";
 
-.text-muted{
+.card-img-top{
 
-    margin-right: 25%;
-
-}
-
-.card-title{
-
-    font-weight: bold;
+    max-height: 230px !important;
+    max-width: 230px !important;
+    display:block !important;
+    margin:auto !important;
 
 }
 
 .card{
 
-    height: 350px!important;
-    width: 700px!important;
-    display: inline-flex!important;
-    max-height: max-content!important;
+    width: 400px !important;
+    height: 450px !important;
     border: 0 !important;
     
 }
 
-.card:nth-child(5),.card:nth-child(3){
-    /*
-        Cambiar el margen izquierdo para responsive
-    */
-    margin-left: 0.3rem!important;
-    margin-right: 4rem!important;
+.stock{
+
+    margin-right: 6rem!important;
 
 }
 
-.card:nth-child(5),.card:nth-child(6){
+.card:nth-child(odd){
 
-    margin-top: 2rem!important;
-    margin-bottom: 5rem!important;
+    margin-left: 5rem!important;
 
 }
 
-.populares,.populares>img{
+.pie{
 
-    height: 200px; 
-    width: 200px;
+    display:block !important;
+    margin:auto !important;
+
+}
+
+.descripcion{
+
+    max-height: 100px!important;
+
+}
+
+.productos{
+
+    margin-bottom: 10rem!important;
 
 }
 

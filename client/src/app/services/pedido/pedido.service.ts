@@ -38,4 +38,10 @@ export class PedidoService {
 
   }
 
+  crearPedido(pedido: Pedido,id: string|null): any{
+
+    return this.http.post(this.uri+'crearPedido',{pedido:pedido,id:id});
+
+  }
+
 }

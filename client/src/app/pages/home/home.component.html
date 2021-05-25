@@ -25,19 +25,17 @@
 
   <p class="informacion">PRODUCTOS MÁS VENDIDOS</p>
   
-  <div *ngFor="let ruta of this.srcMasVendidos; let i = index ;trackBy: trackByItems" class="card mb-3">
-    <div class="row g-0">
-      <div class="populares col-md-4">
-        <img [src]="ruta">
-      </div>
-      <div class="col-md-8">
+  <div class="row row-cols-2 row-cols-md-2 g-4 pt-4 productos">
+    <div class="col" *ngFor="let item of this.productosMasVendidos; let i = index ;trackBy: trackByItems">
+      <div class="card">
+        <img [src]="'../../../assets/img/productos/'+item.referencia+'.jpg'" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">{{this.productosMasVendidos[i].nombre}}</h5>
-          <p class="card-text">{{this.productosMasVendidos[i].descripcion}}</p>
-          <p class="card-text justify-content-around">
-            <small class="text-muted">Unidades en stock: {{this.productosMasVendidos[i].stock}}</small>
-            <small class="text-muted">PVP: {{this.productosMasVendidos[i].precio}} €</small>
-          </p>
+          <h5 class="card-title "><strong>{{item.nombre}}</strong></h5>
+          <div class="card-text overflow-auto descripcion">{{item.descripcion}}</div>
+        </div>
+        <div class="card-text pie">
+          <span class="stock">Unidades: {{item.stock}}</span>
+          <span>PVP: {{item.precio | formatoMoneda : '€'}}</span>
         </div>
       </div>
     </div>

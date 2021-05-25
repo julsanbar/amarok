@@ -10,7 +10,6 @@ import { first } from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit, OnChanges {
 
-  public srcMasVendidos: string[] = [];
   public productosMasVendidos: Producto[] = [];
 
   constructor(private productoService: ProductoService) { }
@@ -31,7 +30,6 @@ export class HomeComponent implements OnInit, OnChanges {
 
       for (const producto of res.productos) {
 
-        this.srcMasVendidos.push("../../../assets/img/productos/"+producto.referencia+".jpg");
         this.productosMasVendidos.push(producto);
 
       }

@@ -50,4 +50,11 @@ router.post(
 
 );
 
+router.post(
+
+    '/crearPedido',
+    controller.crearPedido
+
+);
+
 module.exports = router;
