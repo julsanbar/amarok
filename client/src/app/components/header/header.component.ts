@@ -40,6 +40,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   cerrarSesion(): void{
 
     this.sessionService.cerrar();
+    this.rolService.cerrarRol();
     location.href = "home";
 
   }
@@ -53,6 +54,7 @@ export class HeaderComponent implements OnInit, OnChanges {
       if(res.resul){
         
         this.sessionService.cerrar();
+        this.rolService.cerrarRol();
         location.href = "home";
 
       }

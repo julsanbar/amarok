@@ -32,7 +32,7 @@ const routes: Routes = [
 
   },
   {
-
+    //NO FUNCIONA EL GUARD DE ROL
     path: 'usuarios', component: UsuariosComponent, canActivate: [SesionGuard, RolGuard]
 
   },

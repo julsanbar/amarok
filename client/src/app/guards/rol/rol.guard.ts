@@ -15,23 +15,16 @@ export class RolGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      var result: boolean = true;
+      const rol: string|null = this.rolService.devuelveRolSesion();
 
-      this.rolService.getRol().pipe(first()).subscribe((res: any) => {
-
-        const rol = res.rol;
-      
-        if(rol !== 'administrador' || rol !== 'empleado'){
-
-          this.router.navigate(['/','home']);
-
-          result = false;
-
-        }
-
-      });
-
-    return result;
+      if((rol === null) || (rol === 'registrado') || (rol === undefined)){
+  
+        this.router.navigate(['/','home']);
+  
+        return false;
+      }
+  
+      return true;
 
   }
   

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario.model';
+import { RolService } from 'src/app/services/rol/rol.service';
 import { SesionService } from 'src/app/services/sesion/sesion.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 
@@ -12,7 +13,7 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 })
 export class IniciarComponent implements OnInit {
 
-  constructor(private sessionService: SesionService, private formBuilder: FormBuilder, private router: Router, private usuarioService : UsuarioService) { }
+  constructor(private rolService: RolService, private sessionService: SesionService, private formBuilder: FormBuilder, private router: Router, private usuarioService : UsuarioService) { }
 
   public registroForm!: FormGroup;
   public errores: any[] = [];
@@ -58,6 +59,7 @@ export class IniciarComponent implements OnInit {
       if(!res.error){
 
         this.sessionService.iniciar(res.data._id);
+        this.rolService.iniciarRolSesion(res.data.tipo);
         location.href = 'producto';
 
       }else{

@@ -4,6 +4,7 @@ import { Usuario } from "../../models/usuario.model"
 import { UsuarioService } from "../../services/usuario/usuario.service";
 import { SesionService } from "../../services/sesion/sesion.service";
 import { Router } from '@angular/router';
+import { RolService } from 'src/app/services/rol/rol.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit, OnChanges {
   public registroForm!: FormGroup;
   public errores: any[] = [];
 
-  constructor(private router: Router ,private sessionService: SesionService ,private usuarioService: UsuarioService, private formBuilder: FormBuilder) { }
+  constructor(private rolService: RolService,private router: Router ,private sessionService: SesionService ,private usuarioService: UsuarioService, private formBuilder: FormBuilder) { }
   
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -122,6 +123,7 @@ export class LoginComponent implements OnInit, OnChanges {
       if(!res.error){
 
         this.sessionService.iniciar(res.data._id);
+        this.rolService.iniciarRolSesion(res.data.tipo);
         location.href = 'producto';
 
       }else{
