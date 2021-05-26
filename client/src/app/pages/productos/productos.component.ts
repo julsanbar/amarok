@@ -80,7 +80,6 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-  //COMPROBAR QUE ES REGISTRADO NO EMPLEADO O ADMINISTRADOR
   carrito():void{
 
     if(this.rolService.devuelveRolSesion() === 'registrado'){
@@ -146,7 +145,7 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
           this.pedidoService.crearPedido(this.pedido,id).pipe(first()).subscribe((res: any) => {
 
-            console.log(res)
+            //console.log(res)
 
             if(!res.error){
 
@@ -162,7 +161,7 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
               Swal.fire({
                 title: 'Error en la compra',
-                text: 'Se ha producido un error en la creación del pedido.',
+                text: res.error,
                 icon: 'error',
                 showCancelButton: false,
                 confirmButtonText: 'Cerrar'
@@ -171,6 +170,11 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
             }
 
             this.carritoService.eliminar();
+
+            const currentUrl = this.router.url;
+            this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+            this.router.onSameUrlNavigation = 'reload';
+            this.router.navigate([currentUrl]);
 
           });
 

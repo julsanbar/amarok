@@ -52,4 +52,12 @@ export class SesionService {
 
   }
 
+  existeCategoriaTabla(): boolean{
+
+    return sessionStorage.getItem(this.tabla) !== null;
+
+  }
+
+
+
 }

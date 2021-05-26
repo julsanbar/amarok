@@ -4,6 +4,7 @@ import { SesionService } from 'src/app/services/sesion/sesion.service';
 import { RolService } from "../../services/rol/rol.service";
 import { first } from 'rxjs/operators';
 import { UsuarioService } from '../../services/usuario/usuario.service';
+import { CarritoService } from 'src/app/services/carrito/carrito.service';
 //import swal from'sweetalert2';
 
 @Component({
@@ -13,7 +14,7 @@ import { UsuarioService } from '../../services/usuario/usuario.service';
 })
 export class HeaderComponent implements OnInit, OnChanges {
 
-  constructor(private usuarioService: UsuarioService ,private rolService: RolService ,private sessionService: SesionService ,private router: Router) { }
+  constructor(private carritoService: CarritoService,private usuarioService: UsuarioService ,private rolService: RolService ,private sessionService: SesionService ,private router: Router) { }
   
   usuarioNoLogeado: boolean = this.sessionService.noLogeado();
   rolUsuario!: String;
@@ -41,6 +42,19 @@ export class HeaderComponent implements OnInit, OnChanges {
 
     this.sessionService.cerrar();
     this.rolService.cerrarRol();
+
+    if(this.carritoService.existCarrito()){
+
+      this.carritoService.eliminar();
+
+    }
+
+    if(this.sessionService.existeCategoriaTabla()){
+
+      this.sessionService.removeCategoriaTabla();
+
+    }
+
     location.href = "home";
 
   }

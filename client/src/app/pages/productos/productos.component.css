@@ -90,10 +90,10 @@
 .card{
 
     width: 400px !important;
-    height: 450px !important;
+    height: 550px !important;
     border: 0 !important;
     margin: 1rem!important;
-    padding: 1rem!important;
+    padding: 2rem!important;
     transition: background-color .3s;
     
 }

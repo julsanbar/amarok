@@ -48,44 +48,97 @@ const crearPedido = async (req,res) => {
     
     const idCliente = req.body.id;
     const nuevosProductos = req.body.pedido.productos;
-    const ultimaReferencia = await pedido.find({}).sort({$natural:-1}).limit(1);
-    const digito = Number.parseInt(ultimaReferencia[0].referencia.slice(1))+1;
-    const nuevaReferencia = "P"+digito;
+    let productosPedidos = await producto.find({referencia:{$in:nuevosProductos}});
+    const cliente = await usuario.findById(idCliente);
+    let licenciaValida = true;
+    
+    //console.log(cliente.licencia)
 
-    const nuevoPedido = {
+    for (const key in productosPedidos) {
+                
+        //console.log(productosPedidos[key].categoria)
 
-        referencia:nuevaReferencia,
-        estado:'enviado',
-        productos:nuevosProductos
+        if((cliente.licencia === 'null') && (productosPedidos[key].categoria !== 'defensa')){
 
-    };
-
-    await pedido.create(nuevoPedido,async (err,ped)=>{
-
-        if(err){
-
-            return res.status(200).send({error:'Error al intentar insertar al pedido'},422)
-
-        }else{
-            
-            /**
-            * VER LICENCIA DE ARMAS QUE SEA OPTIMA 
-            *  CAMBIAR STOCK REDUCIR STOCK DEL PRODUCTO
-            */
-
-            const pedidosCliente = await usuario.findById(idCliente);
-            pedidosCliente.pedidos.push(nuevoPedido.referencia);
-
-            await usuario.findByIdAndUpdate(idCliente,{pedidos: pedidosCliente.pedidos},{new: true, upsert:true});
-            
-            return res.status(200).send({data:ped},200)
+            licenciaValida = false;
 
         }
 
-        
-    });
+        if((cliente.licencia === 'seguridad') && (productosPedidos[key].categoria === 'competicion')){
+
+            licenciaValida = false;
+
+        }
 
 
+        if((cliente.licencia === 'fuego') && ((productosPedidos[key].categoria === 'seguridad') || (productosPedidos[key].categoria === 'competicion'))){
+
+            licenciaValida = false;
+
+        }
+
+        if((cliente.licencia === 'competicion') && ((productosPedidos[key].categoria === 'seguridad') || (productosPedidos[key].categoria === 'fuego'))){
+
+            licenciaValida = false;
+
+        }
+
+
+    }
+
+    //console.log(licenciaValida)
+
+    if(licenciaValida === true){
+
+        const ultimaReferencia = await pedido.find({}).sort({$natural:-1}).limit(1);
+        const digito = Number.parseInt(ultimaReferencia[0].referencia.slice(1))+1;
+        const nuevaReferencia = "P"+digito;
+        let cantidad = {};
+
+        const nuevoPedido = {
+
+            referencia:nuevaReferencia,
+            estado:'enviado',
+            productos:nuevosProductos
+    
+        };
+
+        await pedido.create(nuevoPedido,async (err,ped)=>{
+
+            if(err){
+
+                return res.status(200).send({error:'Error al intentar insertar al pedido'})
+
+            }else{
+
+                nuevosProductos.forEach(function(i) { cantidad[i] = (cantidad[i]||0) + 1;});
+
+                for (const key in productosPedidos) {
+                    
+                    productosPedidos[key].stock -= cantidad[productosPedidos[key].referencia];
+
+                    await producto.findByIdAndUpdate(productosPedidos[key]._id,{stock: productosPedidos[key].stock},{new: true, upsert:true});
+
+                }
+
+
+                const pedidosCliente = await usuario.findById(idCliente);
+                pedidosCliente.pedidos.push(nuevoPedido.referencia);
+
+                await usuario.findByIdAndUpdate(idCliente,{pedidos: pedidosCliente.pedidos},{new: true, upsert:true});
+                
+                return res.status(200).send({data:ped},200)
+
+            }
+
+            
+        });
+    
+    }else{
+
+        return res.status(200).send({error:'No dispone de la licencia necesaria para los productos seleccionados.'})
+
+    }
 
 };
 
