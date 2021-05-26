@@ -27,7 +27,14 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
   public pedido: Pedido = new Pedido();
 
   ngOnDestroy(): void {
+    
     this.sessionService.removeCategoriaTabla();
+
+    if(this.carritoService.existCarrito()){
+
+      this.carritoService.eliminar();
+
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

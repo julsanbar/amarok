@@ -25,7 +25,6 @@ export class PedidoService {
 
   }
 
-
   getProductosPedidos(refProductos: Number[]): any{
     
     return this.http.get(this.uri+'getProductosPedidos/'+JSON.stringify(refProductos));
