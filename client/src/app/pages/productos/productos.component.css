@@ -114,5 +114,13 @@
 .descripcion{
 
     max-height: 100px!important;
+    overflow:auto;
+}
 
+.descripcion::-webkit-scrollbar {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
 }
