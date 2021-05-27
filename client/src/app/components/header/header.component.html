@@ -16,7 +16,8 @@
             <a class="nav-link text-white" aria-current="page" routerLink="/producto">Productos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" aria-current="page" routerLink="/pedido">Pedidos</a>
+            <a class="nav-link text-white" aria-current="page" routerLink="/pedido" *ngIf="this.rolUsuario === undefined || this.rolUsuario === 'registrado' || this.rolUsuario === null">Pedidos</a>
+            <a class="nav-link text-white" aria-current="page" routerLink="/gestionPedidos" *ngIf="this.rolUsuario === 'administrador' || this.rolUsuario === 'empleado'">Pedidos</a>
           </li>
           <li class="nav-item" *ngIf="this.rolUsuario === 'administrador' || this.rolUsuario === 'empleado'">
             <a class="nav-link text-white" aria-current="page" routerLink="/proveedores">Proveedores</a>
@@ -66,13 +67,13 @@
   </nav>
 </header>
 
-<!-- Modal PRODUCTOS-->
+<!-- Modal DESHABILITA-->
 <div class="modal fade" id="deshabilita" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header cabeceraDeshabilita">
+        <button type="button" class="btn-close btn-outline-danger" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -80,9 +81,9 @@
           <h6 class="text-center">Si acepta, para poder habilitar de nuevo su cuenta deberá ponerse en contacto con el administrador.</h6>
         </div>
       </div>
-      <div class="modal-footer justify-content-around">
+      <div class="modal-footer justify-content-around pieDeshabilita">
         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" (click)="this.deshabilitar()">Si</button>
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">No</button>
       </div>
     </div>
   </div>

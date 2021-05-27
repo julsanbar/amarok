@@ -43,4 +43,15 @@ export class PedidoService {
 
   }
 
+  paginationPedidosAdmin(pagina: number): any{
+
+    return this.http.get(this.uri+'paginationPedidosAdmin/'+pagina);
+  }
+
+  idClientePedido(pedido: Pedido): any{
+
+    return this.http.post(this.uri+'idClientePedido',pedido);
+
+  }
+
 }

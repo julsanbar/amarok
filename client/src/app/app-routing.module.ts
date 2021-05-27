@@ -13,6 +13,7 @@ import { ProveedoresComponent } from './pages/proveedores/proveedores.component'
 import { SesionGuard } from './guards/sesion/sesion.guard';
 import { RolGuard } from './guards/rol/rol.guard';
 import { LoginGuard } from './guards/login/login.guard';
+import { GestionPedidosComponent } from "../app/pages/gestion-pedidos/gestion-pedidos.component";
 
 const routes: Routes = [
   { 
@@ -28,11 +29,16 @@ const routes: Routes = [
   },
   {
 
+    path: 'gestionPedidos', component: GestionPedidosComponent, canActivate: [SesionGuard, RolGuard]
+
+  },
+  {
+
     path: 'proveedores', component: ProveedoresComponent, canActivate: [SesionGuard, RolGuard]
 
   },
   {
-    //NO FUNCIONA EL GUARD DE ROL
+    
     path: 'usuarios', component: UsuariosComponent, canActivate: [SesionGuard, RolGuard]
 
   },

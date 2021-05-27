@@ -9,7 +9,7 @@ import { CarritoService } from 'src/app/services/carrito/carrito.service';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { Pedido } from 'src/app/models/pedido.model';
 import { RolService } from 'src/app/services/rol/rol.service';
-
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-productos',
@@ -18,29 +18,41 @@ import { RolService } from 'src/app/services/rol/rol.service';
 })
 export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
-  constructor(private rolService: RolService,private pedidoService: PedidoService,private carritoService: CarritoService,private productoService: ProductoService ,private route: ActivatedRoute, private router: Router, private sessionService: SesionService) {}
+  constructor(private formBuilder: FormBuilder,private rolService: RolService,private pedidoService: PedidoService,private carritoService: CarritoService,private productoService: ProductoService ,private route: ActivatedRoute, private router: Router, private sessionService: SesionService) {}
 
   public productos: Producto[] = [];
   public page: number = 1;
   public total: number = 0;
   public perPage: number = 6;
   public pedido: Pedido = new Pedido();
+  public registroForm!: FormGroup;
 
   ngOnDestroy(): void {
     
     this.sessionService.removeCategoriaTabla();
 
-    if(this.carritoService.existCarrito()){
+    /*if(this.carritoService.existCarrito()){
 
       this.carritoService.eliminar();
 
-    }
+    }*/
   }
 
   ngOnChanges(changes: SimpleChanges): void {
   }
 
   ngOnInit(): void {
+
+    this.registroForm = this.formBuilder.group({
+
+      cantidad: [null,
+        [
+          Validators.min(1),
+          Validators.pattern(/^[1-9]\d*$/)
+        ]
+      ]
+    
+    });
 
     this.route.queryParams.subscribe(params => {
       this.page = parseInt(params.page, 6) || 1;
@@ -86,10 +98,13 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
     });
 
   }
-
+  /**
+   *  LLEVAR AL MODAL
+   * 
+   */
   carrito():void{
 
-    if(this.rolService.devuelveRolSesion() === 'registrado'){
+    if((this.rolService.devuelveRolSesion() === 'registrado') || (this.rolService.devuelveRolSesion() === 'empleado')){
 
       if(this.carritoService.existCarrito() === false){
 
@@ -207,16 +222,54 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
   carritoSelec(producto: Producto): void{
 
-    this.carritoService.guardar(producto);
+    const cantidadCarrito: number = this.registroForm.get('cantidad')?.value;
 
-    Swal.fire({
-      title: 'Seleccionado '+producto.nombre,
-      text: 'Selecciona pagar en el menú superior para finalizar tu compra.',
-      icon: 'success',
-      showCancelButton: false,
-      confirmButtonText: 'Cerrar'
-    });
+    if((cantidadCarrito === 0) || (cantidadCarrito === undefined) || (cantidadCarrito === null)){
 
+      Swal.fire({
+        title: 'Cantidad de productos errónea.',
+        text: 'La cantidad seleccionada debe ser mayor que cero.',
+        icon: 'error',
+        showCancelButton: false,
+        confirmButtonText: 'Cerrar'
+      });
+
+      this.registroForm.invalid;
+
+    }else{
+
+      if(producto.stock < cantidadCarrito){
+
+        Swal.fire({
+          title: 'Cantidad de productos errónea.',
+          text: 'No puede seleccionar una cantidad mayor que la existente en el stock.',
+          icon: 'error',
+          showCancelButton: false,
+          confirmButtonText: 'Cerrar'
+        });
+
+      }else{
+
+        for (let i = 0; i < cantidadCarrito; i++) {
+
+          this.carritoService.guardar(producto);
+    
+        }
+  
+        Swal.fire({
+          title: 'Seleccionado '+cantidadCarrito+' de '+producto.nombre,
+          text: 'Vaya a Mi Carrito para finalizar o modificar tu compra.',
+          icon: 'success',
+          showCancelButton: false,
+          confirmButtonText: 'Cerrar'
+        });
+
+      }
+
+      this.registroForm.reset();
+
+    }
+  
   }
 
   categoria(event: any): void{

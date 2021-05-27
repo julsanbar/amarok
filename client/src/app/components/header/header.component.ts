@@ -81,13 +81,13 @@ export class HeaderComponent implements OnInit, OnChanges {
 
     if(evt.target.firstChild.nodeValue.includes("Crear")){
 
-      this.router.navigateByUrl('/header', { skipLocationChange: false }).then(() => {
+      this.router.navigateByUrl('/login', { skipLocationChange: false }).then(() => {
         this.router.navigate(['login']);
       });
 
     }else{
 
-      this.router.navigateByUrl('/header', { skipLocationChange: false }).then(() => {
+      this.router.navigateByUrl('/iniciar', { skipLocationChange: false }).then(() => {
         this.router.navigate(['iniciar']);
       });
 

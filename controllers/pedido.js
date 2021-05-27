@@ -44,6 +44,15 @@ const insertData = async (req,res) => {
 
 }
 
+const idClientePedido = async (req,res) => {
+
+    const pedido = req.body;
+    const cliente = await usuario.findOne({pedidos:pedido.referencia});
+
+    res.status(200).send({id:cliente._id})
+
+};
+
 const crearPedido = async (req,res) => {
     
     const idCliente = req.body.id;
@@ -150,6 +159,21 @@ const cancelarPedido = async (req,res) => {
     if(estadoPedido === 'enviado'){
 
         const cancelado = await pedido.findByIdAndUpdate(idPedido,{estado: 'cancelado'},{new: true, upsert:true});
+        let productoDevuelto = {};
+    
+        cancelado.productos.forEach(function(x) { productoDevuelto[x] = (productoDevuelto[x] || 0)+1; });
+
+        await producto.find({referencia:{$in:[800,200,500]}}, async (err,result) => {
+
+            for (const iterator of result) {
+             
+                iterator.stock += productoDevuelto[iterator.referencia];
+
+                await producto.findByIdAndUpdate(iterator._id,{stock: iterator.stock},{new: true, upsert:true});                
+
+            }
+
+        });
 
         res.status(200).send(cancelado);
 
@@ -179,6 +203,24 @@ const getPaginationPedidos = async (req,res) => {
         });
     });
 
+    
+};
+//paginationPedidosAdmin
+const paginationPedidosAdmin = async (req,res) => {
+
+    const options = {
+        //empieza por 1
+        page: req.params.page,
+        limit: 6
+    
+    };
+    //{stock:{$lt:6},referencia:500} <--- menor que
+    await pedido.paginate({},options,(err,docs)=>{
+        //console.log("asd------",docs.totalDocs);
+        res.status(200).send({
+            docs
+        });
+    });
     
 };
 
@@ -309,6 +351,8 @@ module.exports = {
     getPaginationPedidos,
     getProductosPedidos,
     cancelarPedido,
-    crearPedido
+    crearPedido,
+    paginationPedidosAdmin,
+    idClientePedido
 
 };

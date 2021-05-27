@@ -25,6 +25,9 @@ import { RolService } from "../app/services/rol/rol.service";
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
+import { GestionPedidosComponent } from './pages/gestion-pedidos/gestion-pedidos.component';
+import { EditarPedidoComponent } from './modals/editar-pedido/editar-pedido.component';
+import { CarritoComponent } from './modals/carrito/carrito.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { ProveedoresComponent } from './pages/proveedores/proveedores.component'
     PerfilComponent,
     ContactoComponent,
     UsuariosComponent,
-    ProveedoresComponent
+    ProveedoresComponent,
+    GestionPedidosComponent,
+    EditarPedidoComponent,
+    CarritoComponent
   ],
   imports: [
     BrowserModule,

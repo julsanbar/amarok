@@ -57,4 +57,18 @@ router.post(
 
 );
 
+router.get(
+
+    '/paginationPedidosAdmin/:page',
+    controller.paginationPedidosAdmin
+
+);
+
+router.post(
+
+    '/idClientePedido',
+    controller.idClientePedido
+
+);
+
 module.exports = router;

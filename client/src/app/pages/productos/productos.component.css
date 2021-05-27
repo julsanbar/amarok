@@ -1,17 +1,8 @@
 @charset "UTF-8";
 
-.pagar{
+.btn-group{
 
-    color: rgb(236, 181, 78);
-    transition: background-color .3s;
-    border: rgb(236, 181, 78) 1px solid;
-
-}
-
-.pagar:hover{
-
-    color: black !important;
-    background-color: rgb(236, 181, 78)!important;
+    margin-left: 12rem!important;
 
 }
 
@@ -20,6 +11,7 @@
     color: white!important;
     transition: background-color .3s;
     margin: auto 2rem !important;
+    font-size: 1.1rem!important;
 
 }
 
@@ -34,7 +26,6 @@
 
     background: #212529!important;
     margin-top: -2rem !important;
-    font-size: 1.1rem!important;
     
 }
 
@@ -90,7 +81,7 @@
 .card{
 
     width: 400px !important;
-    height: 550px !important;
+    height: 600px !important;
     border: 0 !important;
     margin: 1rem!important;
     padding: 2rem!important;
@@ -99,16 +90,18 @@
 }
 
 .precio{
-
+/*
     margin: 0 2rem!important;
-
+*/
 }
 
 .pie{
 
+    margin-top: 1rem!important;
+/*
     display:block !important;
     margin:auto !important;
-
+*/
 }
 
 .descripcion{
@@ -123,4 +116,22 @@
     -ms-appearance: none;
     -o-appearance: none;
     appearance: none;
+}
+
+#inputCantidad{
+
+    color: black;
+    border: rgb(236, 181, 78) 1px solid;
+    /*width: 5rem!important;*/
+
+}
+
+[_nghost-uuw-c42] {
+    display: none;
+}
+
+.pieEditar,.cabeceraEditar{
+
+    background: #212529!important;
+
 }

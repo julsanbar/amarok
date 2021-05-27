@@ -6,6 +6,7 @@ import { SesionService } from "../../services/sesion/sesion.service";
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { RolService } from 'src/app/services/rol/rol.service';
 
 @Component({
   selector: 'app-perfil',
@@ -17,14 +18,18 @@ export class PerfilComponent implements OnInit {
   public registroForm!: FormGroup;
   public errores: any[] = [];
   public perfil: Usuario = new Usuario();
+  public rolUsuario!: string|null;
 
-  constructor(private router: Router ,private sessionService: SesionService ,private usuarioService: UsuarioService, private formBuilder: FormBuilder) { }
+  constructor(private rolService: RolService,private router: Router ,private sessionService: SesionService ,private usuarioService: UsuarioService, private formBuilder: FormBuilder) { }
   
   ngOnChanges(changes: SimpleChanges): void {
 
   }
 
   ngOnInit(): void {
+
+    this.rolUsuario = this.rolService.devuelveRolSesion();
+    console.log(this.rolUsuario)
 
     this.cargarPerfil();
 

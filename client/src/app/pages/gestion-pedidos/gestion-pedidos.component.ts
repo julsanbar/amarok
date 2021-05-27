@@ -5,16 +5,16 @@ import { ProductoService } from "../../services/producto/producto.service";
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { first } from 'rxjs/operators';
 import { SesionService } from 'src/app/services/sesion/sesion.service';
-import Swal from 'sweetalert2';
+import { RolService } from 'src/app/services/rol/rol.service';
 
 @Component({
-  selector: 'app-pedidos',
-  templateUrl: './pedidos.component.html',
-  styleUrls: ['./pedidos.component.css']
+  selector: 'app-gestion-pedidos',
+  templateUrl: './gestion-pedidos.component.html',
+  styleUrls: ['./gestion-pedidos.component.css']
 })
-export class PedidosComponent implements OnInit {
+export class GestionPedidosComponent implements OnInit {
 
-  constructor(private sessionService: SesionService, private pedidoService: PedidoService, private productoService: ProductoService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private rolService: RolService ,private sessionService: SesionService, private pedidoService: PedidoService, private productoService: ProductoService, private route: ActivatedRoute, private router: Router) { }
 
   public pedidos: Pedido[] = [];
   public page: number = 1;
@@ -24,9 +24,12 @@ export class PedidosComponent implements OnInit {
   public productos: any[] = [];
   public referencias: Number[] = [];
 
-  public pedidoCancelar!: Pedido;
+  public pedidoEditar!: Pedido;
+  public rolUsuario!: string|null;
 
   ngOnInit(): void {
+
+    this.rolUsuario = this.rolService.devuelveRolSesion();
 
     this.route.queryParams.subscribe(params => {
       this.page = parseInt(params.page, 6) || 1;
@@ -37,9 +40,7 @@ export class PedidosComponent implements OnInit {
 
   getDatos(page: number): void {
 
-    const idUsuario = this.sessionService.getUsuarioLogeado();
-
-    this.pedidoService.getPaginationPedidos(page, idUsuario).pipe(first()).subscribe((res: any) => {
+    this.pedidoService.paginationPedidosAdmin(page).pipe(first()).subscribe((res: any) => {
 
       this.pedidos = res.docs.docs;
       this.total = res.docs.totalDocs;
@@ -66,12 +67,14 @@ export class PedidosComponent implements OnInit {
 
   descargarFactura(pedido: Pedido): void {
 
-    const idCliente = this.sessionService.getUsuarioLogeado();
+    this.pedidoService.idClientePedido(pedido).pipe(first()).subscribe((res: any) => {
 
-    this.pedidoService.getFactura(idCliente, pedido).pipe(first()).subscribe((res: any) => {
+      this.pedidoService.getFactura(res.id, pedido).pipe(first()).subscribe((res: any) => {
 
-      window.open(res.ruta);
-
+        window.open(res.ruta);
+  
+  
+      });
 
     });
 
@@ -89,9 +92,10 @@ export class PedidosComponent implements OnInit {
 
   }
 
-  cancelarPedido(): void {
+  //----------------------------->>
+  /*cancelarPedido(): void {
 
-    this.pedidoService.cancelarPedido(this.pedidoCancelar).pipe(first()).subscribe((res: any) => {
+    this.pedidoService.cancelarPedido(this.pedidoEditar).pipe(first()).subscribe((res: any) => {
 
       if(!res.error){
 
@@ -100,22 +104,12 @@ export class PedidosComponent implements OnInit {
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate([currentUrl]);
 
-      }else{
-
-        Swal.fire({
-          title: 'Error',
-          text: res.error,
-          icon: 'error',
-          showCancelButton: false,
-          confirmButtonText: 'Cerrar'
-        });
-
       }
 
     });
 
 
-  }
+  }*/
 
 
 }

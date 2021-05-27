@@ -1,16 +1,27 @@
 <div class="container-fluid pt-4">
-  
   <div class="row">
-    <div class="col" class="text-center categorias">
-      <div class="btn-group" role="group">
-        <button type="button" (click)="this.carrito()" class="btn pagar">Pagar</button>
-        <button type="button" (click)="this.categoria($event)" class="btn color">Todas</button>
-        <button type="button" (click)="this.categoria($event)" class="btn color">Competición</button>
-        <button type="button" (click)="this.categoria($event)" class="btn color">Fuego</button>
-        <button type="button" (click)="this.categoria($event)" class="btn color">Seguridad</button>
-        <button type="button" (click)="this.categoria($event)" class="btn color">Defensa</button>
+    <nav class="navbar navbar-expand-lg categorias">
+      <div class="container-fluid">
+
+        <div class="btn-group" role="group">
+          <button type="button" (click)="this.categoria($event)" class="btn color">Todas</button>
+          <button type="button" (click)="this.categoria($event)" class="btn color">Competición</button>
+          <button type="button" (click)="this.categoria($event)" class="btn color">Fuego</button>
+          <button type="button" (click)="this.categoria($event)" class="btn color">Seguridad</button>
+          <button type="button" (click)="this.categoria($event)" class="btn color">Defensa</button>
+        </div>
+
+        <div> 
+          <button class="btn btn-outline-warning" type="button" data-bs-toggle="modal" data-bs-target="#carrito">
+            Mi Carrito
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+          </button>        
+        </div>
+
       </div>
-    </div>
+    </nav>
   </div>
 
   <div class="row row-cols-3 row-cols-md-3 g-6 pt-4 productos">
@@ -21,18 +32,56 @@
           <h5 class="card-title"><strong>{{item.nombre}}</strong></h5>
           <p class="card-text descripcion">{{item.descripcion}}</p>
         </div>
+
         <div class="card-text pie">
-          <span>Unidades: {{item.stock}}</span>
-          <span class="precio">PVP: {{item.precio | formatoMoneda : '€'}}</span>
-          
-          <button type="button" class="btn btn-outline-warning border-0" (click)="this.carritoSelec(item)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-              <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
-            </svg>
-          </button>
+
+          <div class="row offset-md-1">
+
+            <div class="col-5">
+              <span>Stock: {{item.stock}}</span>
+            </div>
+            <div class="col-5">
+              <span class="precio">PVP: {{item.precio | formatoMoneda : '€'}}</span>
+            </div>
+
+          </div>
+
+          <div class="row mt-3">
+            
+            <form [formGroup]="registroForm" (ngSubmit)="this.carritoSelec(item)">
+
+              <div class="row offset-md-1">
+
+                <div class="col-4">
+
+                  <label for="inputCantidad" class="mt-2">Cantidad:</label>
+
+                </div>
+
+                <div class="col-5">
+
+                  <input type="number" id="inputCantidad" class="form-control mt-1" formControlName="cantidad" min="0" placeholder="0">
+
+                </div>
+
+                <div class="col-2">
+
+                  <button type="submit" class="btn btn-outline-warning border-0 mt-1" [disabled]="registroForm.invalid">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                      <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                    </svg>
+                  </button>
+
+                </div>
+
+              </div>
+            </form>              
+
+          </div>
 
         </div>
+
       </div>
     </div>
   </div>
@@ -47,4 +96,28 @@
     </div>
   </div>
 
+</div>
+
+<!-- Modal EDITAR COMPRA-->
+<div class="modal fade" id="carrito" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header cabeceraEditar">
+        <button type="button" class="btn-close btn-outline-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          
+          <app-editar-pedido></app-editar-pedido>
+
+        </div>
+      </div>
+      <div class="modal-footer justify-content-around pieEditar">
+        <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Pagar</button>
+        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Seguir comprando</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar compra</button>
+      </div>
+    </div>
+  </div>
 </div>
