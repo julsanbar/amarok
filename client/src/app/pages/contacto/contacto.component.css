@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+.contact{
+    padding: 4%;
+    height: 400px;
+    margin-bottom: 20rem!important;
+}
+.col-md-3,.mapa{
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    padding: 0;
+}
+.mapa{
+    display:block; 
+    width:100%; 
+    border:none; 
+    height: 100%;
+}
+.contact-info{
+    margin-top:10%;
+}
+.contact-info img{
+    margin-bottom: 15%;
+}
+.contact-info h2{
+    margin-bottom: 10%;
+}
+.col-md-9{
+    background: #212529!important;
+    color: white;
+    padding: 3%;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+.contact-form label{
+    font-weight:600;
+}
+.contact-form button{
+    margin-top: 1rem!important;
+    font-weight: 600;
+    width: 25%;
+}
+.contact-form button:focus{
+    box-shadow:none;
+}
+#apellidos,#nombre,#email{
+    margin-bottom: 1rem;
+}
+.captcha{
+    margin-top: 1rem!important;
+}

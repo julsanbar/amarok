@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { ErrorTailorModule } from "@ngneat/error-tailor";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +28,7 @@ import { ProveedoresComponent } from './pages/proveedores/proveedores.component'
 import { GestionPedidosComponent } from './pages/gestion-pedidos/gestion-pedidos.component';
 import { EditarPedidoComponent } from './modals/editar-pedido/editar-pedido.component';
 import { CarritoComponent } from './modals/carrito/carrito.component';
+import { RecaptchaModule } from "ng-recaptcha";
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { CarritoComponent } from './modals/carrito/carrito.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    RecaptchaModule,
     NgxPaginationModule,
     ErrorTailorModule.forRoot({
       errors: {
