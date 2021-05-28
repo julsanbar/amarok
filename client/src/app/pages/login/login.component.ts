@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit, OnChanges {
       apellidos: ['',
       [
         Validators.required,
-        Validators.pattern(/^(?=.{3,15}$)[A-ZÁÉÍÓÚ][a-zñáéíóú]+(?: [A-ZÁÉÍÓÚ][a-zñáéíóú]+)?$/)
+        Validators.pattern(/^(?=.{3,100}$)[A-ZÁÉÍÓÚ][a-zñáéíóú]+(?: [A-ZÁÉÍÓÚ][a-zñáéíóú]+)?$/)
       ]
     ],
       telefono: ['',

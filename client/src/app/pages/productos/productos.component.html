@@ -12,7 +12,8 @@
         </div>
 
         <div> 
-          <button class="btn btn-outline-warning" type="button" data-bs-toggle="modal" data-bs-target="#carrito">
+          <button class="btn btn-outline-warning" type="button" 
+            data-bs-toggle="modal" data-bs-target="#carrito" (click)="this.cargaCarrito()">
             Mi Carrito
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
               <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
@@ -109,14 +110,45 @@
       <div class="modal-body">
         <div class="container-fluid">
           
-          <app-editar-pedido></app-editar-pedido>
+          <!--<app-editar-pedido></app-editar-pedido>-->
+          <!--
+            Se muestran los datos del pedido, pudiendose cambiar la cantidad de articulos.
+            Borrar articulo por articulo.
+
+          -->
+
+          <div class="table-responsive-md">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>REFERENCIA</th>
+                  <th>CATEGORIA</th>
+                  <th>NOMBRE</th>
+                  <th>PRECIO</th>
+                  <th>TASA</th>
+                  <!--<th>CANTIDAD</th>-->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of this.visualizaCarrito">
+                  <td>{{item.referencia}}</td>
+                  <td>{{item.categoria}}</td>
+                  <td>{{item.nombre}}</td>
+                  <td>{{item.precio | formatoMoneda : '€'}}</td>
+                  <td>{{item.tasa | formatoMoneda : '%'}}</td>
+                  <!--<td>{{item.cantidad}}</td>-->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
 
         </div>
       </div>
       <div class="modal-footer justify-content-around pieEditar">
-        <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Pagar</button>
+        <button type="button" class="btn btn-outline-warning" (click)="this.pagar()" data-bs-dismiss="modal">Pagar</button>
         <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Seguir comprando</button>
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar compra</button>
+        <button type="button" class="btn btn-outline-danger" (click)="this.cancelarCarrito()" data-bs-dismiss="modal">Cancelar compra</button>
       </div>
     </div>
   </div>

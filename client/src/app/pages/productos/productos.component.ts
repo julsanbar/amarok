@@ -26,6 +26,7 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
   public perPage: number = 6;
   public pedido: Pedido = new Pedido();
   public registroForm!: FormGroup;
+  public visualizaCarrito: any[] = [];
 
   ngOnDestroy(): void {
     
@@ -98,117 +99,135 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
     });
 
   }
+
+  cargaCarrito():void{
+
+    if(this.carritoService.existCarrito() === false){
+
+      Swal.fire({
+        title: 'Vaya...',
+        text: 'No puede realizar el pago ya que no ha seleccionado ningún producto.',
+        icon: 'info',
+        showCancelButton: false,
+        confirmButtonText: 'Cerrar'
+      });
+
+    }else{
+
+      const carrito:any = this.carritoService.devuelve();
+      this.visualizaCarrito = JSON.parse(carrito);
+      
+      //FALTA CANTIDADES
+
+
+    }
+    
+
+  }
+
+  cancelarCarrito():void{
+
+
+
+  }
+
   /**
-   *  LLEVAR AL MODAL
-   * 
-   */
-  carrito():void{
+  *  DETERMINAR SI SE LLEVA AL MODAL
+  * 
+  */
+  pagar():void{
 
-    if((this.rolService.devuelveRolSesion() === 'registrado') || (this.rolService.devuelveRolSesion() === 'empleado')){
+    if((this.rolService.devuelveRolSesion() === 'registrado')){
 
-      if(this.carritoService.existCarrito() === false){
+      let referencias: Number[] = [];
+      let stocks: any = {};
+      const carrito:any = this.carritoService.devuelve();
+      const arreglo: any[] = JSON.parse(carrito);
+      let cantidad:any = {};
+      let noStock: any[] = [];
 
-        Swal.fire({
-          title: 'Vaya...',
-          text: 'No puede realizar el pago ya que no ha seleccionado ningún producto.',
-          icon: 'info',
-          showCancelButton: false,
-          confirmButtonText: 'Cerrar'
-        });
+      for (const iterator of arreglo) {
+        
+        const referencia = iterator.referencia;
+        const stock = iterator.stock;
 
-      }else{
+        referencias.push(referencia); 
 
-        let referencias: Number[] = [];
-        let stocks: any = {};
-        const carrito:any = this.carritoService.devuelve();
-        const arreglo: any[] = JSON.parse(carrito);
-        let cantidad:any = {};
-        let noStock: any[] = [];
+        stocks[referencia] = {stock};
 
-        for (const iterator of arreglo) {
-          
-          const referencia = iterator.referencia;
-          const stock = iterator.stock;
+      }
 
-          referencias.push(referencia); 
+      referencias.forEach(function(i:any) { cantidad[i] = (cantidad[i]||0) + 1;});
 
-          stocks[referencia] = {stock};
+      for (const iterator in cantidad) {
+        
+        if(cantidad[iterator] > stocks[iterator].stock){
 
-        }
-
-        referencias.forEach(function(i:any) { cantidad[i] = (cantidad[i]||0) + 1;});
-
-        for (const iterator in cantidad) {
-          
-          if(cantidad[iterator] > stocks[iterator].stock){
-
-            noStock.push(iterator);
-
-          }
-
-        }
-
-        if(noStock.length > 0){
-
-          Swal.fire({
-            title: 'Error en la compra',
-            text: 'Ha seleccionado más productos de los existentes en el stock.',
-            icon: 'error',
-            showCancelButton: false,
-            confirmButtonText: 'Cerrar'
-          });
-
-          this.carritoService.eliminar();
-
-        }else{
-
-          this.pedido.productos = referencias;
-          const id: string|null = this.sessionService.getUsuarioLogeado();
-
-          this.pedidoService.crearPedido(this.pedido,id).pipe(first()).subscribe((res: any) => {
-
-            //console.log(res)
-
-            if(!res.error){
-
-              Swal.fire({
-                title: '¡Compra realizada!',
-                text: 'Su compra se ha realizado con éxito, ya puede ver su pedido en la sección pedidos',
-                icon: 'success',
-                showCancelButton: false,
-                confirmButtonText: 'Cerrar'
-              });
-
-            }else{
-
-              Swal.fire({
-                title: 'Error en la compra',
-                text: res.error,
-                icon: 'error',
-                showCancelButton: false,
-                confirmButtonText: 'Cerrar'
-              });
-
-            }
-
-            this.carritoService.eliminar();
-
-            const currentUrl = this.router.url;
-            this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-            this.router.onSameUrlNavigation = 'reload';
-            this.router.navigate([currentUrl]);
-
-          });
+          noStock.push(iterator);
 
         }
 
       }
-    
+
+      if(noStock.length > 0){
+
+        Swal.fire({
+          title: 'Error en la compra',
+          text: 'Ha seleccionado más productos de los existentes en el stock.',
+          icon: 'error',
+          showCancelButton: false,
+          confirmButtonText: 'Cerrar'
+        });
+
+        this.carritoService.eliminar();
+
+      }else{
+
+        this.pedido.productos = referencias;
+        const id: string|null = this.sessionService.getUsuarioLogeado();
+
+        this.pedidoService.crearPedido(this.pedido,id).pipe(first()).subscribe((res: any) => {
+
+          //console.log(res)
+
+          if(!res.error){
+
+            Swal.fire({
+              title: '¡Compra realizada!',
+              text: 'Su compra se ha realizado con éxito, ya puede ver su pedido en la sección pedidos',
+              icon: 'success',
+              showCancelButton: false,
+              confirmButtonText: 'Cerrar'
+            });
+
+          }else{
+
+            Swal.fire({
+              title: 'Error en la compra',
+              text: res.error,
+              icon: 'error',
+              showCancelButton: false,
+              confirmButtonText: 'Cerrar'
+            });
+
+          }
+
+          this.carritoService.eliminar();
+
+          const currentUrl = this.router.url;
+          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+          this.router.onSameUrlNavigation = 'reload';
+          this.router.navigate([currentUrl]);
+
+        });
+
+      }
+
     }else{
 
       Swal.fire({
         title: 'Acceso denegado',
-        text: 'Los administradores ni los empleados pueden comprar.',
+        text: 'Los administradores pueden comprar.',
         icon: 'warning',
         showCancelButton: false,
         confirmButtonText: 'Cerrar'

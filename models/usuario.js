@@ -12,7 +12,7 @@ let validaNombre = (nombre) => {
 
 let validaApellidos = (apellidos) => {
 
-    const regExp = new RegExp(/^(?=.{3,15}$)[A-ZÁÉÍÓÚ][a-zñáéíóú]+(?: [A-ZÁÉÍÓÚ][a-zñáéíóú]+)?$/);
+    const regExp = new RegExp(/^(?=.{3,100}$)[A-ZÁÉÍÓÚ][a-zñáéíóú]+(?: [A-ZÁÉÍÓÚ][a-zñáéíóú]+)?$/);
 
     return (!apellidos)? false: regExp.test(apellidos.toString());
 

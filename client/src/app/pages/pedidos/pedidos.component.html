@@ -30,7 +30,8 @@
               </button>
             </td>
             <td class="text-center">
-              <button type="button" class="btn btn-outline-danger border-0" (click)="this.descargarFactura(item)">
+              <button type="button" class="btn btn-outline-danger border-0"
+                [disabled]="(item.estado === 'enviado')?true:false" (click)="this.descargarFactura(item)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                   class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
                   <path
