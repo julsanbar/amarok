@@ -21,12 +21,19 @@
 
 .customTabla{
 
-    margin-top: 3rem!important;
+    margin-top: 1rem!important;
     
 }
 
 .pieCancelado,.cabeceraCancelado,.pieProducto,.cabeceraProducto{
 
     background: #212529!important;
+
+}
+
+.contenido-tabla{
+
+    max-height: 25rem!important;
+    overflow:auto;
 
 }

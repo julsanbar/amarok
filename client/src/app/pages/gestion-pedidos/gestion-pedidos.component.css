@@ -21,7 +21,7 @@
 
 .customTabla{
 
-    margin-top: 6rem!important;
+    margin-top: 1rem!important;
     
 }
 
@@ -29,4 +29,11 @@
 
     background: #212529!important;
     
+}
+
+.contenido-tabla{
+
+    max-height: 25rem!important;
+    overflow:auto;
+
 }

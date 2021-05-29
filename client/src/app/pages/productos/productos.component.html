@@ -61,7 +61,7 @@
 
                 <div class="col-5">
 
-                  <input type="number" id="inputCantidad" class="form-control mt-1" formControlName="cantidad" min="0" placeholder="0">
+                  <input (blur)="this.resetaCantidad($event)" type="number" id="inputCantidad" class="form-control mt-1" formControlName="cantidad" min="0" placeholder="0">
 
                 </div>
 
@@ -108,47 +108,16 @@
         <button type="button" class="btn-close btn-outline-danger" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="container-fluid">
+        <div class="container-fluid contenido-tabla">
           
-          <!--<app-editar-pedido></app-editar-pedido>-->
-          <!--
-            Se muestran los datos del pedido, pudiendose cambiar la cantidad de articulos.
-            Borrar articulo por articulo.
-
-          -->
-
-          <div class="table-responsive-md">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>REFERENCIA</th>
-                  <th>CATEGORIA</th>
-                  <th>NOMBRE</th>
-                  <th>PRECIO</th>
-                  <th>TASA</th>
-                  <!--<th>CANTIDAD</th>-->
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of this.visualizaCarrito">
-                  <td>{{item.referencia}}</td>
-                  <td>{{item.categoria}}</td>
-                  <td>{{item.nombre}}</td>
-                  <td>{{item.precio | formatoMoneda : '€'}}</td>
-                  <td>{{item.tasa | formatoMoneda : '%'}}</td>
-                  <!--<td>{{item.cantidad}}</td>-->
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        
+          <app-carrito (reload)="this.cargaCarrito()" [visualizaCarrito]="this.visualizaCarrito"></app-carrito>
 
         </div>
       </div>
       <div class="modal-footer justify-content-around pieEditar">
-        <button type="button" class="btn btn-outline-warning" (click)="this.pagar()" data-bs-dismiss="modal">Pagar</button>
+        <button type="button" class="btn btn-outline-warning" [disabled]="(this.carritoService.existCarrito() === false)?true:false" (click)="this.pagar()" data-bs-dismiss="modal">Pagar</button>
         <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Seguir comprando</button>
-        <button type="button" class="btn btn-outline-danger" (click)="this.cancelarCarrito()" data-bs-dismiss="modal">Cancelar compra</button>
+        <button type="button" class="btn btn-outline-danger" [disabled]="(this.carritoService.existCarrito() === false)?true:false" (click)="this.cancelarCarrito()" data-bs-dismiss="modal">Cancelar compra</button>
       </div>
     </div>
   </div>

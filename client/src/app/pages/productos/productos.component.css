@@ -135,3 +135,18 @@
     background: #212529!important;
 
 }
+.noCarrito{
+
+    color: brown;
+    background: #21252913!important;
+    padding: 2rem;
+    border-radius: 2rem 2rem;
+
+}
+
+.contenido-tabla{
+
+    max-height: 25rem!important;
+    overflow:auto;
+
+}
