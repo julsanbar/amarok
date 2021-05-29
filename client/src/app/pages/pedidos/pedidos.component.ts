@@ -19,7 +19,7 @@ export class PedidosComponent implements OnInit {
   public pedidos: Pedido[] = [];
   public page: number = 1;
   public total: number = 0;
-  public perPage: number = 6;
+  public perPage: number = 10;
 
   public productos: any[] = [];
   public referencias: Number[] = [];
@@ -29,7 +29,7 @@ export class PedidosComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.queryParams.subscribe(params => {
-      this.page = parseInt(params.page, 6) || 1;
+      this.page = parseInt(params.page, 10) || 1;
       this.getDatos(this.page);
     });
 
