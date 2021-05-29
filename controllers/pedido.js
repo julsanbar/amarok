@@ -163,7 +163,9 @@ const cancelarPedido = async (req,res) => {
     
         cancelado.productos.forEach(function(x) { productoDevuelto[x] = (productoDevuelto[x] || 0)+1; });
 
-        await producto.find({referencia:{$in:[800,200,500]}}, async (err,result) => {
+        //console.log(cancelado)
+
+        await producto.find({referencia:{$in:cancelado.productos}}, async (err,result) => {
 
             for (const iterator of result) {
              
@@ -212,6 +214,7 @@ const paginationPedidosAdmin = async (req,res) => {
         //empieza por 1
         page: req.params.page,
         limit: 10
+        //sort:{estado:-1}
     
     };
     //{stock:{$lt:6},referencia:500} <--- menor que

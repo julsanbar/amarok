@@ -26,7 +26,6 @@ import { ContactoComponent } from './pages/contacto/contacto.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
 import { GestionPedidosComponent } from './pages/gestion-pedidos/gestion-pedidos.component';
-import { EditarPedidoComponent } from './modals/editar-pedido/editar-pedido.component';
 import { CarritoComponent } from './modals/carrito/carrito.component';
 import { RecaptchaModule } from "ng-recaptcha";
 import { IvaPipe } from './pipes/iva/iva.pipe';
@@ -49,7 +48,6 @@ import { IvaPipe } from './pipes/iva/iva.pipe';
     UsuariosComponent,
     ProveedoresComponent,
     GestionPedidosComponent,
-    EditarPedidoComponent,
     CarritoComponent,
     IvaPipe
   ],

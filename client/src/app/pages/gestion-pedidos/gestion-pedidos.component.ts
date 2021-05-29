@@ -6,6 +6,7 @@ import { PedidoService } from 'src/app/services/pedido/pedido.service';
 import { first } from 'rxjs/operators';
 import { SesionService } from 'src/app/services/sesion/sesion.service';
 import { RolService } from 'src/app/services/rol/rol.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gestion-pedidos',
@@ -26,6 +27,7 @@ export class GestionPedidosComponent implements OnInit {
 
   public pedidoEditar!: Pedido;
   public rolUsuario!: string|null;
+  public pedidoCancelar!: Pedido;
 
   ngOnInit(): void {
 
@@ -92,24 +94,32 @@ export class GestionPedidosComponent implements OnInit {
 
   }
 
-  //----------------------------->>
-  /*cancelarPedido(): void {
+  cancelarPedido(): void {
 
-    this.pedidoService.cancelarPedido(this.pedidoEditar).pipe(first()).subscribe((res: any) => {
+    this.pedidoService.cancelarPedido(this.pedidoCancelar).pipe(first()).subscribe((res: any) => {
 
       if(!res.error){
 
-        const currentUrl = this.router.url;
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate([currentUrl]);
+        this.router.navigate(['gestionPedidos']);
+
+      }else{
+
+        Swal.fire({
+          title: 'Error',
+          text: res.error,
+          icon: 'error',
+          showCancelButton: false,
+          confirmButtonText: 'Cerrar'
+        });
 
       }
 
     });
 
 
-  }*/
+  }
 
 
 }

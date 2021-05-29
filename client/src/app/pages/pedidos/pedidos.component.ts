@@ -91,11 +91,15 @@ export class PedidosComponent implements OnInit {
 
   cancelarPedido(): void {
 
+    console.log(this.pedidoCancelar)
+
     this.pedidoService.cancelarPedido(this.pedidoCancelar).pipe(first()).subscribe((res: any) => {
 
       if(!res.error){
 
-        this.router.navigate(['/','pedido']);
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['pedido']);
 
       }else{
 

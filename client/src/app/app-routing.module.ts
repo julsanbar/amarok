@@ -14,6 +14,7 @@ import { SesionGuard } from './guards/sesion/sesion.guard';
 import { RolGuard } from './guards/rol/rol.guard';
 import { LoginGuard } from './guards/login/login.guard';
 import { GestionPedidosComponent } from "../app/pages/gestion-pedidos/gestion-pedidos.component";
+import { ClienteGuard } from './guards/cliente/cliente.guard';
 
 const routes: Routes = [
   { 
@@ -47,7 +48,7 @@ const routes: Routes = [
   },
   {
 
-    path: 'pedido', component: PedidosComponent, canActivate: [SesionGuard]
+    path: 'pedido', component: PedidosComponent, canActivate: [SesionGuard,ClienteGuard]
 
   },
   {

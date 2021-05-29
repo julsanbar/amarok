@@ -21,14 +21,14 @@
 
 .customTabla{
 
-    margin-top: 1rem!important;
+    margin-top: 2rem!important;
     
 }
 
-.headerEditar,.footerEditar{
+.pieCancelado,.cabeceraCancelado,.pieProducto,.cabeceraProducto{
 
     background: #212529!important;
-    
+
 }
 
 .contenido-tabla{
