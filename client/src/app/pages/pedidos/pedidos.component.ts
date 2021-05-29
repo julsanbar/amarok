@@ -95,10 +95,7 @@ export class PedidosComponent implements OnInit {
 
       if(!res.error){
 
-        const currentUrl = this.router.url;
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate([currentUrl]);
+        this.router.navigate(['/','pedido']);
 
       }else{
 

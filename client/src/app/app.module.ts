@@ -29,6 +29,7 @@ import { GestionPedidosComponent } from './pages/gestion-pedidos/gestion-pedidos
 import { EditarPedidoComponent } from './modals/editar-pedido/editar-pedido.component';
 import { CarritoComponent } from './modals/carrito/carrito.component';
 import { RecaptchaModule } from "ng-recaptcha";
+import { IvaPipe } from './pipes/iva/iva.pipe';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { RecaptchaModule } from "ng-recaptcha";
     ProveedoresComponent,
     GestionPedidosComponent,
     EditarPedidoComponent,
-    CarritoComponent
+    CarritoComponent,
+    IvaPipe
   ],
   imports: [
     BrowserModule,

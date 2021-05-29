@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges, Output, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -15,13 +15,17 @@ import Swal from 'sweetalert2';
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.css']
 })
-export class CarritoComponent implements OnInit, OnChanges {
+export class CarritoComponent implements OnInit, OnChanges, OnDestroy {
 
+  @Input() importeTotal!: number;
   @Input() visualizaCarrito!: any[];
   public pedido: Pedido = new Pedido();
   @Output() reload = new EventEmitter<any>();
-  
+
   constructor(private formBuilder: FormBuilder,public rolService: RolService,private pedidoService: PedidoService,public carritoService: CarritoService,private productoService: ProductoService ,private route: ActivatedRoute, private router: Router, private sessionService: SesionService) {}
+  
+  ngOnDestroy(): void {
+  }
 
   ngOnInit(): void {
 

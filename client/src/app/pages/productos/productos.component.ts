@@ -20,6 +20,7 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(private formBuilder: FormBuilder,public rolService: RolService,private pedidoService: PedidoService,public carritoService: CarritoService,private productoService: ProductoService ,private route: ActivatedRoute, private router: Router, private sessionService: SesionService) {}
 
+  public importeTotal!: number;
   public visualizaCarrito: any[] = [];
   public productos: Producto[] = [];
   public page: number = 1;
@@ -267,7 +268,7 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
   pagar():void{
 
-    if((this.rolService.devuelveRolSesion() === 'registrado') || (this.rolService.devuelveRolSesion() === 'empleado')){
+    if((this.rolService.devuelveRolSesion() === 'registrado')){
 
       let referencias: Number[] = [];
       let stocks: any = {};
@@ -344,10 +345,7 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
           this.carritoService.eliminar();
 
-          const currentUrl = this.router.url;
-          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          this.router.onSameUrlNavigation = 'reload';
-          this.router.navigate([currentUrl]);
+          this.router.navigate(['/','producto']);
 
         });
 
@@ -399,8 +397,13 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
     const carrito:any = this.carritoService.devuelve();
     this.visualizaCarrito = JSON.parse(carrito);
+    this.importeTotal = 0;
 
+    for (const iterator of this.visualizaCarrito) {
+      
+      this.importeTotal += iterator.precio;
 
+    }
 
 
   }

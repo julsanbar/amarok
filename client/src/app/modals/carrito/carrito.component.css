@@ -1,8 +1,32 @@
+@charset "UTF-8";
+
 .noCarrito{
 
     color: brown;
     background: #21252913!important;
     padding: 2rem;
     border-radius: 2rem 2rem;
+
+}
+
+.textoImporte{
+
+    color: white;
+    font-weight: bold;
+    padding-left: 55%!important;
+
+}
+
+.importeTotal{
+
+    color: white;
+    font-weight: bold;
+
+}
+
+tfoot{
+
+    background: #212529!important;
+    
 
 }
