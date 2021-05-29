@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 //Variables para las validaciones propias
 let validaReferencia = (referencia) => {
@@ -188,5 +189,7 @@ ProveedorScheme.virtual('modificacionProveedor')
   .get(function(){
     return this.updatedAt.toISOString().substring(0,10)+" "+this.updatedAt.toISOString().substring(11,19);
 });
+
+ProveedorScheme.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('proveedores',ProveedorScheme);

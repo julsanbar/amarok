@@ -29,6 +29,7 @@ import { GestionPedidosComponent } from './pages/gestion-pedidos/gestion-pedidos
 import { CarritoComponent } from './modals/carrito/carrito.component';
 import { RecaptchaModule } from "ng-recaptcha";
 import { IvaPipe } from './pipes/iva/iva.pipe';
+import { HabilitadoPipe } from './pipes/habilitado/habilitado.pipe';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { IvaPipe } from './pipes/iva/iva.pipe';
     ProveedoresComponent,
     GestionPedidosComponent,
     CarritoComponent,
-    IvaPipe
+    IvaPipe,
+    HabilitadoPipe
   ],
   imports: [
     BrowserModule,
