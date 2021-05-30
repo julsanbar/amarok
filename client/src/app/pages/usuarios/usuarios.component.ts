@@ -3,6 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { first } from 'rxjs/operators';
+import { RolService } from 'src/app/services/rol/rol.service';
+import { Pedido } from 'src/app/models/pedido.model';
 
 @Component({
   selector: 'app-usuarios',
@@ -10,13 +12,14 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router, private usuarioService:UsuarioService) { }
+  constructor(private rolService: RolService, private route: ActivatedRoute, private router: Router, private usuarioService:UsuarioService) { }
 
   public usuarios: Usuario[] = [];
   public page: number = 1;
   public total: number = 0;
   public perPage: number = 10;
   public usuario: Usuario = new Usuario();
+  public pedidos!: Pedido[]|null;
 
   ngOnInit(): void {
 
@@ -27,15 +30,51 @@ export class UsuariosComponent implements OnInit {
 
   }
   
+  cargaPedidos(item: String[]){
+
+    if(item.length > 0){
+      this.usuarioService.pedidosUsuario(item).pipe(first()).subscribe((res: any) => {
+
+        //console.log(res.pedidos);
+        this.pedidos = res.pedidos;
+
+      });
+    }else{
+
+      this.pedidos = null;
+
+    }
+
+  }
+
   getDatos(page: number): void {
 
-    this.usuarioService.paginationUsuariosAdmin(page).pipe(first()).subscribe((res: any) => {
+    //console.log(this.rolService.devuelveRolSesion());
 
-      this.usuarios = res.docs.docs;
-      console.log(this.usuarios)
-      this.total = res.docs.totalDocs;
+    switch (this.rolService.devuelveRolSesion()) {
+      case 'administrador':
+        
+        this.usuarioService.paginationUsuariosAdmin(page).pipe(first()).subscribe((res: any) => {
 
-    });
+          this.usuarios = res.docs.docs;
+          //console.log(this.usuarios)
+          this.total = res.docs.totalDocs;
+    
+        });
+
+        break;
+    
+      case 'empleado':
+      
+        this.usuarioService.paginationUsuariosEmpleado(page).pipe(first()).subscribe((res: any) => {
+
+          this.usuarios = res.docs.docs;
+          this.total = res.docs.totalDocs;
+
+        });
+
+        break;
+    }
 
   }
 

@@ -35,6 +35,7 @@ import { NuevoProveedorComponent } from './modals/nuevo-proveedor/nuevo-proveedo
 import { EditarUsuarioComponent } from './modals/editar-usuario/editar-usuario.component';
 import { NuevoUsuarioComponent } from './modals/nuevo-usuario/nuevo-usuario.component';
 import { TipoPipe } from './pipes/tipo/tipo.pipe';
+import { PedidosUsuarioComponent } from './modals/pedidos-usuario/pedidos-usuario.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { TipoPipe } from './pipes/tipo/tipo.pipe';
     NuevoProveedorComponent,
     EditarUsuarioComponent,
     NuevoUsuarioComponent,
-    TipoPipe
+    TipoPipe,
+    PedidosUsuarioComponent
   ],
   imports: [
     BrowserModule,

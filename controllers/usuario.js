@@ -1,5 +1,6 @@
 const usuario = require('../models/usuario');
 const bcrypt = require('bcrypt-node');
+const pedido = require('../models/pedido');
 
 //TEST
 const getUsuarios = async (req, res) => {
@@ -26,6 +27,40 @@ const getRol = async (req,res) => {
 
 };
 
+const pedidosUsuario = async (req,res) => {
+
+    //console.log(req.params.refPedidos.split(','))
+
+    const referenciasPedidos = req.params.refPedidos.split(',');
+
+    await pedido.find({referencia:{$in:referenciasPedidos}},(err,docs) => {
+        //console.log(docs)
+        res.status(200).send({pedidos:docs})
+
+    });
+
+};
+
+const paginationUsuariosEmpleado = async (req,res) => {
+    
+    const options = {
+        
+        page: req.params.page,
+        limit: 10
+        //sort:{estado:-1}
+    
+    };
+    //{stock:{$lt:6},referencia:500} <--- menor que
+    //tipo:{$ne:'administrador'} <---- negacion!!
+    await usuario.paginate({tipo:{$not:{$in:['administrador','empleado']}}},options,(err,docs)=>{
+        //console.log("asd------",docs.totalDocs);
+        res.status(200).send({
+            docs
+        });
+    });
+    
+};
+
 //paginationUsuariosAdmin
 const paginationUsuariosAdmin = async (req,res) => {
     //console.log("holiiiiiiiiiii")
@@ -37,7 +72,8 @@ const paginationUsuariosAdmin = async (req,res) => {
     
     };
     //{stock:{$lt:6},referencia:500} <--- menor que
-    await usuario.paginate({tipo:{$ne:'administrador'}},options,(err,docs)=>{
+    //tipo:{$ne:'administrador'} <---- negacion!!
+    await usuario.paginate({},options,(err,docs)=>{
         //console.log("asd------",docs.totalDocs);
         res.status(200).send({
             docs
@@ -259,6 +295,8 @@ module.exports = {
     deshabilitar,
     perfil,
     modificaPerfil,
-    paginationUsuariosAdmin
+    paginationUsuariosAdmin,
+    pedidosUsuario,
+    paginationUsuariosEmpleado
 
 };

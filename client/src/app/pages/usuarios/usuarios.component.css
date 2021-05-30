@@ -40,3 +40,14 @@
     margin-top: 0rem !important;
     
 }
+
+.contenido-tabla{
+
+    max-height: 25rem!important;
+    overflow:auto;
+
+}
+
+.tabla-fluid{
+    margin-bottom: 8rem!important;
+}

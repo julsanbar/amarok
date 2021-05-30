@@ -48,4 +48,14 @@ export class UsuarioService {
     return this.http.get(this.uri+'paginationUsuariosAdmin/'+pagina);
   }
 
+  paginationUsuariosEmpleado(pagina: number): any{
+
+    return this.http.get(this.uri+'paginationUsuariosEmpleado/'+pagina);
+  }
+
+  pedidosUsuario(referencias:String[]):any{
+
+    return this.http.get(this.uri+'pedidosUsuario/'+referencias);
+  }
+
 }

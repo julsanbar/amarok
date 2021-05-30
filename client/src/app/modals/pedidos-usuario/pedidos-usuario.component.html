@@ -1,0 +1,74 @@
+<table class="table table-hover" *ngIf="this.vacio === false">
+    <thead>
+      <tr>
+        <th class="text-center">REFERENCIA</th>
+        <th class="text-center">ESTADO</th>
+        <th class="text-center">FECHA</th>
+        <th class="text-center">PRODUCTOS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let item of this.visualiza">
+        <td class="text-center">{{item.referencia}}</td>
+        <td class="text-center">{{item.estado}}</td>
+        <td class="text-center">{{item.fechaPedido | formatoFecha}}</td>
+        <td class="text-center">
+          <button type="button" class="btn btn-outline-warning border-0"
+            (click)="this.referenciasProductosPedidos(item.productos)" data-bs-toggle="modal"
+            data-bs-target="#prodPed">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+              class="bi bi-basket2-fill" viewBox="0 0 16 16">
+              <path
+                d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383L5.93 1.757zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1z" />
+            </svg>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 *ngIf="this.vacio === true">El usuario no ha realizado pedidos</h2>
+
+  <!-- Modal PRODUCTOS-->
+<div class="modal fade" id="prodPed" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header cabeceraProducto">
+      <button type="button" class="btn-close btn-outline-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <div class="container-fluid contenido-tabla">
+        <div class="table-responsive-md">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>REFERENCIA</th>
+                <th>CATEGORIA</th>
+                <th>NOMBRE</th>
+                <th>PRECIO</th>
+                <th>TASA</th>
+                <th>CANTIDAD</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of this.productos">
+                <td>{{item.referencia}}</td>
+                <td>{{item.categoria}}</td>
+                <td>{{item.nombre}}</td>
+                <td>{{item.precio | formatoMoneda : '€'}}</td>
+                <td>{{item.tasa | formatoMoneda : '%'}}</td>
+                <td>{{item.cantidad}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer pieProducto">
+      <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+    </div>
+  </div>
+</div>
+</div>

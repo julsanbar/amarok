@@ -64,4 +64,18 @@ router.get(
 
 );
 
+router.get(
+
+    '/pedidosUsuario/:refPedidos',
+    controller.pedidosUsuario
+
+);
+
+router.get(
+
+    '/paginationUsuariosEmpleado/:page',
+    controller.paginationUsuariosEmpleado
+
+);
+
 module.exports = router;
