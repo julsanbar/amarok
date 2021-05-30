@@ -57,4 +57,11 @@ router.post(
 
 );
 
+router.get(
+
+    '/paginationUsuariosAdmin/:page',
+    controller.paginationUsuariosAdmin
+
+);
+
 module.exports = router;

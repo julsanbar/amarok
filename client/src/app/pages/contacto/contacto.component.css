@@ -33,11 +33,11 @@
     border-bottom-right-radius: 0.5rem;
 }
 .contact-form label{
-    font-weight:600;
+    /*font-weight:600;*/
 }
 .contact-form button{
     margin-top: 1rem!important;
-    font-weight: 600;
+    /*font-weight: 600;*/
     width: 25%;
 }
 .contact-form button:focus{

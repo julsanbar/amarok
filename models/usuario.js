@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-node');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 //Variables para las validaciones propias
 let validaNombre = (nombre) => {
@@ -321,5 +322,7 @@ UsuarioScheme.pre('save', function(next) {
 UsuarioScheme.methods.comparePasswords = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
+
+UsuarioScheme.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('usuarios',UsuarioScheme);

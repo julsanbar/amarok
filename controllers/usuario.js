@@ -26,6 +26,26 @@ const getRol = async (req,res) => {
 
 };
 
+//paginationUsuariosAdmin
+const paginationUsuariosAdmin = async (req,res) => {
+    //console.log("holiiiiiiiiiii")
+    const options = {
+        //empieza por 1
+        page: req.params.page,
+        limit: 10
+        //sort:{estado:-1}
+    
+    };
+    //{stock:{$lt:6},referencia:500} <--- menor que
+    await usuario.paginate({tipo:{$ne:'administrador'}},options,(err,docs)=>{
+        //console.log("asd------",docs.totalDocs);
+        res.status(200).send({
+            docs
+        });
+    });
+    
+};
+
 const modificaPerfil = async (req,res) => {
 
     let nuevoPerfil = req.body;
@@ -238,6 +258,7 @@ module.exports = {
     getRol,
     deshabilitar,
     perfil,
-    modificaPerfil
+    modificaPerfil,
+    paginationUsuariosAdmin
 
 };

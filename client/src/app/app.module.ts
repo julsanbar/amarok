@@ -32,6 +32,9 @@ import { IvaPipe } from './pipes/iva/iva.pipe';
 import { HabilitadoPipe } from './pipes/habilitado/habilitado.pipe';
 import { EditarProveedorComponent } from './modals/editar-proveedor/editar-proveedor.component';
 import { NuevoProveedorComponent } from './modals/nuevo-proveedor/nuevo-proveedor.component';
+import { EditarUsuarioComponent } from './modals/editar-usuario/editar-usuario.component';
+import { NuevoUsuarioComponent } from './modals/nuevo-usuario/nuevo-usuario.component';
+import { TipoPipe } from './pipes/tipo/tipo.pipe';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,10 @@ import { NuevoProveedorComponent } from './modals/nuevo-proveedor/nuevo-proveedo
     IvaPipe,
     HabilitadoPipe,
     EditarProveedorComponent,
-    NuevoProveedorComponent
+    NuevoProveedorComponent,
+    EditarUsuarioComponent,
+    NuevoUsuarioComponent,
+    TipoPipe
   ],
   imports: [
     BrowserModule,

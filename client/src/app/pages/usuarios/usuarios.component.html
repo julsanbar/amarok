@@ -1,1 +1,106 @@
-<p>usuarios works!</p>
+<div class="container-fluid tabla-fluid">
+    <div class="row">
+      <nav class="navbar navbar-expand-lg nuevo">
+        <div class="container-fluid">
+  
+          <div> 
+            <button class="btn btn-outline-info" type="button" data-bs-toggle="modal" data-bs-target="#nuevo">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+              </svg>
+              Nuevo Usuario
+            </button>        
+          </div>
+  
+        </div>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-md-12 offset-md-0 customTabla">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+  
+              <th class="text-center">USUARIO</th>
+              <th class="text-center">EMAIL</th>
+              <th class="text-center">TIPO</th>
+              <th class="text-center">LICENCIA</th>
+              <th class="text-center">HABILITADO</th>
+              <th class="text-center">PEDIDOS</th>
+              <th class="text-center">VER MÁS</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of this.usuarios | paginate: { itemsPerPage: perPage, currentPage: page, totalItems: total }; 
+                let i = index;trackBy: trackByItems" [ngSwitch]="item.habilitado">
+  
+              <td class="text-center">{{item.usuario}}</td>
+              <td class="text-center">{{item.email}}</td>
+              <td class="text-center">{{item.tipo | tipo: 'tipo'}}</td>
+              <td class="text-center">{{item.licencia | tipo: 'licencia'}}</td>
+              
+              <ng-container *ngSwitchCase="true">
+  
+                <td class="text-center">
+  
+                    <button type="button" class="btn btn-outline-success border-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/>
+                          </svg>
+                    </button>
+  
+                </td>
+  
+              </ng-container>
+  
+              <ng-container *ngSwitchCase="false">
+  
+                <td class="text-center">
+  
+                    <button type="button" class="btn btn-outline-success border-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        </svg>
+                    </button>
+  
+                </td>
+  
+              </ng-container>
+
+              <td class="text-center">
+
+                <button type="button" class="btn btn-outline-dark border-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+                        <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+                    </svg>
+                </button>
+
+              </td>
+              <td class="text-center">
+
+                <button type="button" class="btn btn-outline-dark border-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                        <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                    </svg>
+                </button>
+
+              </td>
+
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td class="text-center clearfix" colspan="9">
+                <pagination-controls [previousLabel]="'Anterior'" [nextLabel]="'Siguiente'"
+                  (pageChange)="pageChanged($event)">
+                </pagination-controls>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>

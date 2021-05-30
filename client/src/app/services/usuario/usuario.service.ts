@@ -43,4 +43,9 @@ export class UsuarioService {
 
   }
 
+  paginationUsuariosAdmin(pagina: number): any{
+
+    return this.http.get(this.uri+'paginationUsuariosAdmin/'+pagina);
+  }
+
 }
