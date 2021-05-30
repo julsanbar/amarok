@@ -60,8 +60,37 @@ const getPaginationProveedores = async (req,res) => {
     
 };
 
+const modificaProveedor = async (req,res) => {
+
+    let nuevoPerfil = req.body;
+    let errors = [];
+
+    const duplicados = await proveedor.findOne({email: nuevoPerfil.email});
+
+    if(duplicados){
+
+        if(duplicados.email === nuevoPerfil.email){
+
+            errors.push('El email ya esta registrado');
+
+        }
+
+        return res.status(200).send({error:errors});
+
+    }else{
+
+        const actualizaPerfil = await proveedor.findByIdAndUpdate(nuevoPerfil._id,nuevoPerfil,{new: true, upsert:true});
+
+        res.status(200).send({resul:actualizaPerfil});
+
+
+    }
+
+};
+
 module.exports = {
 
-    getPaginationProveedores
+    getPaginationProveedores,
+    modificaProveedor
 
 };

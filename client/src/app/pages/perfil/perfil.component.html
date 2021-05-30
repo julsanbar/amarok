@@ -147,8 +147,17 @@
                 </div>
 
                 <hr>
-                <button [disabled]="registroForm.invalid" type="submit" class="btn btn-outline-success enviar">Guardar</button>
-                <button type="reset" class="btn btn-outline-danger ml-4 borrar">Borrar</button>
+
+                <div class="row">
+                    <div class="col text-center">
+                        
+                        <button [disabled]="registroForm.invalid" type="submit" class="btn btn-outline-success enviar">Guardar</button>
+
+                    </div>
+                </div>
+
+                
+                <!--<button type="reset" class="btn btn-outline-danger ml-4 borrar">Borrar</button>-->
             </form>
 
             <!-- Error duplicado email y/o nombre usuario -->

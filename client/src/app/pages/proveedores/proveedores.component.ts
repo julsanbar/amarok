@@ -19,12 +19,33 @@ export class ProveedoresComponent implements OnInit {
   public perPage: number = 10;
   public proveedor: Proveedor = new Proveedor();
 
+  colorRow !: number;
+  filaSeleccionada:any;
+
   ngOnInit(): void {
+
+    this.filaSeleccionada = function(index: number,item: Proveedor){  
+      
+      this.colorRow = index; 
+      this.proveedor = item;
+
+    } 
 
     this.route.queryParams.subscribe(params => {
       this.page = parseInt(params.page, 10) || 1;
       this.getDatos(this.page);
     });
+
+  }
+  
+  eliminaSeleccion():void{
+
+    //document.getElementsByTagName("tr")[this.colorRow+1].removeAttribute("class");
+    //document.getElementsByTagName("tr")[this.colorRow+1].setAttribute("class","normal");
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['proveedores']);
+    //console.log(document.getElementsByTagName("tr")[this.colorRow])
 
   }
 
@@ -33,7 +54,7 @@ export class ProveedoresComponent implements OnInit {
     this.proveedorService.getPaginationProveedores(page).pipe(first()).subscribe((res: any) => {
 
       this.proveedores = res.docs.docs;
-      console.log(this.proveedores)
+      //console.log(this.proveedores)
       this.total = res.docs.totalDocs;
 
     });
@@ -57,18 +78,5 @@ export class ProveedoresComponent implements OnInit {
   }
 
   trackByItems(index: number, item: any): number { return item.id; }
-
-  habilitar():void{
-
-    /**
-     * HACER SERVICIO DE HABILITADO O NO.
-     *  HACER CLICK EN FILA PARA ELIMINAR O EDITAR QUE SE DISPARE UN MODAL O ALERT DE CONFIRMACION
-     *  HACER BOTON CREA NUEVO PROVEEDOR
-     *  
-     * MOUSEOVER AND MOUSEDOWN PARA FILAS Y CLICK CON TRACKBYITEM PARA CONTROLAR LA ROW
-     * 
-     */
-
-  }
 
 }

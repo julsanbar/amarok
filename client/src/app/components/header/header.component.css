@@ -32,3 +32,21 @@
     background: #212529!important;
 
 }
+
+a:hover{
+
+    color: rgb(236, 181, 78)!important;
+
+}
+
+a:active{
+
+    color: rgb(105, 86, 49)!important;
+
+}
+
+a:focus{
+
+    color: rgb(236, 181, 78)!important;
+
+}

@@ -19,7 +19,7 @@
 }
 
 .tabla-fluid{
-    margin-bottom: 8rem!important;
+    margin-bottom: 7rem!important;
 }
 
 .text-center{
@@ -32,4 +32,24 @@
 
     background: #212529!important;
 
+}
+
+.table tr.active td {  
+    background: #212529!important;  
+    color: rgb(236, 181, 78);  
+    
+}
+
+.normal{
+
+    background: white!important;  
+    color: unset;
+
+}
+
+.nuevo{
+
+    background: #212529!important;
+    margin-top: 0rem !important;
+    
 }

@@ -28,4 +28,11 @@ router.get(
 
 );
 
+router.post(
+
+    '/modificaProveedor',
+    controller.modificaProveedor
+
+);
+
 module.exports = router;

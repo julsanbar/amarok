@@ -17,4 +17,9 @@ export class ProveedorService {
     return this.http.get(this.uri+'getPaginationProveedores/'+pagina);
   }
 
+  modificaProveedor(proveedor: any): any{
+
+    return this.http.post(this.uri+'modificaProveedor',proveedor);
+  }
+
 }
