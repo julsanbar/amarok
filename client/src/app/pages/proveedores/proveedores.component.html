@@ -4,11 +4,11 @@
       <div class="container-fluid">
 
         <div> 
-          <button class="btn btn-outline-primary" type="button">
+          <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#nuevo">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
               <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
             </svg>
-            Añadir proveedor
+            Nuevo proveedor
           </button>        
         </div>
 
@@ -128,6 +128,28 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
     </div>
     <div class="modal-footer pieCancelado">
       <button type="button" class="btn btn-outline-danger mx-auto" data-bs-dismiss="modal">Cerrar</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Modal NUEVO PROVEEDOR-->
+<div class="modal fade" id="nuevo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header cabeceraCancelado">
+      <button type="button" class="btn-close btn-outline-danger" (click)="this.eliminaSeleccion()" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <div class="container-fluid">
+        
+        <app-nuevo-proveedor></app-nuevo-proveedor>
+
+      </div>
+    </div>
+    <div class="modal-footer pieCancelado">
+      <button type="button" class="btn btn-outline-danger mx-auto" (click)="this.eliminaSeleccion()" data-bs-dismiss="modal">Cerrar</button>
     </div>
   </div>
 </div>

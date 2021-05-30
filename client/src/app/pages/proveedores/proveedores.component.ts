@@ -42,9 +42,11 @@ export class ProveedoresComponent implements OnInit {
 
     //document.getElementsByTagName("tr")[this.colorRow+1].removeAttribute("class");
     //document.getElementsByTagName("tr")[this.colorRow+1].setAttribute("class","normal");
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['proveedores']);
+    //setTimeout(() => {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate(['proveedores']);
+    //},1000);
     //console.log(document.getElementsByTagName("tr")[this.colorRow])
 
   }

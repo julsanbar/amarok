@@ -88,9 +88,61 @@ const modificaProveedor = async (req,res) => {
 
 };
 
+const crearProveedor = async (req,res) => {
+
+    let nuevoProveedor = req.body;
+    let errors = [];
+
+    const duplicados = await proveedor.findOne({email: nuevoProveedor.email});
+
+    if(duplicados){
+
+        if(duplicados.email === nuevoProveedor.email){
+
+            errors.push('El email ya esta registrado');
+
+        }
+
+        return res.status(200).send({error:errors});
+
+    }else{
+
+        const ultimaReferencia = await proveedor.find({}).sort({$natural:-1}).limit(1);
+        const digito = Number.parseInt(ultimaReferencia[0].referencia.slice(2))+1;
+        const nuevaReferencia = "PR"+digito;
+
+        //console.log(nuevoProveedor)
+
+        nuevoProveedor.referencia = nuevaReferencia;
+
+        //console.log(nuevoProveedor)
+
+        await proveedor.create(nuevoProveedor,(err,ped)=>{
+
+            //console.log('------')
+            //console.log(ped)
+
+            if(err){
+
+                return res.status(200).send({error:'Error al intentar crear el proveedor'})
+
+            }else{
+
+                return res.status(200).send({data:ped})
+
+            }
+            
+        });
+
+
+    }
+
+};
+
 module.exports = {
 
     getPaginationProveedores,
-    modificaProveedor
+    modificaProveedor,
+    crearProveedor
 
 };

@@ -28,7 +28,7 @@ export class EditarProveedorComponent implements OnInit, OnChanges {
       nombre: ['',
       [
         Validators.pattern(/^[a-zA-Z ]+$/),
-        Validators.minLength(5)
+        Validators.minLength(2)
       ]
     ],
       cif: ['',

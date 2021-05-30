@@ -105,7 +105,7 @@ const ProveedorScheme = new mongoose.Schema(
             type: String,
             required: [true, 'El campo nombre es necesario.'],
             validate: nombreValidators,
-            minLength: [5, 'La nombre debe de tener al menos 5 carácteres']
+            minLength: [2, 'La nombre debe de tener al menos 2 carácteres']
 
         },
 
@@ -121,13 +121,15 @@ const ProveedorScheme = new mongoose.Schema(
 
         direccionPostal: {
 
-            type: String
+            type: String,
+            required: [true, 'El campo es necesario.']
 
         },
 
         codigoPostal: {
 
-            type: String
+            type: String,
+            required: [true, 'El campo es necesario.']
 
         },
 
@@ -156,7 +158,8 @@ const ProveedorScheme = new mongoose.Schema(
 
             type: String,
             minLength: [2, 'El pais debe de tener al menos 2 carácteres'],
-            maxLength: [20, 'El pais debe de tener menos de 20 carácteres']
+            maxLength: [20, 'El pais debe de tener menos de 20 carácteres'],
+            required: [true, 'El campo es necesario.']
 
         },
 

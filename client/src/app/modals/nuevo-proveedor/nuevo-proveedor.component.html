@@ -11,7 +11,7 @@
 
                         <label for="inputNombre">Nombre</label>
                         <input type="text" id="inputNombre" class="form-control" formControlName="nombre"
-                            placeholder="Glock" [controlErrorsTpl]="campoNombre" [value]="this.proveedor?.nombre">
+                            placeholder="Glock" [controlErrorsTpl]="campoNombre">
                         <ng-container
                             *ngTemplateOutlet="nombreError;context:{error:registroForm.get('nombre')?.errors}">
                         </ng-container>
@@ -22,7 +22,7 @@
 
                         <label for="inputCif">CIF</label>
                         <input type="text" id="inputCif" class="form-control" formControlName="cif"
-                            placeholder="Q02266448" [controlErrorsTpl]="campoCif" [value]="this.proveedor?.cif">
+                            placeholder="Q02266448" [controlErrorsTpl]="campoCif">
                         <ng-container
                             *ngTemplateOutlet="cifError;context:{error:registroForm.get('cif')?.errors}">
                         </ng-container>
@@ -33,7 +33,7 @@
 
                         <label for="inputPais">País</label>
                         <input type="text" id="inputPais" class="form-control" formControlName="pais"
-                            placeholder="Italia" [controlErrorsTpl]="campoPais" [value]="this.proveedor?.pais">
+                            placeholder="Italia" [controlErrorsTpl]="campoPais">
                         <ng-container
                             *ngTemplateOutlet="paisError;context:{error:registroForm.get('pais')?.errors}">
                         </ng-container>
@@ -48,14 +48,15 @@
 
                         <label for="inputDireccionPostal">Dirección Postal</label>
                         <input type="text" id="inputDireccionPostal" class="form-control" formControlName="direccionPostal"
-                            placeholder="Calle Solea, 59" [value]="this.proveedor?.direccionPostal">
+                            placeholder="Calle Solea, 59" [controlErrorsTpl]="campoDireccionPostal">
 
                     </div>
 
                     <div class="col-md-5">
 
                         <label for="inputCodigoPostal">Código Postal</label>
-                        <input type="text" id="inputCodigoPostal" class="form-control" formControlName="codigoPostal" [value]="this.proveedor?.codigoPostal">
+                        <input type="text" id="inputCodigoPostal" class="form-control" formControlName="codigoPostal"
+                        placeholder="80469" [controlErrorsTpl]="campoCodigoPostal">
 
                     </div>
 
@@ -67,7 +68,7 @@
 
                         <label for="inputTelefono">Teléfono</label>
                         <input type="tel" id="inputTelefono" class="form-control" formControlName="telefono"
-                            placeholder="897456213" [controlErrorsTpl]="campoTelefono" [value]="this.proveedor?.telefono">
+                            placeholder="897456213" [controlErrorsTpl]="campoTelefono">
                         <ng-container
                             *ngTemplateOutlet="telefonoError;context:{error:registroForm.get('telefono')?.errors}">
                         </ng-container>
@@ -78,30 +79,10 @@
 
                         <label for="inputEmail">Email</label>
                         <input type="email" id="inputEmail" class="form-control" formControlName="email"
-                            placeholder="info@info.com" [controlErrorsTpl]="campoEmail" [value]="this.proveedor?.email">
+                            placeholder="info@info.com" [controlErrorsTpl]="campoEmail">
                         <ng-container
                             *ngTemplateOutlet="emailError;context:{error:registroForm.get('email')?.errors}">
                         </ng-container>
-
-                    </div>
-
-                </div>
-
-                <div class="row pt-2">
-
-                    <div class="col">
-
-                        <div class="form-check">
-                            <input class="form-check-input" formControlName="habilitado" type="checkbox" id="inputHabilitado"
-                             [checked]="this.proveedor?.habilitado">
-                            <label class="form-check-label" for="inputHabilitado">
-                              Habilitado
-                            </label>
-                        </div>
-
-                        <!--<label for="inputHabilitado">Usuario</label>
-                        <input type="text" id="inputUsuario" class="form-control" formControlName="usuario"
-                            placeholder="rubitokany" [value]="this.proveedor?.habilitado">-->
 
                     </div>
 
@@ -114,9 +95,9 @@
                         <button [disabled]="registroForm.invalid" type="submit" class="btn btn-outline-success enviar">Guardar</button>                                            
                     </div>
 
-                    <!--<div class="col-6 text-center">
+                    <div class="col-6 text-center">
                         <button type="reset" class="btn btn-outline-danger borrar">Borrar</button>    
-                    </div>-->
+                    </div>
                 </div>
             </form>
 
@@ -250,6 +231,28 @@
 <ng-template let-error let-text="text" #campoPais>
 
     <div *ngIf="error?.required" id="campoPais">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** DIRECCION POSTAL **-->
+<ng-template let-error let-text="text" #campoDireccionPostal>
+
+    <div *ngIf="error?.required" id="campoDireccionPostal">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** CODIGO POSTAL **-->
+<ng-template let-error let-text="text" #campoCodigoPostal>
+
+    <div *ngIf="error?.required" id="campoCodigoPostal">
 
         <p class="text-center">Campo obligatorio</p>
 

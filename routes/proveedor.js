@@ -35,4 +35,11 @@ router.post(
 
 );
 
+router.post(
+
+    '/crearProveedor',
+    controller.crearProveedor
+
+);
+
 module.exports = router;
