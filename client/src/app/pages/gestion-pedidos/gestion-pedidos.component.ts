@@ -33,7 +33,9 @@ export class GestionPedidosComponent implements OnInit {
   public rolUsuario!: string|null;
   public pedidoCancelar!: Pedido;
 
-  //public usuarioPedido!: {String:String};
+  //public usuarioPedido!: any;
+
+  public pedidosUsuario: any[] = [];
 
   ngOnInit(): void {
 
@@ -46,23 +48,49 @@ export class GestionPedidosComponent implements OnInit {
 
   }
 
-  /*usuario(ref: String): String{
-
-    this.usuarioService.usuarioPedido(ref).pipe(first()).subscribe((res: any) => {
-
-      
-    });
-
-    return 'holi';
-
-  }*/
-
   getDatos(page: number): void {
 
     this.pedidoService.paginationPedidosAdmin(page).pipe(first()).subscribe((res: any) => {
 
       this.pedidos = res.docs.docs;
       this.total = res.docs.totalDocs;
+
+      this.usuarioService.usuarioPedido().pipe(first()).subscribe((res: any) => {
+        //pedidosUsuario
+        
+        for (let i = 0; i < this.pedidos.length; i++) {
+
+          //console.log(this.pedidos[i].referencia)
+         
+          for (const key in res.usuario) {
+
+            if(this.pedidos[i].referencia == key){
+
+              //console.log('--------',res.usuario[key])
+
+              const nuevo = {
+
+                _id: this.pedidos[i]._id,
+                referencia: this.pedidos[i].referencia,
+                estado: this.pedidos[i].estado,
+                fechaPedido: this.pedidos[i].fechaPedido,
+                productos: this.pedidos[i].productos,
+                usuario: res.usuario[key]
+
+              };
+
+              this.pedidosUsuario.push(nuevo);
+
+            }
+
+          }
+
+
+        }
+
+        //console.log(this.usuarioPedido.P1)
+  
+      });
 
     });
 

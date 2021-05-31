@@ -84,13 +84,22 @@ const paginationUsuariosAdmin = async (req,res) => {
 
 const usuarioPedido = async (req, res) => {
 
-    console.log("------",req.body.ref)
+    const peds = await pedido.find();
+    let pedUsu = {};
 
-    //await usuario.find({pedidos:req.body.ref},(err,docs)=>{
+    for (const iterator of peds) {
 
+        await usuario.findOne({pedidos:iterator.referencia},(err,docs)=>{
 
+            pedUsu[iterator.referencia] = docs.usuario;
 
-    //});
+        });
+
+    }
+
+    //console.log(pedUsu)
+
+    res.status(200).send({usuario:pedUsu});
 
 };
 

@@ -58,9 +58,9 @@ export class UsuarioService {
     return this.http.get(this.uri+'pedidosUsuario/'+referencias);
   }
 
-  usuarioPedido(ref: String): any{
+  usuarioPedido(): any{
 
-    return this.http.get(this.uri+'usuarioPedido/'+ref);
+    return this.http.get(this.uri+'usuarioPedido');
   }
 
 }

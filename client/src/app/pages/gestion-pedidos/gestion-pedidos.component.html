@@ -15,14 +15,15 @@
         </thead>
         <tbody>
           <tr
-            *ngFor="let item of this.pedidos | paginate: { itemsPerPage: perPage, currentPage: page, totalItems: total }">
+            *ngFor="let item of this.pedidosUsuario | paginate: { itemsPerPage: perPage, currentPage: page, totalItems: total }">
+            
             <td class="text-center">{{item.referencia}}</td>
 
             <td class="text-center">{{item.estado}}</td>
 
             <td class="text-center">{{item.fechaPedido | formatoFecha}}</td>
 
-            <td class="text-center"></td>
+            <td class="text-center">{{item.usuario}}</td>
 
             <td class="text-center">
               <button type="button" class="btn btn-outline-warning border-0"
