@@ -55,7 +55,8 @@
                     <div class="col-md-3">
 
                         <label for="inputLicencia">Licencia</label>
-                        <select class="form-select" id="inputLicencia" formControlName="licencia" [value]="this.perfil?.licencia">
+                        <select [attr.disabled]="((this.rolUsuario === 'empleado') || (this.rolUsuario === 'administrador')) ? '' : null" 
+                            class="form-select" id="inputLicencia" formControlName="licencia" [value]="this.perfil?.licencia">
                             <option value="null">Sin licencia</option>
                             <option value="competicion">Competición</option>
                             <option value="seguridad">Seguridad</option>

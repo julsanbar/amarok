@@ -33,9 +33,9 @@ import { HabilitadoPipe } from './pipes/habilitado/habilitado.pipe';
 import { EditarProveedorComponent } from './modals/editar-proveedor/editar-proveedor.component';
 import { NuevoProveedorComponent } from './modals/nuevo-proveedor/nuevo-proveedor.component';
 import { EditarUsuarioComponent } from './modals/editar-usuario/editar-usuario.component';
-import { NuevoUsuarioComponent } from './modals/nuevo-usuario/nuevo-usuario.component';
 import { TipoPipe } from './pipes/tipo/tipo.pipe';
 import { PedidosUsuarioComponent } from './modals/pedidos-usuario/pedidos-usuario.component';
+import { GestionProductosComponent } from './pages/gestion-productos/gestion-productos.component';
 
 @NgModule({
   declarations: [
@@ -61,9 +61,9 @@ import { PedidosUsuarioComponent } from './modals/pedidos-usuario/pedidos-usuari
     EditarProveedorComponent,
     NuevoProveedorComponent,
     EditarUsuarioComponent,
-    NuevoUsuarioComponent,
     TipoPipe,
-    PedidosUsuarioComponent
+    PedidosUsuarioComponent,
+    GestionProductosComponent
   ],
   imports: [
     BrowserModule,

@@ -1,21 +1,5 @@
 <div class="container-fluid tabla-fluid">
     <div class="row">
-      <nav class="navbar navbar-expand-lg nuevo">
-        <div class="container-fluid">
-  
-          <div> 
-            <button class="btn btn-outline-info" type="button" data-bs-toggle="modal" data-bs-target="#nuevo">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
-              </svg>
-              Nuevo Usuario
-            </button>        
-          </div>
-  
-        </div>
-      </nav>
-    </div>
-    <div class="row">
       <div class="col-md-12 offset-md-0 customTabla">
         <table class="table table-hover">
           <thead>
@@ -81,7 +65,8 @@
               </td>
               <td class="text-center">
 
-                <button type="button" class="btn btn-outline-dark border-0">
+                <button type="button" class="btn btn-outline-dark border-0" data-bs-toggle="modal" data-bs-target="#edita"
+                  (click)="this.editaUsuario = item" [disabled]="(this.sessionService.getUsuarioLogeado() === item._id)?true:false" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
                         <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
@@ -127,3 +112,25 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
   </div>
 </div>
 </div>
+
+  <!-- Modal EDITAR USUARIO-->
+  <div class="modal fade" id="edita" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header cabeceraProducto">
+        <button type="button" class="btn-close btn-outline-danger" (click)="this.refresh()" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          
+          <app-editar-usuario [editaUsuario]="this.editaUsuario" ></app-editar-usuario>
+  
+        </div>
+      </div>
+      <div class="modal-footer pieProducto">
+        <button type="button" class="mx-auto btn btn-outline-danger" (click)="this.refresh()" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+  </div>

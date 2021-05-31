@@ -111,6 +111,13 @@ const ProductoScheme = new mongoose.Schema(
             validate: numeroValidators
 
         },
+        
+        habilitado: {
+
+            type: Boolean,
+            required: [true,'Es necesario indicar si el usuario esta habilitado.']
+
+        },
 
         proveedores:{
 

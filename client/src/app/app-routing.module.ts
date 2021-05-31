@@ -15,6 +15,7 @@ import { RolGuard } from './guards/rol/rol.guard';
 import { LoginGuard } from './guards/login/login.guard';
 import { GestionPedidosComponent } from "../app/pages/gestion-pedidos/gestion-pedidos.component";
 import { ClienteGuard } from './guards/cliente/cliente.guard';
+import { GestionProductosComponent } from './pages/gestion-productos/gestion-productos.component';
 
 const routes: Routes = [
   { 
@@ -26,6 +27,11 @@ const routes: Routes = [
   {
 
     path: 'contacto', component: ContactoComponent
+
+  },
+  {
+
+    path: 'gestionProductos', component: GestionProductosComponent, canActivate: [SesionGuard, RolGuard]
 
   },
   {

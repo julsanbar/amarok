@@ -107,18 +107,37 @@ const modificaPerfil = async (req,res) => {
 
     }else{
 
-        bcrypt.hash(nuevoPerfil.password, null, null, async (err, hash) => {
-            
-            if (!err) {
+        //console.log("-------")
+        //console.log(nuevoPerfil.password)
+
+        if(nuevoPerfil.password !== undefined){
+
+            bcrypt.hash(nuevoPerfil.password, null, null, async (err, hash) => {
                 
-                nuevoPerfil.password = hash;
+                if (!err) {
+                    
+                    nuevoPerfil.password = hash;
 
-                const actualizaPerfil = await usuario.findByIdAndUpdate(nuevoPerfil.id,nuevoPerfil,{new: true, upsert:true});
+                    //console.log("-------")
+                    //console.log(nuevoPerfil.password)
 
-                res.status(200).send({resul:actualizaPerfil});
-            }
+                    const actualizaPerfil = await usuario.findByIdAndUpdate(nuevoPerfil.id,nuevoPerfil,{new: true, upsert:true});
 
-        });
+                    res.status(200).send({resul:actualizaPerfil});
+                }
+
+            });
+
+        }else{
+
+            //console.log("-------")
+            //console.log(nuevoPerfil)
+
+            const actualizaPerfil = await usuario.findByIdAndUpdate(nuevoPerfil.id,nuevoPerfil,{new: true, upsert:true});
+
+            res.status(200).send({resul:actualizaPerfil});
+
+        }
 
     }
 

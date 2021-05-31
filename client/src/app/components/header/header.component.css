@@ -50,3 +50,23 @@ a:focus{
     color: rgb(236, 181, 78)!important;
 
 }
+
+#dropdownMenuButton3{
+
+    border: none;
+
+}
+
+.btn-check:active+.btn-outline-light, .btn-check:checked+.btn-outline-light, .btn-outline-light.active, .btn-outline-light.dropdown-toggle.show, .btn-outline-light:active{
+
+    color: rgb(236, 181, 78);
+    background: none;
+
+}
+
+#dropdownMenuButton3:hover{
+
+    color: rgb(236, 181, 78);
+    background: none;
+
+}

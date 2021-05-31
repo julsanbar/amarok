@@ -13,7 +13,31 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link text-white" aria-current="page" routerLink="/producto">Productos</a>
+            
+            <ng-container *ngIf="this.rolUsuario === undefined || this.rolUsuario === 'registrado' || this.rolUsuario === null; else adminProductos">
+
+              <a class="nav-link text-white" aria-current="page" routerLink="/producto">Productos</a>
+
+            </ng-container>
+
+            <ng-template #adminProductos>
+
+              <div class="dropdown d-flex me-2">
+                <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                  Productos
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton3">
+                  <li>
+                    <a class="nav-link text-white" aria-current="page" routerLink="/producto">Tienda</a>
+                  </li>
+                  <li>
+                    <a class="nav-link text-white" aria-current="page" routerLink="/gestionProductos">Gestión</a>
+                  </li>
+                </ul>
+              </div>
+
+            </ng-template>
+
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" aria-current="page" routerLink="/pedido" *ngIf="this.rolUsuario === undefined || this.rolUsuario === 'registrado' || this.rolUsuario === null">Pedidos</a>

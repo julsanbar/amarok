@@ -10,5 +10,6 @@ export class Producto {
     stock!: Number;
     stockMinimo!: Number;
     proveedores!: String[];
+    habilitado!: Boolean;
 
 }

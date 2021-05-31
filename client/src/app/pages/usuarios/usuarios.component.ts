@@ -5,6 +5,7 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { first } from 'rxjs/operators';
 import { RolService } from 'src/app/services/rol/rol.service';
 import { Pedido } from 'src/app/models/pedido.model';
+import { SesionService } from 'src/app/services/sesion/sesion.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -12,7 +13,7 @@ import { Pedido } from 'src/app/models/pedido.model';
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnInit {
-  constructor(private rolService: RolService, private route: ActivatedRoute, private router: Router, private usuarioService:UsuarioService) { }
+  constructor(public sessionService: SesionService, private rolService: RolService, private route: ActivatedRoute, private router: Router, private usuarioService:UsuarioService) { }
 
   public usuarios: Usuario[] = [];
   public page: number = 1;
@@ -20,8 +21,11 @@ export class UsuariosComponent implements OnInit {
   public perPage: number = 10;
   public usuario: Usuario = new Usuario();
   public pedidos!: Pedido[]|null;
+  public editaUsuario: Usuario = new Usuario();
 
   ngOnInit(): void {
+
+    //console.log(this.sessionService.getUsuarioLogeado())
 
     this.route.queryParams.subscribe(params => {
       this.page = parseInt(params.page, 10) || 1;
@@ -95,5 +99,13 @@ export class UsuariosComponent implements OnInit {
   }
 
   trackByItems(index: number, item: any): number { return item.id; }
+
+  refresh():void{
+
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['usuarios']);
+
+  }
 
 }

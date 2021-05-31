@@ -1,5 +1,6 @@
 export class Usuario {
 
+     _id!: String;
      id!: String;
      nombre!: String;
      licencia!: String;
