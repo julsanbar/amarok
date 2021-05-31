@@ -36,10 +36,26 @@
 
         <div class="card-text pie">
 
+          <ng-container *ngIf="(item.stock <= item.stockMinimo)">
+
+            <div class="row pb-3">
+            
+              <div class="col">
+                
+                <div class="text-center ultimas">Últimas unidades</div>
+  
+              </div>
+  
+            </div>
+
+          </ng-container>
+
           <div class="row offset-md-1">
 
             <div class="col-5">
+              
               <span>Stock: {{item.stock}}</span>
+
             </div>
             <div class="col-5">
               <span class="precio">PVP: {{item.precio | formatoMoneda : '€'}}</span>

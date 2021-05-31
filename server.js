@@ -3,18 +3,14 @@ const initDB = require('./config/db');
 const cors = require('cors');
 
 const app = express();
-const port = 8080;
+const port = 8080 || process.env.PORT;
 
 const productoRouters = require('./routes/producto');
 const pedidoRouters = require('./routes/pedido');
 const proveedorRouters = require('./routes/proveedor');
 const usuarioRouters = require('./routes/usuario');
 
-app.use(cors({
-
-    origin: 'http://localhost:4200'
-
-}));
+app.use(cors());
 
 app.use(
     express.json({

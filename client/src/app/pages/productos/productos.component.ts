@@ -344,7 +344,9 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
           }
 
           this.carritoService.eliminar();
-
+          
+          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+          this.router.onSameUrlNavigation = 'reload';
           this.router.navigate(['/','producto']);
 
         });

@@ -144,3 +144,11 @@
     overflow:auto;
 
 }
+
+.ultimas{
+
+    background: rgba(165, 42, 42, 0.226);
+    border-radius: 1rem;
+    padding: 0.4rem;
+
+}

@@ -11,7 +11,7 @@ const getPagination = async (req,res) => {
     
     };
     //{stock:{$lt:6},referencia:500} <--- menor que
-    await producto.paginate({stock:{$gt:1}},options,(err,docs)=>{
+    await producto.paginate({stock:{$gt:1},habilitado:true},options,(err,docs)=>{
         //console.log("asd------",docs.totalDocs);
         res.status(200).send({
             docs
@@ -31,7 +31,7 @@ const getPaginationCompeticion = async (req,res) => {
     
     };
 
-    await producto.paginate({categoria: "competicion",stock:{$gt:1}},options,(err,docs)=>{
+    await producto.paginate({categoria: "competicion",stock:{$gt:1},habilitado:true},options,(err,docs)=>{
         //console.log("asd------",docs.totalDocs);
         res.status(200).send({
             docs
@@ -51,7 +51,7 @@ const getPaginationFuego = async (req,res) => {
     
     };
 
-    await producto.paginate({categoria: "fuego",stock:{$gt:1}},options,(err,docs)=>{
+    await producto.paginate({categoria: "fuego",stock:{$gt:1},habilitado:true},options,(err,docs)=>{
         //console.log("asd------",docs.totalDocs);
         res.status(200).send({
             docs
@@ -71,7 +71,7 @@ const getPaginationSeguridad = async (req,res) => {
     
     };
 
-    await producto.paginate({categoria: "seguridad",stock:{$gt:1}},options,(err,docs)=>{
+    await producto.paginate({categoria: "seguridad",stock:{$gt:1},habilitado:true},options,(err,docs)=>{
         //console.log("asd------",docs.totalDocs);
         res.status(200).send({
             docs
@@ -91,7 +91,7 @@ const getPaginationDefensa = async (req,res) => {
     
     };
 
-    await producto.paginate({categoria: "defensa",stock:{$gt:1}},options,(err,docs)=>{
+    await producto.paginate({categoria: "defensa",stock:{$gt:1},habilitado:true},options,(err,docs)=>{
         //console.log("asd------",docs.totalDocs);
         res.status(200).send({
             docs
@@ -107,6 +107,8 @@ const getMasVendidos = async (req,res) => {
     
     const productos = await producto.find({},(err,docs)=>{})
     const productosPedidos = await pedido.find({},{"productos":1,"_id":0},(err,docs)=>{})
+
+    //console.log(productosPedidos)
 
     var productsPed = [];
     var cantidad = {};
