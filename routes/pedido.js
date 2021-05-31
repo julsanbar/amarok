@@ -71,4 +71,11 @@ router.post(
 
 );
 
+router.post(
+
+    '/pedidosDeProducto',
+    controller.pedidosDeProducto
+
+);
+
 module.exports = router;

@@ -1,6 +1,26 @@
 const producto = require('../models/producto');
 const pedido = require('../models/pedido');
 
+//
+const getPaginationProductos = async (req,res) => {
+
+    const options = {
+        //empieza por 1
+        page: req.params.page,
+        limit: 10
+    
+    };
+    //{stock:{$lt:6},referencia:500} <--- menor que
+    await producto.paginate({},options,(err,docs)=>{
+        //console.log("asd------",docs.totalDocs);
+        res.status(200).send({
+            docs
+        });
+    });
+
+    
+};
+
 //Devuelve la paginación de los productos
 const getPagination = async (req,res) => {
 
@@ -194,7 +214,7 @@ const insertData = async (req,res) => {
 
         if(err){
             //console.log("ERROR---------------",err.message);
-            res.status(200).send({error:'ERROR'},422)
+            res.status(200).send({error:'ERROR'})
 
         }else{
                         
@@ -215,6 +235,7 @@ module.exports = {
     getPaginationDefensa,
     getPagination,
     getMasVendidos,
-    insertData
+    insertData,
+    getPaginationProductos
 
 };

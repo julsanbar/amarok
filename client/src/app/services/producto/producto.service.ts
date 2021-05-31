@@ -43,6 +43,9 @@ export class ProductoService {
     return this.http.get(this.uri+'paginationSeguridad/'+pagina);
   }
 
-  
+  getPaginationProductos(pagina: number): any{
+
+    return this.http.get(this.uri+'getPaginationProductos/'+pagina);
+  }
 
 }

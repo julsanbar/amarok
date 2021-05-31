@@ -54,4 +54,9 @@ export class PedidoService {
 
   }
 
+  pedidosDeProducto(referencia: Number): any{
+
+    return this.http.post(this.uri+'pedidosDeProducto',{referencia:referencia});    
+  }
+
 }

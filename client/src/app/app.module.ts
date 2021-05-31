@@ -36,6 +36,10 @@ import { EditarUsuarioComponent } from './modals/editar-usuario/editar-usuario.c
 import { TipoPipe } from './pipes/tipo/tipo.pipe';
 import { PedidosUsuarioComponent } from './modals/pedidos-usuario/pedidos-usuario.component';
 import { GestionProductosComponent } from './pages/gestion-productos/gestion-productos.component';
+import { NuevoProductoComponent } from './modals/nuevo-producto/nuevo-producto.component';
+import { EditarProductoComponent } from './modals/editar-producto/editar-producto.component';
+import { ProveedoresProductoComponent } from './modals/proveedores-producto/proveedores-producto.component';
+import { PedidosProductoComponent } from './modals/pedidos-producto/pedidos-producto.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +67,11 @@ import { GestionProductosComponent } from './pages/gestion-productos/gestion-pro
     EditarUsuarioComponent,
     TipoPipe,
     PedidosUsuarioComponent,
-    GestionProductosComponent
+    GestionProductosComponent,
+    NuevoProductoComponent,
+    EditarProductoComponent,
+    ProveedoresProductoComponent,
+    PedidosProductoComponent
   ],
   imports: [
     BrowserModule,

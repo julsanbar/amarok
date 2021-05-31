@@ -1,5 +1,6 @@
 export class Producto {
 
+    _id!: String;
     id!: String;
     referencia!: Number;
     categoria!: String;

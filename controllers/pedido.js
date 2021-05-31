@@ -31,7 +31,7 @@ const insertData = async (req,res) => {
 
         if(err){
             //console.log(err);
-            res.status(200).send({error:'ERROR'},422)
+            res.status(200).send({error:'ERROR'})
 
         }else{
             
@@ -136,7 +136,7 @@ const crearPedido = async (req,res) => {
 
                 await usuario.findByIdAndUpdate(idCliente,{pedidos: pedidosCliente.pedidos},{new: true, upsert:true});
                 
-                return res.status(200).send({data:ped},200)
+                return res.status(200).send({data:ped})
 
             }
 
@@ -225,6 +225,18 @@ const paginationPedidosAdmin = async (req,res) => {
         });
     });
     
+};
+
+const pedidosDeProducto = async (req,res) => {
+
+    const referencia = req.body.referencia;
+
+    await pedido.find({productos:referencia},(err,ped)=>{
+
+        res.status(200).send({ped:ped})
+
+    })
+
 };
 
 const getProductosPedidos = async (req,res) => {
@@ -356,6 +368,7 @@ module.exports = {
     cancelarPedido,
     crearPedido,
     paginationPedidosAdmin,
-    idClientePedido
+    idClientePedido,
+    pedidosDeProducto
 
 };

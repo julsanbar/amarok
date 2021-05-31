@@ -82,6 +82,18 @@ const paginationUsuariosAdmin = async (req,res) => {
     
 };
 
+const usuarioPedido = async (req, res) => {
+
+    console.log("------",req.body.ref)
+
+    //await usuario.find({pedidos:req.body.ref},(err,docs)=>{
+
+
+
+    //});
+
+};
+
 const modificaPerfil = async (req,res) => {
 
     let nuevoPerfil = req.body;
@@ -214,11 +226,11 @@ const crearUsuario = async (req,res) => {
 
             if(err){
 
-                return res.status(200).send({error:'Error al intentar insertar al usuario'},422)
+                return res.status(200).send({error:'Error al intentar insertar al usuario'})
     
             }else{
                 
-                return res.status(200).send({data:user},200)
+                return res.status(200).send({data:user})
     
             }
     
@@ -291,7 +303,7 @@ const iniciarSesion = async (req,res) => {
 
         if(checkUsuario.comparePasswords(data.password)){
 
-            return res.status(200).send({data:checkUsuario},200);
+            return res.status(200).send({data:checkUsuario});
             
         }else{
 
@@ -316,6 +328,7 @@ module.exports = {
     modificaPerfil,
     paginationUsuariosAdmin,
     pedidosUsuario,
-    paginationUsuariosEmpleado
+    paginationUsuariosEmpleado,
+    usuarioPedido
 
 };

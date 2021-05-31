@@ -78,4 +78,11 @@ router.get(
 
 );
 
+router.get(
+
+    '/usuarioPedido/:ref',
+    controller.usuarioPedido
+
+);
+
 module.exports = router;

@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+.nuevo{
+
+    background: #212529!important;
+    margin-top: 0rem !important;
+    
+}
+
+.pieCancelado,.cabeceraCancelado,.pieProducto,.cabeceraProducto{
+
+    background: #212529!important;
+
+}
+
+
+.clearfix {
+
+    background: #212529!important;
+    color: white!important;
+
+}
+
+.clearfix ::ng-deep .ngx-pagination .current {
+    background: #212529!important;
+    color: white!important;
+}
+
+.customTabla{
+
+    margin-top: 2rem!important;
+    
+}
+
+.tabla-fluid{
+    margin-bottom: 7rem!important;
+}
+
+.text-center{
+
+    padding: 1rem!important;
+
+}
+
+.agotado{
+
+    background: rgba(165, 42, 42, 0.226)!important;
+
+}
+
+.contenido-tabla{
+
+    max-height: 25rem!important;
+    overflow:auto;
+
+}

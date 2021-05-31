@@ -28,4 +28,9 @@ export class ProveedorService {
     return this.http.post(this.uri+'crearProveedor',proveedor);
   }
 
+  proveedoresReferencia(referencias: String[]): any{
+
+    return this.http.post(this.uri+'proveedoresReferencia',referencias);
+  }
+
 }

@@ -42,4 +42,12 @@ router.post(
 
 );
 
+
+router.post(
+
+    '/proveedoresReferencia',
+    controller.proveedoresReferencia
+
+);
+
 module.exports = router;

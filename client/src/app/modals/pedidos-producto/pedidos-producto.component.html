@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2 customTabla">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">REFERENCIA</th>
+            <th class="text-center">ESTADO</th>
+            <th class="text-center">FECHA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of this.pedidos">
+            <td class="text-center">{{item.referencia}}</td>
+            <td class="text-center">{{item.estado}}</td>
+            <td class="text-center">{{item.fechaPedido | formatoFecha}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

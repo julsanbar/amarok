@@ -55,4 +55,11 @@ router.post(
 
 );
 
+router.get(
+
+    '/getPaginationProductos/:page',
+    controller.getPaginationProductos
+
+);
+
 module.exports = router;

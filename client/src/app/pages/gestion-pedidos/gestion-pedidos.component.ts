@@ -7,6 +7,7 @@ import { first } from 'rxjs/operators';
 import { SesionService } from 'src/app/services/sesion/sesion.service';
 import { RolService } from 'src/app/services/rol/rol.service';
 import Swal from 'sweetalert2';
+import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 
 @Component({
   selector: 'app-gestion-pedidos',
@@ -15,7 +16,10 @@ import Swal from 'sweetalert2';
 })
 export class GestionPedidosComponent implements OnInit {
 
-  constructor(private rolService: RolService ,private sessionService: SesionService, private pedidoService: PedidoService, private productoService: ProductoService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private rolService: RolService ,private sessionService: SesionService, 
+    private pedidoService: PedidoService, private productoService: ProductoService, 
+    private route: ActivatedRoute, private router: Router,
+    private usuarioService: UsuarioService) { }
 
   public pedidos: Pedido[] = [];
   public page: number = 1;
@@ -29,6 +33,8 @@ export class GestionPedidosComponent implements OnInit {
   public rolUsuario!: string|null;
   public pedidoCancelar!: Pedido;
 
+  //public usuarioPedido!: {String:String};
+
   ngOnInit(): void {
 
     this.rolUsuario = this.rolService.devuelveRolSesion();
@@ -39,6 +45,17 @@ export class GestionPedidosComponent implements OnInit {
     });
 
   }
+
+  /*usuario(ref: String): String{
+
+    this.usuarioService.usuarioPedido(ref).pipe(first()).subscribe((res: any) => {
+
+      
+    });
+
+    return 'holi';
+
+  }*/
 
   getDatos(page: number): void {
 
