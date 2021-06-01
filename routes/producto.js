@@ -69,4 +69,11 @@ router.post(
 
 );
 
+router.post(
+
+    '/modificaProducto',
+    controller.modificaProducto
+
+);
+
 module.exports = router;

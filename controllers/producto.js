@@ -227,6 +227,16 @@ const insertData = async (req,res) => {
 
 }
 
+const modificaProducto = async (req,res) => {
+
+    //console.log(req.body)
+    const modificaciones = req.body; 
+    const actualizaProducto = await  producto.findByIdAndUpdate(modificaciones.id,modificaciones,{new: true, upsert:true});
+
+    res.status(200).send({resul:actualizaProducto});
+
+};
+
 const crearProducto = async (req,res) => {
 
     const ultimoProducto = await producto.find({}).sort({$natural:-1}).limit(1);
@@ -310,6 +320,7 @@ module.exports = {
     getMasVendidos,
     insertData,
     getPaginationProductos,
-    crearProducto
+    crearProducto,
+    modificaProducto
 
 };

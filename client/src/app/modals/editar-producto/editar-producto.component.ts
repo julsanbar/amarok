@@ -32,73 +32,86 @@ export class EditarProductoComponent implements OnInit, OnChanges {
 
       nombre: ['',
         [
-          Validators.required,
           Validators.pattern(/^[a-zA-Z0-9 ]+$/),
           Validators.minLength(3)
         ]
       ],
       categoria: ['',
         [
-          Validators.required
         ]
       ],
       precio: ['',
         [
-          Validators.required,
           Validators.min(0)
         ]
       ],
       tasa: ['',
         [
-          Validators.required,
           Validators.pattern(/^\d+$/)
         ]
       ],
       stock: ['',
         [
-          Validators.required,
           Validators.pattern(/^\d+$/)
         ]
       ],
       descripcion: ['',
         [
-          Validators.required,
           Validators.minLength(5),
           Validators.maxLength(300)
         ]
       ],
       stockMinimo: ['',
         [
-          Validators.required,
           Validators.pattern(/^\d+$/)
         ]
       ],
-      habilitado: [true,[]
+      habilitado: ['',
+        [
+
+        ]
       ]
-    }, 
-    { validator: this.compareStock('stock', 'stockMinimo') });
+    });
 
   }
 
   ngOnInit(): void {
   }
 
-
-  compareStock(stock: string, stockMinimo: string) {
-    return (group: FormGroup) => {
-      if (group.controls[stock].value >= group.controls[stockMinimo].value) {
-        return null;
-      } else {
-        return { 'stockInvalido': true };
-      }
-    };
-  }
-
   cargaProveedores(): void{
 
     this.proveedorService.getProveedoresHabilitados().pipe(first()).subscribe((res: any) => {
 
-      this.proveedores = res.proveedores;
+      //this.proveedores = res.proveedores;
+      const aux = res.proveedores;
+
+      if(this.editaProducto.proveedores !== undefined){
+
+        this.proveedores.length = 0;
+
+        for (const iterator of aux) {
+          
+          if(this.editaProducto.proveedores.indexOf(iterator.referencia) === -1){
+
+            this.proveedores.push(iterator);    
+
+          }
+
+          //console.log('****',iterator)
+
+        }
+
+
+      }else{
+
+        this.proveedores = aux;
+
+      }
+
+      //console.log(aux)
+      //console.log('-------',this.editaProducto.proveedores)
+
+
       //console.log(this.proveedores)
 
     });
@@ -125,7 +138,7 @@ export class EditarProductoComponent implements OnInit, OnChanges {
       this.colores = coloresSeleccion;
     }
 
-    document.getElementById("tablaProductoProveedores")?.getElementsByTagName("tr")[index].setAttribute("style","background: rgba(36, 154, 158, 0.233)!important;");
+    document.getElementById("tablaProductoProveedoresEdita")?.getElementsByTagName("tr")[index].setAttribute("style","background: rgba(36, 154, 158, 0.233)!important;");
     //console.log(document.getElementById("tablaProductoProveedores")?.getElementsByTagName("tr")[index])
 
   }
@@ -151,7 +164,7 @@ export class EditarProductoComponent implements OnInit, OnChanges {
 
     }
 
-    document.getElementById("tablaProductoProveedores")?.getElementsByTagName("tr")[index].removeAttribute("style");
+    document.getElementById("tablaProductoProveedoresEdita")?.getElementsByTagName("tr")[index].removeAttribute("style");
 
     //console.log(this.seleccion)
 
@@ -165,7 +178,7 @@ export class EditarProductoComponent implements OnInit, OnChanges {
 
       for (const iterator of this.colores) {
         
-        document.getElementById("tablaProductoProveedores")?.getElementsByTagName("tr")[iterator].removeAttribute("style");
+        document.getElementById("tablaProductoProveedoresEdita")?.getElementsByTagName("tr")[iterator].removeAttribute("style");
 
       }
 
@@ -181,41 +194,68 @@ export class EditarProductoComponent implements OnInit, OnChanges {
 
   enviar(){
     
-    //console.log(this.registroForm.value)
+    //stock minimo en el back 
+
+    //let nuevoProducto: Producto = this.registroForm.value;
+    //nuevoProducto.proveedores = this.seleccion;
+
+    const productoNuevo: any = {};
+    const campos: string[] = ['categoria','descripcion','habilitado','nombre','precio','stock','stockMinimo','tasa'];
+    let actualiza: boolean = false;
+    productoNuevo.id = this.editaProducto._id;
+
+    campos.forEach(campo => { if(this.registroForm.get(campo)?.value !== ''){ productoNuevo[campo] = this.registroForm.get(campo)?.value; actualiza = true;} });
+
     //console.log(this.seleccion)
 
-    let nuevoProducto: Producto = this.registroForm.value;
+    if(this.seleccion.length !== 0){
 
-    nuevoProducto.proveedores = this.seleccion;
+      this.editaProducto.proveedores.forEach(element => this.seleccion.push(element));
+      productoNuevo.proveedores = this.seleccion;
+      actualiza = true;
 
-    console.log(nuevoProducto)
+    }
 
-    this.productoService.crearProducto(nuevoProducto).pipe(first()).subscribe((res: any) => {        
+    //console.log(productoNuevo);
+    //console.log(actualiza);
+
+    if(actualiza){
+
+      this.productoService.modificaProducto(productoNuevo).pipe(first()).subscribe((res: any) => {
+
+        if(!res.error){
+
+          this.errores.length = 0;
+          Swal.fire('Actualización realizada', 'El usuario se ha actualizado correctamente', 'success');
+
+          //this.reload.emit();
+
+        }else{
+
+          this.registroForm.invalid;
+          this.errores = res.error;
+  
+        }
+
+
+      }, (err: any) => {
+        
+        console.log(err)
+
+      });
+
+
+    }else{
       
-      //console.log(res)
+      Swal.fire({
+        title: 'Vaya...',
+        text: 'No ha introducido ningún nuevo valor!',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonText: 'Cerrar'
+      });
 
-      if(!res.error){
-
-        this.errores.length = 0;
-        //this.registroForm.reset();
-        //this.limpiarProveedores();
-
-        Swal.fire('Operación correcta', 'Se ha creado correctamente el producto', 'success');
-
-      }else{
-
-        this.registroForm.invalid;
-        this.errores = res.error;
-
-      }
-
-
-    }, (err: any) => {
-    
-      console.log(err)
-
-    });
-
+    }
 
   }
 

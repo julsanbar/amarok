@@ -7,27 +7,40 @@
 
                 <div class="row pt-2">
 
-                    <div class="col-md-8">
+                    <div class="col-md-6">
 
                         <label for="inputNombre">Nombre</label>
                         <input type="text" id="inputNombre" class="form-control" formControlName="nombre"
-                            placeholder="Pistola GLOCK 19 X Coyote 9mm Pb" [controlErrorsTpl]="campoNombre">
+                            placeholder="Pistola GLOCK 19 X Coyote 9mm Pb" [controlErrorsTpl]="campoNombre"
+                            [value]="this.editaProducto?.nombre">
                         <ng-container
                             *ngTemplateOutlet="nombreError;context:{error:registroForm.get('nombre')?.errors}">
                         </ng-container>
 
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-2">
 
                         <label for="inputCategoria">Categoria</label>
-                        <select class="form-select" id="inputCategoria" formControlName="categoria">
+                        <select class="form-select" id="inputCategoria" formControlName="categoria" [value]="this.editaProducto?.categoria">
                             <option value="" selected>----</option>
                             <option value="defensa" selected>Defensa</option>
                             <option value="fuego">Fuego</option>
                             <option value="competicion">Competición</option>
                             <option value="seguridad">Seguridad</option>
                         </select>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <label class="form-check-label" for="inputHabilitado">
+                            Habilitado
+                        </label>
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="habilitado" type="checkbox" id="inputHabilitado"
+                            [checked]="this.editaProducto?.habilitado">
+                        </div>
 
                     </div>
 
@@ -39,7 +52,7 @@
 
                         <label for="inputPrecio">Precio</label>
                         <input type="number" id="inputPrecio" class="form-control" formControlName="precio"
-                            placeholder="699.36" min="0" [controlErrorsTpl]="campoPrecio">
+                            placeholder="699.36" min="0" [controlErrorsTpl]="campoPrecio" [value]="this.editaProducto?.precio">
                         <ng-container
                             *ngTemplateOutlet="precioError;context:{error:registroForm.get('precio')?.errors}">
                         </ng-container>
@@ -50,7 +63,7 @@
 
                         <label for="inputTasa">Tasa</label>
                         <input type="number" id="inputTasa" class="form-control" formControlName="tasa"
-                            placeholder="21" min="0" [controlErrorsTpl]="campoTasa">
+                            placeholder="21" min="0" [controlErrorsTpl]="campoTasa" [value]="this.editaProducto?.tasa">
                         <ng-container
                             *ngTemplateOutlet="tasaError;context:{error:registroForm.get('tasa')?.errors}">
                         </ng-container>
@@ -61,7 +74,7 @@
 
                         <label for="inputStock">Stock</label>
                         <input type="number" id="inputStock" class="form-control" formControlName="stock"
-                            placeholder="30" min="0" [controlErrorsTpl]="campoStock">
+                            placeholder="30" min="0" [controlErrorsTpl]="campoStock" [value]="this.editaProducto?.stock">
                         <ng-container
                             *ngTemplateOutlet="stockError;context:{error:registroForm.get('stock')?.errors}">
                         </ng-container>
@@ -72,7 +85,7 @@
 
                         <label for="inputStockMinimo">Stock Mínimo</label>
                         <input type="number" id="inputStockMinimo" class="form-control" formControlName="stockMinimo"
-                            placeholder="10" min="0" [controlErrorsTpl]="campoStockMinimo">
+                            placeholder="10" min="0" [controlErrorsTpl]="campoStockMinimo" [value]="this.editaProducto?.stockMinimo">
                         <ng-container
                             *ngTemplateOutlet="stockMinimoError;context:{error:registroForm.get('stockMinimo')?.errors}">
                         </ng-container>
@@ -88,7 +101,7 @@
                         <label for="inputDescripcion">Descripción</label>
                          <textarea minlength="5" maxlength="300" class="form-control" formControlName="descripcion"
                          placeholder="Arma a media distancia, con cacha de cuero y percutor de martillo" [controlErrorsTpl]="campoDescripcion"
-                         id="inputDescripcion" rows="4"></textarea>
+                         id="inputDescripcion" rows="4" [value]="this.editaProducto?.descripcion"></textarea>
                         <ng-container
                             *ngTemplateOutlet="descripcionError;context:{error:registroForm.get('descripcion')?.errors}">
                         </ng-container>
@@ -116,7 +129,7 @@
                     
                               </tr>
                             </thead>
-                            <tbody id="tablaProductoProveedores">
+                            <tbody id="tablaProductoProveedoresEdita">
                               <tr *ngFor="let item of this.proveedores; let i = index;trackBy: trackByItems">
                     
                                 <td class="text-center">{{item.referencia}}</td>
@@ -158,12 +171,12 @@
 
                 <div class="row">
                     <div class="col text-center">
-                        <button [disabled]="(registroForm.invalid) || (this.seleccion.length === 0) || (this.colores.length === 0)" type="submit" class="btn btn-outline-success enviar">Guardar</button>                                            
+                        <button [disabled]="registroForm.invalid" type="submit" class="btn btn-outline-success enviar">Guardar</button>                                            
                     </div>
 
-                    <div class="col-6 text-center">
+                    <!--<div class="col-6 text-center">
                         <button type="reset" (click)="this.limpiarProveedores()" class="btn btn-outline-danger borrar">Borrar</button>    
-                    </div>
+                    </div>-->
                 </div>
             </form>
 

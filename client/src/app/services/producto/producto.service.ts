@@ -54,4 +54,9 @@ export class ProductoService {
     return this.http.post(this.uri+'crearProducto',producto);
   }
 
+  modificaProducto(producto: any): any{
+
+    return this.http.post(this.uri+'modificaProducto',producto);
+  }
+
 }
