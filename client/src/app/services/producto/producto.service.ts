@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Producto } from 'src/app/models/producto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,11 @@ export class ProductoService {
   getPaginationProductos(pagina: number): any{
 
     return this.http.get(this.uri+'getPaginationProductos/'+pagina);
+  }
+
+  crearProducto(producto: Producto): any{
+
+    return this.http.post(this.uri+'crearProducto',producto);
   }
 
 }

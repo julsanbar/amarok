@@ -121,7 +121,8 @@ const ProductoScheme = new mongoose.Schema(
 
         proveedores:{
 
-            type: Array
+            type: Array,
+            required: [true,'Es necesario indicar el o los proveedores.']
 
         }
 

@@ -62,4 +62,11 @@ router.get(
 
 );
 
+router.post(
+
+    '/crearProducto',
+    controller.crearProducto
+
+);
+
 module.exports = router;

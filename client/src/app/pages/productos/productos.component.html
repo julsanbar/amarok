@@ -28,7 +28,7 @@
   <div class="row row-cols-3 row-cols-md-3 g-6 pt-4 productos">
     <div class="col" *ngFor="let item of this.productos | paginate: { itemsPerPage: perPage, currentPage: page, totalItems: total } ;trackBy: trackByItems">
       <div class="card">
-        <img [src]="'../../../assets/img/productos/'+item.referencia+'.jpg'" class="card-img-top" alt="...">
+        <img [src]="(item.referencia >= 1000)?'../../../assets/img/productos/1000.jpg':'../../../assets/img/productos/'+item.referencia+'.jpg'" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title"><strong>{{item.nombre}}</strong></h5>
           <p class="card-text descripcion">{{item.descripcion}}</p>

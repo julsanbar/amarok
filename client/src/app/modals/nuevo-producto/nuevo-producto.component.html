@@ -1,1 +1,352 @@
-<p>nuevo-producto works!</p>
+<div class="container-fluid pt-4">
+    <div class="row formulario">
+        <div>
+            <form [formGroup]="registroForm" (ngSubmit)="enviar()" errorTailor>
+
+                <h4 class="text-center">Nuevo Producto</h4>
+
+                <div class="row pt-2">
+
+                    <div class="col-md-8">
+
+                        <label for="inputNombre">Nombre</label>
+                        <input type="text" id="inputNombre" class="form-control" formControlName="nombre"
+                            placeholder="Pistola GLOCK 19 X Coyote 9mm Pb" [controlErrorsTpl]="campoNombre">
+                        <ng-container
+                            *ngTemplateOutlet="nombreError;context:{error:registroForm.get('nombre')?.errors}">
+                        </ng-container>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <label for="inputCategoria">Categoria</label>
+                        <select class="form-select" id="inputCategoria" formControlName="categoria">
+                            <option value="" selected>----</option>
+                            <option value="defensa" selected>Defensa</option>
+                            <option value="fuego">Fuego</option>
+                            <option value="competicion">Competición</option>
+                            <option value="seguridad">Seguridad</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="row pt-2">
+
+                    <div class="col-md-3">
+
+                        <label for="inputPrecio">Precio</label>
+                        <input type="number" id="inputPrecio" class="form-control" formControlName="precio"
+                            placeholder="699.36" min="0" [controlErrorsTpl]="campoPrecio">
+                        <ng-container
+                            *ngTemplateOutlet="precioError;context:{error:registroForm.get('precio')?.errors}">
+                        </ng-container>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <label for="inputTasa">Tasa</label>
+                        <input type="number" id="inputTasa" class="form-control" formControlName="tasa"
+                            placeholder="21" min="0" [controlErrorsTpl]="campoTasa">
+                        <ng-container
+                            *ngTemplateOutlet="tasaError;context:{error:registroForm.get('tasa')?.errors}">
+                        </ng-container>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <label for="inputStock">Stock</label>
+                        <input type="number" id="inputStock" class="form-control" formControlName="stock"
+                            placeholder="30" min="0" [controlErrorsTpl]="campoStock">
+                        <ng-container
+                            *ngTemplateOutlet="stockError;context:{error:registroForm.get('stock')?.errors}">
+                        </ng-container>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <label for="inputStockMinimo">Stock Mínimo</label>
+                        <input type="number" id="inputStockMinimo" class="form-control" formControlName="stockMinimo"
+                            placeholder="10" min="0" [controlErrorsTpl]="campoStockMinimo">
+                        <ng-container
+                            *ngTemplateOutlet="stockMinimoError;context:{error:registroForm.get('stockMinimo')?.errors}">
+                        </ng-container>
+
+                    </div>
+
+                </div>
+
+                <div class="row pt-2">
+
+                    <div class="col-md-12">
+
+                        <label for="inputDescripcion">Descripción</label>
+                         <textarea minlength="5" maxlength="300" class="form-control" formControlName="descripcion"
+                         placeholder="Arma a media distancia, con cacha de cuero y percutor de martillo" [controlErrorsTpl]="campoDescripcion"
+                         id="inputDescripcion" rows="4"></textarea>
+                        <ng-container
+                            *ngTemplateOutlet="descripcionError;context:{error:registroForm.get('descripcion')?.errors}">
+                        </ng-container>
+                        
+                    </div>
+
+                </div>
+
+                <div class="row pt-2">
+
+                    <div class="col-md-12 table-responsive contenido-tabla">
+
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                    
+                                <th class="text-center">REFERENCIA</th>
+                                <th class="text-center">NOMBRE</th>
+                                <th class="text-center">CIF</th>
+                                <th class="text-center">EMAIL</th>
+                                <th class="text-center">TELÉFONO</th>
+                                <th class="text-center">PAÍS</th>
+                                <th class="text-center">AÑADIR</th>
+                                <th class="text-center">QUITAR</th>
+                    
+                              </tr>
+                            </thead>
+                            <tbody id="tablaProductoProveedores">
+                              <tr *ngFor="let item of this.proveedores; let i = index;trackBy: trackByItems">
+                    
+                                <td class="text-center">{{item.referencia}}</td>
+                                <td class="text-center">{{item.nombre}}</td>
+                                <td class="text-center">{{item.cif}}</td>
+                                <td class="text-center">{{item.email}}</td>
+                                <td class="text-center">{{item.telefono}}</td>
+                                <td class="text-center">{{item.pais}}</td>
+                                <td class="text-center">
+
+                                    <button type="button" class="btn btn-outline-primary border-0" (click)="this.nuevoProveedor(item.referencia, i)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                          </svg>
+                                    </button>
+
+                                </td>
+                                <td class="text-center">
+
+                                    <button type="button" class="btn btn-outline-danger border-0" (click)="this.quitaProveedor(item.referencia, i)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-dash" viewBox="0 0 16 16">
+                                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                            <path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                                          </svg>
+                                    </button>
+
+                                </td>
+
+                              </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col text-center">
+                        <button [disabled]="(registroForm.invalid) || (this.seleccion.length === 0) || (this.colores.length === 0)" type="submit" class="btn btn-outline-success enviar">Guardar</button>                                            
+                    </div>
+
+                    <div class="col-6 text-center">
+                        <button type="reset" (click)="this.limpiarProveedores()" class="btn btn-outline-danger borrar">Borrar</button>    
+                    </div>
+                </div>
+            </form>
+
+            <!-- Error stock mayor al mínimo -->
+
+            <div *ngIf="registroForm.errors?.stockInvalido" id="emailDuplicado">
+
+                <ul>
+
+                    <li>El stock no puede ser menor que el stock mínimo</li>
+
+                </ul>
+
+            </div>            
+
+            <!-- Error duplicado email -->
+
+            <div *ngIf="this.errores.length > 0" id="emailDuplicado">
+
+                <ul *ngFor="let item of this.errores">
+
+                    <li>{{item}}</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--TEMPLATES, ERRORES PERSONALIZADOS-->
+
+<!--** NOMBRE **-->
+<ng-template let-error="error" #nombreError>
+
+    <div *ngIf="error?.pattern" id="nombreError">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Debe de constar mínimo de 3 caracteres</li>
+            <li>Solo puede contener letras y números.</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoNombre>
+
+    <div *ngIf="error?.required" id="campoNombre">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** CATEGORIA **-->
+<ng-template let-error let-text="text" #campoCategoria>
+
+    <div *ngIf="error?.required" id="campoCategoria">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** PRECIO **-->
+<ng-template let-error="error" #precioError>
+
+    <div *ngIf="error?.pattern" id="precioError">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Debe ser superior a 0</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoPrecio>
+
+    <div *ngIf="error?.required" id="campoPrecio">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** TASA **-->
+<ng-template let-error="error" #tasaError>
+
+    <div *ngIf="error?.pattern" id="tasaError">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Debe ser superior a 0</li>
+            <li>Debe ser una sin decimales</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoTasa>
+
+    <div *ngIf="error?.required" id="campoTasa">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** STOCK **-->
+<ng-template let-error="error" #stockError>
+
+    <div *ngIf="error?.pattern" id="stockError">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Debe ser superior a 0</li>
+            <li>Debe ser una sin decimales</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoStock>
+
+    <div *ngIf="error?.required" id="campoStock">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** STOCK MINIMO **-->
+<ng-template let-error="error" #stockMinimoError>
+
+    <div *ngIf="error?.pattern" id="stockMinimoError">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Debe ser superior a 0</li>
+            <li>Debe ser una sin decimales</li>
+            <li>Debe ser superior al stock</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoStockMinimo>
+
+    <div *ngIf="error?.required" id="campoStockMinimo">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>
+
+<!--** DESCRIPCION **-->
+<ng-template let-error="error" #descripcionError>
+
+    <div *ngIf="error?.minlength || error?.maxlength" id="descripcionError">
+
+        <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
+        <ul>
+            <li>Debe ser superior a 5 e inferior a 300 carácteres</li>
+        </ul>
+
+    </div>
+
+</ng-template>
+<ng-template let-error let-text="text" #campoDescripcion>
+
+    <div *ngIf="error?.required" id="campoDescripcion">
+
+        <p class="text-center">Campo obligatorio</p>
+
+    </div>
+
+</ng-template>

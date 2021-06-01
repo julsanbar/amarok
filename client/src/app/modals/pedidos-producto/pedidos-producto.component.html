@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="this.pedidos.length > 0; else vacio">
     <div class="col-md-8 offset-md-2 customTabla">
       <table class="table table-hover">
         <thead>
@@ -18,4 +18,10 @@
         </tbody>
       </table>
     </div>
-  </div>
+</div>  
+
+<ng-template #vacio class="noCarrito">
+
+  <h2>Este producto no esta en ningún producto todavía.</h2>
+
+</ng-template>

@@ -9,38 +9,46 @@ export class TipoPipe implements PipeTransform {
 
     let formateo!:String;
 
-    if(args[0] === 'licencia'){
+    if(value !== undefined){
 
-      switch (value) {
-        case 'null':
-        
-          formateo = 'Sin licencia';
-  
-          break;
-      
-        case 'competicion':
-        
-            formateo = 'Competición';
+      if(args[0] === 'licencia'){
+
+        switch (value) {
+          case 'null':
+          
+            formateo = 'Sin licencia';
     
-          break;
-  
-        case 'seguridad':
+            break;
         
-            formateo = 'Seguridad';
+          case 'competicion':
+          
+              formateo = 'Competición';
       
-        break;
-  
-        case 'fuego':
-        
-          formateo = 'Fuego';
+            break;
     
+          case 'seguridad':
+          
+              formateo = 'Seguridad';
+        
           break;
-  
+    
+          case 'fuego':
+          
+            formateo = 'Fuego';
+      
+            break;
+    
+        }
+
+      }else{
+
+        formateo = value.charAt(0).toLocaleUpperCase()+value.slice(1);
+
       }
 
     }else{
 
-      formateo = value.charAt(0).toLocaleUpperCase()+value.slice(1);
+      formateo = '';
 
     }
 

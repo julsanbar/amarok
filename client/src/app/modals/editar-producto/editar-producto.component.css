@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+input.ng-invalid.ng-touched{
+
+    border: solid 2px rgba(255, 99, 71, 0.644);
+
+}
+
+input.ng-valid.ng-dirty{
+
+    border: solid 2px rgb(59, 167, 59);
+    
+}
+
+#nombreError,#campoNombre,#campoCategoria,#campoPrecio,#precioError
+#tasaError,#campoTasa,#campoStock,#stockError,#campoStockMinimo,
+#stockMinimoError,#descripcionError,#campoDescripcion,#campoCategoria{
+
+    list-style-type: circle;
+    background: rgba(253, 213, 213, 0.788);
+    border: solid 2px tomato;
+    width: 300px;
+    height: auto;
+
+}
+
+#emailDuplicado{
+
+    list-style-type: circle;
+    background: rgba(253, 213, 213, 0.788);
+    border: solid 2px tomato;
+    width: 300px;
+    height: auto;
+    margin: 2rem auto;
+    padding: 1rem;
+
+}
+
+.formulario{
+
+    margin-bottom: 2rem!important;
+
+}
+
+.contenido-tabla{
+
+    max-height: 25rem!important;
+    overflow:auto;
+
+}

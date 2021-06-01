@@ -21,6 +21,7 @@ export class GestionProductosComponent implements OnInit {
   public perPage: number = 10;
   public proveedores: Proveedor[] = [];
   public pedidos: Pedido[] = [];
+  public editaProducto: Producto = new Producto;
 
   constructor(private router: Router, private route: ActivatedRoute, private productoService: ProductoService, 
     private proveedorService: ProveedorService, private pedidoService: PedidoService) { }

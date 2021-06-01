@@ -33,4 +33,9 @@ export class ProveedorService {
     return this.http.post(this.uri+'proveedoresReferencia',referencias);
   }
 
+  getProveedoresHabilitados(): any{
+
+    return this.http.get(this.uri+'getProveedoresHabilitados');
+  }
+
 }

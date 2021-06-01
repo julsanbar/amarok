@@ -40,6 +40,7 @@ import { NuevoProductoComponent } from './modals/nuevo-producto/nuevo-producto.c
 import { EditarProductoComponent } from './modals/editar-producto/editar-producto.component';
 import { ProveedoresProductoComponent } from './modals/proveedores-producto/proveedores-producto.component';
 import { PedidosProductoComponent } from './modals/pedidos-producto/pedidos-producto.component';
+import { UsuarioPedidoComponent } from './modals/usuario-pedido/usuario-pedido.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { PedidosProductoComponent } from './modals/pedidos-producto/pedidos-prod
     NuevoProductoComponent,
     EditarProductoComponent,
     ProveedoresProductoComponent,
-    PedidosProductoComponent
+    PedidosProductoComponent,
+    UsuarioPedidoComponent
   ],
   imports: [
     BrowserModule,

@@ -50,4 +50,11 @@ router.post(
 
 );
 
+router.get(
+
+    '/getProveedoresHabilitados',
+    controller.getProveedoresHabilitados
+
+);
+
 module.exports = router;

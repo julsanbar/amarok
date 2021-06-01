@@ -227,6 +227,79 @@ const insertData = async (req,res) => {
 
 }
 
+const crearProducto = async (req,res) => {
+
+    const ultimoProducto = await producto.find({}).sort({$natural:-1}).limit(1);
+    let nuevaReferencia;
+    const data = req.body
+    let errors = [];
+
+    if((ultimoProducto[0].referencia !== 1000) && (ultimoProducto[0].referencia < 1000)){
+
+        nuevaReferencia = 1000;
+
+    }else if((ultimoProducto[0].referencia > 1000) || (ultimoProducto[0].referencia === 1000)){
+
+        nuevaReferencia = ultimoProducto[0].referencia + 1;
+
+    }
+
+    for (const key in data) {
+        
+        if(!data[key]){
+            
+            errors.push('El campo '+key+' no debe estar vacío.');
+
+        }
+
+    }
+
+    if(data.stock < data.stockMinimo){
+
+        errors.push('El stock no puede menor que el stock mínimo.');
+
+    }
+
+    if(errors.length > 0){
+
+        return res.status(200).send({error:errors});
+
+    }
+
+    let nuevoProducto = {
+
+        referencia: nuevaReferencia,
+        categoria: data.categoria,
+        nombre: data.nombre,
+        descripcion: data.descripcion,
+        precio: data.precio,
+        tasa: data.tasa,
+        stock: data.stock,
+        stockMinimo: data.stockMinimo,
+        habilitado: data.habilitado,
+        proveedores: data.proveedores
+
+    }
+
+    console.log(nuevoProducto);
+
+    await producto.create(nuevoProducto,async (err,ped)=>{
+
+        if(err){
+
+            return res.status(200).send({error:'Error al intentar insertar al pedido'})
+
+        }else{
+            
+            return res.status(200).send({data:ped})
+
+        }
+        
+    });
+
+
+};
+
 module.exports = {
 
     getPaginationSeguridad,
@@ -236,6 +309,7 @@ module.exports = {
     getPagination,
     getMasVendidos,
     insertData,
-    getPaginationProductos
+    getPaginationProductos,
+    crearProducto
 
 };

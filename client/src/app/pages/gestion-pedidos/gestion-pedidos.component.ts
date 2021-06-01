@@ -8,6 +8,7 @@ import { SesionService } from 'src/app/services/sesion/sesion.service';
 import { RolService } from 'src/app/services/rol/rol.service';
 import Swal from 'sweetalert2';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
+import { Usuario } from 'src/app/models/usuario.model';
 
 @Component({
   selector: 'app-gestion-pedidos',
@@ -33,9 +34,9 @@ export class GestionPedidosComponent implements OnInit {
   public rolUsuario!: string|null;
   public pedidoCancelar!: Pedido;
 
-  //public usuarioPedido!: any;
+  public usuarioPedido: Usuario = new Usuario;
 
-  public pedidosUsuario: any[] = [];
+  //public pedidosUsuario: any[] = [];
 
   ngOnInit(): void {
 
@@ -48,49 +49,26 @@ export class GestionPedidosComponent implements OnInit {
 
   }
 
+  cargarUsuario(item: String){
+
+    this.usuarioService.usuarioPedido(item).pipe(first()).subscribe((res: any) => {
+
+      //console.log(res.usuario)
+
+      this.usuarioPedido = res.usuario;
+
+    });
+
+  }
+
+  trackByItems(index: number, item: any): number { return item.id; }
+
   getDatos(page: number): void {
 
     this.pedidoService.paginationPedidosAdmin(page).pipe(first()).subscribe((res: any) => {
 
       this.pedidos = res.docs.docs;
       this.total = res.docs.totalDocs;
-
-      this.usuarioService.usuarioPedido().pipe(first()).subscribe((res: any) => {
-        //pedidosUsuario
-        
-        for (let i = 0; i < this.pedidos.length; i++) {
-
-          //console.log(this.pedidos[i].referencia)
-         
-          for (const key in res.usuario) {
-
-            if(this.pedidos[i].referencia == key){
-
-              //console.log('--------',res.usuario[key])
-
-              const nuevo = {
-
-                _id: this.pedidos[i]._id,
-                referencia: this.pedidos[i].referencia,
-                estado: this.pedidos[i].estado,
-                fechaPedido: this.pedidos[i].fechaPedido,
-                productos: this.pedidos[i].productos,
-                usuario: res.usuario[key]
-
-              };
-
-              this.pedidosUsuario.push(nuevo);
-
-            }
-
-          }
-
-
-        }
-
-        //console.log(this.usuarioPedido.P1)
-  
-      });
 
     });
 

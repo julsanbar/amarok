@@ -80,7 +80,7 @@ router.get(
 
 router.get(
 
-    '/usuarioPedido',
+    '/usuarioPedido/:ref',
     controller.usuarioPedido
 
 );

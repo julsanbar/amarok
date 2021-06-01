@@ -60,6 +60,20 @@ const getPaginationProveedores = async (req,res) => {
     
 };
 
+const getProveedoresHabilitados = async (req,res) => {
+
+    await proveedor.find({habilitado:true},(err,prov) => {
+        //console.log(prov)
+        if(!err){
+
+            res.status(200).send({proveedores:prov})
+
+        }
+
+    });
+
+};
+
 const proveedoresReferencia = async (req,res) => {
 
     const referenciasProveedores = req.body;
@@ -163,6 +177,7 @@ module.exports = {
     getPaginationProveedores,
     modificaProveedor,
     crearProveedor,
-    proveedoresReferencia
+    proveedoresReferencia,
+    getProveedoresHabilitados
 
 };
