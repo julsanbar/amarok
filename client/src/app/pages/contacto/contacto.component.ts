@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { first } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contacto',
@@ -9,11 +12,21 @@ import { first } from 'rxjs/operators';
 })
 export class ContactoComponent implements OnInit {
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService,private formBuilder: FormBuilder,private router: Router) { }
 
   public captcha: boolean = false;
+  public registroForm!: FormGroup;
+
 
   ngOnInit(): void {
+
+    this.registroForm = this.formBuilder.group({
+      email: ['',
+      [
+        Validators.required
+      ]
+    ]
+    });
 
   }
 
@@ -30,11 +43,47 @@ export class ContactoComponent implements OnInit {
 
   enviar(): void{
 
-    this.usuarioService.enviaEmail('nose@nose.com').pipe(first()).subscribe((res:any) => {
+    console.log(this.captcha)
+    console.log(this.registroForm.get('email')?.value)
 
+    if(this.captcha){
 
-  
-    });
+      if(this.registroForm.get('email')?.value){
+
+        this.usuarioService.enviaEmail(this.registroForm.get('email')?.value).pipe(first()).subscribe((res:any) => {
+
+          this.captcha = false;
+          this.registroForm.reset();
+
+          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+          this.router.onSameUrlNavigation = 'reload';
+          this.router.navigate(['contacto']);
+      
+        });
+
+      }else{
+
+        Swal.fire({
+          title: 'Vaya...',
+          text: 'Debe introducir un email',
+          icon: 'error',
+          showCancelButton: false,
+          confirmButtonText: 'Cerrar'
+        });
+
+      }
+
+    }else{
+
+      Swal.fire({
+        title: 'Vaya...',
+        text: 'Debe resolver el captcha',
+        icon: 'error',
+        showCancelButton: false,
+        confirmButtonText: 'Cerrar'
+      });
+
+    }
 
   }
 
