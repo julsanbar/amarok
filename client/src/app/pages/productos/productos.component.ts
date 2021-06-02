@@ -30,6 +30,8 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
   public registroForm!: FormGroup;
 
+  public control!: Number;
+  public controlSubmit!: Number;
 
   ngOnDestroy(): void {
     
@@ -103,11 +105,33 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
+  verifica(evt:any):void{
+
+    //console.log("-----",evt.target.id)
+  
+    this.control = evt.target.id;
+
+    /*if(this.control === undefined){
+
+      const x: Number[] = [evt.target.id];
+      this.control = x;
+
+    }else{
+
+      this.control.push(evt.target.id);
+
+    }*/
+
+  }
+
   carritoSelec(producto: Producto): void{
 
     const cantidadCarrito: number = this.registroForm.get('cantidad')?.value;
 
-    if((cantidadCarrito === 0) || (cantidadCarrito === undefined) || (cantidadCarrito === null)){
+    //console.log(this.control)
+    //console.log(this.controlSubmit)
+
+    if((cantidadCarrito === 0) || (cantidadCarrito === undefined) || (cantidadCarrito === null) || (this.controlSubmit !== this.control)){
 
       Swal.fire({
         title: 'Cantidad de productos errónea.',
@@ -401,12 +425,15 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
     this.visualizaCarrito = JSON.parse(carrito);
     this.importeTotal = 0;
 
-    for (const iterator of this.visualizaCarrito) {
-      
-      this.importeTotal += iterator.precio;
+    if(this.visualizaCarrito !== null){
 
+      for (const iterator of this.visualizaCarrito) {
+        
+        this.importeTotal += iterator.precio;
+
+      }
+    
     }
-
 
   }
 
@@ -415,6 +442,29 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
     if((event.target.value) || (event.target.value !== undefined) || (event.target.value !== null)){
 
       event.target.value = '';
+      //this.registroForm.reset();
+
+      /*if(this.control !== undefined){
+
+        let nuevoControl: Number[] = [];
+
+        for (let i = 0; i < this.control.length; i++) {
+          
+          if(this.control[i] !== event.target.id){
+
+            nuevoControl.push(this.control[i]);
+
+          }
+          
+        }
+
+        this.control.length = 0;
+        this.control = nuevoControl;
+        console.log("delte---",nuevoControl)
+        console.log("delte---",this.control)
+
+      }*/
+
 
     }
 

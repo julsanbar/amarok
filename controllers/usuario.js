@@ -1,6 +1,11 @@
 const usuario = require('../models/usuario');
 const bcrypt = require('bcrypt-node');
 const pedido = require('../models/pedido');
+const emailer = require('../config/email');
+
+
+//const email 
+
 
 //TEST
 const getUsuarios = async (req, res) => {

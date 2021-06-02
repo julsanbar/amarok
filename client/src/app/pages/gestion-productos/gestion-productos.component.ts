@@ -45,7 +45,8 @@ export class GestionProductosComponent implements OnInit {
 
   }
 
-  cargarProveedores(items: String[]): void{
+  cargarProveedores(items: String[], itemId: String): void{
+
 
     this.proveedorService.proveedoresReferencia(items).pipe(first()).subscribe((res: any) => {
 

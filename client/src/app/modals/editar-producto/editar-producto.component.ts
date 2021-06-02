@@ -20,12 +20,17 @@ export class EditarProductoComponent implements OnInit, OnChanges {
   public proveedores!: Proveedor[];
   public seleccion: String[] = [];
   public colores: number[] = [];
+  public proveedoresActuales!: Proveedor[];
+
+  public seleccionElimina: String[] = [];
+  public coloresElimina: number[] = [];
 
   constructor(private formBuilder: FormBuilder, private productoService: ProductoService, private proveedorService: ProveedorService) { }
 
 
   ngOnChanges(changes: SimpleChanges): void {
     
+    this.cargarDatosProveedores();
     this.cargaProveedores();
 
     this.registroForm = this.formBuilder.group({
@@ -78,6 +83,19 @@ export class EditarProductoComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
+  cargarDatosProveedores(): void{
+
+    //console.log(this.editaProducto)
+
+    this.proveedorService.proveedoresReferencia(this.editaProducto.proveedores).pipe(first()).subscribe((res: any) => {
+
+      //console.log(res)
+      this.proveedoresActuales = res.pro;
+
+    });
+
+  }
+
   cargaProveedores(): void{
 
     this.proveedorService.getProveedoresHabilitados().pipe(first()).subscribe((res: any) => {
@@ -96,11 +114,12 @@ export class EditarProductoComponent implements OnInit, OnChanges {
             this.proveedores.push(iterator);    
 
           }
-
+          
           //console.log('****',iterator)
 
         }
 
+        //console.log('****',this.proveedores)
 
       }else{
 
@@ -115,6 +134,58 @@ export class EditarProductoComponent implements OnInit, OnChanges {
       //console.log(this.proveedores)
 
     });
+
+  }
+
+  nuevoProveedorElimina(referencia: String, index: number): void{
+
+    if(this.seleccionElimina !== undefined){
+
+      if(!this.seleccionElimina.includes(referencia)){
+
+        this.seleccionElimina.push(referencia);
+        this.coloresElimina.push(index);
+
+      }
+
+    }else{
+
+      const nuevo: String[] = [referencia];
+      const coloresSeleccion: number[] = [index];
+
+      this.seleccionElimina = nuevo;
+      this.coloresElimina = coloresSeleccion;
+    }
+
+    document.getElementById("tablaProductoProveedoresElimina")?.getElementsByTagName("tr")[index].setAttribute("style","background: rgba(141, 33, 33, 0.527)!important;");
+    //console.log(document.getElementById("tablaProductoProveedores")?.getElementsByTagName("tr")[index])
+
+  }
+
+  quitaProveedorElimina(referencia: String, index: number): void{
+
+    if(this.seleccionElimina !== undefined){
+
+      const indice = this.seleccionElimina.indexOf(referencia);
+      const indiceColores = this.coloresElimina.indexOf(index);
+
+      if(indice > -1){
+
+        this.seleccionElimina.splice(indice,1);
+
+      }
+
+      if(indiceColores > -1){
+
+        this.coloresElimina.splice(indiceColores,1);
+
+      }
+
+    }
+
+    document.getElementById("tablaProductoProveedoresElimina")?.getElementsByTagName("tr")[index].removeAttribute("style");
+
+    //console.log(this.seleccion)
 
   }
 
@@ -203,15 +274,52 @@ export class EditarProductoComponent implements OnInit, OnChanges {
     const campos: string[] = ['categoria','descripcion','habilitado','nombre','precio','stock','stockMinimo','tasa'];
     let actualiza: boolean = false;
     productoNuevo.id = this.editaProducto._id;
+    let auxiliar: String[] = this.editaProducto.proveedores;
+    //let auxiliarNuevo: String[] = [];
 
     campos.forEach(campo => { if(this.registroForm.get(campo)?.value !== ''){ productoNuevo[campo] = this.registroForm.get(campo)?.value; actualiza = true;} });
 
     //console.log(this.seleccion)
+    
 
     if(this.seleccion.length !== 0){
 
-      this.editaProducto.proveedores.forEach(element => this.seleccion.push(element));
-      productoNuevo.proveedores = this.seleccion;
+      auxiliar.forEach(element => this.seleccion.push(element));
+      //productoNuevo.proveedores = this.seleccion;
+      auxiliar = this.seleccion;
+
+      //actualiza = true;
+
+    }
+
+    //console.log('--->>',auxiliar)
+
+    if(this.seleccionElimina.length != 0){
+
+      //console.log(this.seleccionElimina)
+
+      for (let i = 0; i < this.seleccionElimina.length; i++) {
+        
+        const indice = auxiliar.indexOf(this.seleccionElimina[i]);
+  
+        if(indice > -1){
+  
+          auxiliar.splice(indice,1);
+  
+        }
+
+
+      }
+  
+      //actualiza = true;
+
+    }
+
+    //console.log('----',auxiliar)
+
+    if(auxiliar.length !== 0){
+
+      productoNuevo.proveedores = auxiliar;
       actualiza = true;
 
     }

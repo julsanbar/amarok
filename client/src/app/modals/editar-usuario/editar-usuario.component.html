@@ -122,7 +122,7 @@
 
                 <div class="row pt-2">
 
-                    <div class="col-md-8">
+                    <div class="col-md-7">
 
                         <label for="inputEmail">Correo Electrónico</label>
                         <input type="email" id="inputEmail" class="form-control" formControlName="email"
@@ -134,15 +134,23 @@
 
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="form-check col-md-2">
+                        <input class="form-check-input" formControlName="habilitado" type="checkbox" id="inputHabilitado"
+                        [checked]="this.perfil?.habilitado">
+                        <label class="form-check-label" for="inputHabilitado">
+                        Habilitado
+                        </label>
+                    </div>
 
-                        <div class="form-check">
-                            <input class="form-check-input" formControlName="habilitado" type="checkbox" id="inputHabilitado"
-                            [checked]="this.perfil?.habilitado">
-                            <label class="form-check-label" for="inputHabilitado">
-                            Habilitado
-                            </label>
-                        </div>
+                    <div class="col-md-3">
+
+                        <label for="inputTipo">Tipo</label>
+                        <select [attr.disabled]="((this.rolUsuario === 'empleado') || (this.rolUsuario === 'registrado')) ? '' : null" 
+                            class="form-select" id="inputTipo" formControlName="tipo" [value]="this.perfil?.tipo">
+                            <option value="registrado">Registrado</option>
+                            <option value="administrador">Administrador</option>
+                            <option value="empleado">Empleado</option>
+                        </select>
 
                     </div>
 

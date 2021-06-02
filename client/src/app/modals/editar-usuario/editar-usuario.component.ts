@@ -40,6 +40,11 @@ export class EditarUsuarioComponent implements OnInit, OnChanges {
         Validators.minLength(3)
       ]
     ],
+      tipo: ['',
+      [
+        
+      ]
+    ],
       licencia: ['',
       [
         
@@ -111,14 +116,14 @@ export class EditarUsuarioComponent implements OnInit, OnChanges {
   enviar(){
     
     const usuario: any = {};
-    const campos: string[] = ['usuario','telefono','nombre','nacimiento','licencia','email','dni','direccion','apellidos','codigoPostal','habilitado'];
+    const campos: string[] = ['usuario','telefono','nombre','nacimiento','licencia','email','dni','direccion','apellidos','codigoPostal','habilitado','tipo'];
     let actualiza: boolean = false;
     usuario.id = this.perfil._id;
 
     campos.forEach(campo => { if(this.registroForm.get(campo)?.value !== ''){ usuario[campo] = this.registroForm.get(campo)?.value; actualiza = true;} });
 
     if(actualiza){
-
+      //console.log(usuario)
       this.usuarioService.modificaPerfil(usuario).pipe(first()).subscribe((res: any) => {
 
         if(!res.error){
