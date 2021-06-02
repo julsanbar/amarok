@@ -4,8 +4,12 @@ const pedido = require('../models/pedido');
 const emailer = require('../config/email');
 
 
-//const email 
+const enviaEmail = async (req, res) => {
 
+    console.log(req.body.correo)
+    emailer.sendMail(req.body.correo);
+
+};
 
 //TEST
 const getUsuarios = async (req, res) => {
@@ -338,6 +342,7 @@ module.exports = {
     paginationUsuariosAdmin,
     pedidosUsuario,
     paginationUsuariosEmpleado,
-    usuarioPedido
+    usuarioPedido,
+    enviaEmail
 
 };

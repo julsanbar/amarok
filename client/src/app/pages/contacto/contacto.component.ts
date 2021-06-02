@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from 'src/app/services/usuario/usuario.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contacto',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private usuarioService: UsuarioService) { }
+
+  public captcha: boolean = false;
 
   ngOnInit(): void {
 
@@ -18,11 +22,19 @@ export class ContactoComponent implements OnInit {
 
     if(captchaResponse !== null || captchaResponse !== undefined){
       
-
-
-
+      this.captcha = true;
 
     }
+
+  }
+
+  enviar(): void{
+
+    this.usuarioService.enviaEmail('nose@nose.com').pipe(first()).subscribe((res:any) => {
+
+
+  
+    });
 
   }
 

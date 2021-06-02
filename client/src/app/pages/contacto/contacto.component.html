@@ -52,7 +52,7 @@
                 <div class="form-group">       
                     <div class="row">
                         <div class="col-5">
-                            <button type="submit" class="btn btn-outline-warning">Enviar</button>
+                            <button type="submit" (click)="this.enviar()" class="btn btn-outline-warning">Enviar</button>
                         </div>
                         <div class="col-7 captcha">
                             <re-captcha (resolved)="resolved($event)" siteKey="6LcI5PkaAAAAAL7ypEd8_pferIVtnBEH1bhOkZEU"></re-captcha>

@@ -65,7 +65,7 @@ export class UsuarioService {
 
   enviaEmail(correo: string): any{
 
-    return this.http.post(this.uri+'enviaEmail',correo);
+    return this.http.post(this.uri+'enviaEmail',{correo:correo});
   }
 
 }

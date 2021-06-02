@@ -85,4 +85,11 @@ router.get(
 
 );
 
+router.post(
+
+    '/enviaEmail',
+    controller.enviaEmail
+
+)
+
 module.exports = router;
