@@ -43,31 +43,49 @@ export class ContactoComponent implements OnInit {
 
   enviar(): void{
 
-    console.log(this.captcha)
-    console.log(this.registroForm.get('email')?.value)
+    //console.log(this.captcha)
+    //console.log(this.registroForm.get('email')?.value)
 
     if(this.captcha){
 
       if(this.registroForm.get('email')?.value){
 
-        this.usuarioService.enviaEmail(this.registroForm.get('email')?.value).pipe(first()).subscribe((res:any) => {
+        const regex = this.registroForm.get('email')?.value.match(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/);
+        
+        //console.log(regex);
 
-          this.captcha = false;
-          this.registroForm.reset();
+        if(regex !== null){
+        
+          this.usuarioService.enviaEmail(this.registroForm.get('email')?.value).pipe(first()).subscribe((res:any) => {
+
+            this.captcha = false;
+            this.registroForm.reset();
+
+            Swal.fire({
+              title: 'Enviado',
+              text: 'Nos pondremos en contacto con usted lo antes posible.',
+              icon: 'success',
+              showCancelButton: false,
+              confirmButtonText: 'Cerrar'
+            });
+
+            this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+            this.router.onSameUrlNavigation = 'reload';
+            this.router.navigate(['contacto']);
+        
+          });
+        
+        }else{
 
           Swal.fire({
-            title: 'Enviado',
-            text: 'Nos pondremos en contacto con usted lo antes posible.',
-            icon: 'success',
+            title: 'Vaya...',
+            text: 'El email introducido no es correcto',
+            icon: 'error',
             showCancelButton: false,
             confirmButtonText: 'Cerrar'
           });
 
-          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          this.router.onSameUrlNavigation = 'reload';
-          this.router.navigate(['contacto']);
-      
-        });
+        }
 
       }else{
 
