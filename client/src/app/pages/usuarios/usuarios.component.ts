@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { RolService } from 'src/app/services/rol/rol.service';
 import { Pedido } from 'src/app/models/pedido.model';
 import { SesionService } from 'src/app/services/sesion/sesion.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
@@ -22,6 +23,7 @@ export class UsuariosComponent implements OnInit {
   public usuario: Usuario = new Usuario();
   public pedidos!: Pedido[]|null;
   public editaUsuario: Usuario = new Usuario();
+  public passUsuario: Usuario = new Usuario();
 
   ngOnInit(): void {
 
@@ -34,6 +36,47 @@ export class UsuariosComponent implements OnInit {
 
   }
   
+  restablece(): void{
+
+    console.log(this.passUsuario)
+    const user = new Usuario();
+
+    user.usuario = this.passUsuario.usuario;
+    user.email = this.passUsuario.email;
+
+    this.usuarioService.password(user).pipe(first()).subscribe((res: any) => {
+
+      if(!res.error){
+
+        Swal.fire({
+          title: 'Correo enviado',
+          text: 'Se le ha enviado una nueva contraseña al correo de la cuenta indicada',
+          icon: 'success',
+          showCancelButton: false,
+          confirmButtonText: 'Cerrar'
+        });
+
+      }else{
+
+        Swal.fire({
+          title: 'Vaya..',
+          text: 'No se a podido restablecer la contraseña',
+          icon: 'error',
+          showCancelButton: false,
+          confirmButtonText: 'Cerrar'
+        });
+
+      }
+
+    }, (err: any) => {
+      
+      console.log(err)
+
+    });
+
+
+  }
+
   cargaPedidos(item: String[]){
 
     if(item.length > 0){

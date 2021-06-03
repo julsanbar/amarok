@@ -3,13 +3,82 @@ const bcrypt = require('bcrypt-node');
 const pedido = require('../models/pedido');
 const emailer = require('../config/email');
 
-
 const enviaEmail = async (req, res) => {
 
     console.log(req.body.correo)
     emailer.sendMail(req.body.correo);
 
 };
+
+/**
+ *           //[8,15] longitud, no espacios, 1 mayus, 1 minus, 1 especial, 1 num
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%"*?&])([A-Za-z\d$@"$!%*?&]|[^ ]){8,15}$/)
+ * 
+ */
+
+const password = async (req,res) => {
+
+    //console.log(req.body)
+    const datos = req.body;
+    let errors = [];
+
+    const duplicados = await usuario.findOne({$and:[{email: datos.email},{usuario: datos.usuario}]});
+
+    //console.log(duplicados)
+
+    if(duplicados === null){
+
+        errors.push('Los datos introducidos son erróneos.');
+
+        return res.status(200).send({error:errors});
+
+    }else{
+
+        const mayus = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+        const espec = ['$','@','$','!','%','"','*','?','&'];
+        let pass = mayus[parseInt(random(0,mayus.length-1))]+mayus[parseInt(random(0,mayus.length-1))].toLowerCase()+espec[parseInt(random(0,espec.length-1))]+parseInt(random(0,9));
+
+        for (let i = 0; i < parseInt(random(4,12)); i++) {
+
+            pass += (i%2 !== 0)? mayus[parseInt(random(0,mayus.length-1))] : mayus[parseInt(random(0,mayus.length-1))].toLowerCase();
+
+        }
+
+        const user = {
+
+            email: datos.email,
+            usuario: datos.usuario,
+            password: pass
+
+        }
+
+        //console.log("--->",user)
+
+        emailer.sendPass(user);
+
+        bcrypt.hash(user.password, null, null, async (err, hash) => {
+                
+            if (!err) {
+                
+                user.password = hash;
+
+                //console.log("-------")
+                //console.log(nuevoPerfil.password)
+
+                const actualizaPerfil = await usuario.findByIdAndUpdate(duplicados._id,user,{new: true, upsert:true});
+
+                res.status(200).send({resul:actualizaPerfil});
+            }
+
+        });
+
+    }
+
+};
+
+function random(min, max) {
+    return Math.random() * (max - min) + min;
+}
 
 //TEST
 const getUsuarios = async (req, res) => {
@@ -343,6 +412,7 @@ module.exports = {
     pedidosUsuario,
     paginationUsuariosEmpleado,
     usuarioPedido,
-    enviaEmail
+    enviaEmail,
+    password
 
 };

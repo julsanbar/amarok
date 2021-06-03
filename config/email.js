@@ -48,4 +48,25 @@ const sendMail = async (correo) => {
 
 }
 
+const sendPass = async (user) => {
+
+    const transporter = createTrans()
+    
+    const info  = await transporter.sendMail({
+
+        from: '"info@amarok.es"', //quien lo envia
+        to: user.email, //["",""] lista o a quien va a ser enviado
+        subject: "[Armería Amarok] Nueva contraseña", //Asunto
+        html: `<p>Hola ${user.usuario}.</p><br><br><p>Su nueva contraseña es <strong>${user.password}</strong></p><br><br><p>Si usted no ha solicitado el cambio de contraseña póngase en contacto con el administrador y entre a su cuenta para cambiar la contraseña.</p>` //apto para plantillas html, se puede conseguir en stripo, válidas para buzones de entrada
+
+
+    });
+
+    console.log("Message send:",info.messageId);
+
+    return
+
+}
+
 exports.sendMail = (correo) => sendMail(correo);
+exports.sendPass = (user) => sendPass(user);

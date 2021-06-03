@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Producto } from 'src/app/models/producto.model';
 import { ProductoService } from 'src/app/services/producto/producto.service';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -14,6 +14,7 @@ import { Proveedor } from 'src/app/models/proveedor.model';
 })
 export class EditarProductoComponent implements OnInit, OnChanges {
 
+  //@Output() reload = new EventEmitter<any>();
   @Input() editaProducto!: Producto;
   public registroForm!: FormGroup;
   public errores: any[] = [];
@@ -87,12 +88,16 @@ export class EditarProductoComponent implements OnInit, OnChanges {
 
     //console.log(this.editaProducto)
 
-    this.proveedorService.proveedoresReferencia(this.editaProducto.proveedores).pipe(first()).subscribe((res: any) => {
+    if(this.editaProducto.proveedores !== undefined){
 
-      //console.log(res)
-      this.proveedoresActuales = res.pro;
+      this.proveedorService.proveedoresReferencia(this.editaProducto.proveedores).pipe(first()).subscribe((res: any) => {
 
-    });
+        //console.log(res)
+        this.proveedoresActuales = res.pro;
+
+      });
+
+    }
 
   }
 
@@ -276,6 +281,7 @@ export class EditarProductoComponent implements OnInit, OnChanges {
     productoNuevo.id = this.editaProducto._id;
     let auxiliar: String[] = this.editaProducto.proveedores;
     //let auxiliarNuevo: String[] = [];
+    let eliminadosIgual: boolean = false;
 
     campos.forEach(campo => { if(this.registroForm.get(campo)?.value !== ''){ productoNuevo[campo] = this.registroForm.get(campo)?.value; actualiza = true;} });
 
@@ -288,13 +294,20 @@ export class EditarProductoComponent implements OnInit, OnChanges {
       //productoNuevo.proveedores = this.seleccion;
       auxiliar = this.seleccion;
 
-      //actualiza = true;
+      actualiza = true;
 
     }
 
     //console.log('--->>',auxiliar)
 
     if(this.seleccionElimina.length != 0){
+
+      if(this.seleccionElimina.length === this.proveedoresActuales.length){
+
+        eliminadosIgual = true;
+
+        return;
+      }
 
       //console.log(this.seleccionElimina)
 
@@ -305,6 +318,7 @@ export class EditarProductoComponent implements OnInit, OnChanges {
         if(indice > -1){
   
           auxiliar.splice(indice,1);
+          actualiza = true;
   
         }
 
@@ -317,24 +331,37 @@ export class EditarProductoComponent implements OnInit, OnChanges {
 
     //console.log('----',auxiliar)
 
-    if(auxiliar.length !== 0){
+    if((eliminadosIgual === false)){
 
-      productoNuevo.proveedores = auxiliar;
-      actualiza = true;
+      if(auxiliar.length !== 0){
+
+        productoNuevo.proveedores = auxiliar;
+        //actualiza = true;
+  
+      }
+
+    }else{
+
+      actualiza = false;
 
     }
 
-    //console.log(productoNuevo);
+
+    console.log(productoNuevo);
     //console.log(actualiza);
 
-    if(actualiza){
+    if((actualiza === true)){
 
       this.productoService.modificaProducto(productoNuevo).pipe(first()).subscribe((res: any) => {
 
         if(!res.error){
 
           this.errores.length = 0;
-          Swal.fire('Actualización realizada', 'El usuario se ha actualizado correctamente', 'success');
+          this.seleccion.length = 0;
+          this.seleccionElimina.length = 0;
+          auxiliar.length = 0;
+          productoNuevo.proveedores = [];
+          Swal.fire('Actualización realizada', 'El producto se ha actualizado correctamente', 'success');
 
           //this.reload.emit();
 

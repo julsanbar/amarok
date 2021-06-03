@@ -55,6 +55,14 @@ export class ContactoComponent implements OnInit {
           this.captcha = false;
           this.registroForm.reset();
 
+          Swal.fire({
+            title: 'Enviado',
+            text: 'Nos pondremos en contacto con usted lo antes posible.',
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonText: 'Cerrar'
+          });
+
           this.router.routeReuseStrategy.shouldReuseRoute = () => false;
           this.router.onSameUrlNavigation = 'reload';
           this.router.navigate(['contacto']);

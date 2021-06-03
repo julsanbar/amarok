@@ -68,4 +68,10 @@ export class UsuarioService {
     return this.http.post(this.uri+'enviaEmail',{correo:correo});
   }
 
+  password(usuario: any): any{
+
+    return this.http.post(this.uri+'password',usuario);
+
+  }
+
 }

@@ -92,4 +92,11 @@ router.post(
 
 )
 
+router.post(
+
+    '/password',
+    controller.password
+
+)
+
 module.exports = router;

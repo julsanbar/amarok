@@ -41,6 +41,7 @@ import { EditarProductoComponent } from './modals/editar-producto/editar-product
 import { ProveedoresProductoComponent } from './modals/proveedores-producto/proveedores-producto.component';
 import { PedidosProductoComponent } from './modals/pedidos-producto/pedidos-producto.component';
 import { UsuarioPedidoComponent } from './modals/usuario-pedido/usuario-pedido.component';
+import { PasswordComponent } from './modals/password/password.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { UsuarioPedidoComponent } from './modals/usuario-pedido/usuario-pedido.c
     EditarProductoComponent,
     ProveedoresProductoComponent,
     PedidosProductoComponent,
-    UsuarioPedidoComponent
+    UsuarioPedidoComponent,
+    PasswordComponent
   ],
   imports: [
     BrowserModule,

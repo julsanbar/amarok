@@ -46,6 +46,14 @@ export class IniciarComponent implements OnInit {
 
   }
 
+  refresh():void{
+
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['iniciar']);
+
+  }
+
   enviar(){
 
     const usuario = new Usuario();

@@ -233,6 +233,8 @@ const modificaProducto = async (req,res) => {
     const modificaciones = req.body; 
     const actualizaProducto = await  producto.findByIdAndUpdate(modificaciones.id,modificaciones,{new: true, upsert:true});
 
+    //console.log(actualizaProducto);
+
     res.status(200).send({resul:actualizaProducto});
 
 };
