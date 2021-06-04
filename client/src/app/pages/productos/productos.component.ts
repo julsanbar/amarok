@@ -109,7 +109,7 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
     //console.log("-----",evt.target.id)
   
-    this.control = evt.target.id;
+    this.control = Number.parseInt(evt.target.id);
 
     /*if(this.control === undefined){
 
@@ -128,8 +128,8 @@ export class ProductosComponent implements OnInit, OnChanges, OnDestroy {
 
     const cantidadCarrito: number = this.registroForm.get('cantidad')?.value;
 
-    //console.log(this.control)
-    //console.log(this.controlSubmit)
+    console.log(typeof  this.control)
+    console.log(typeof this.controlSubmit)
 
     if((cantidadCarrito === 0) || (cantidadCarrito === undefined) || (cantidadCarrito === null) || (this.controlSubmit !== this.control)){
 

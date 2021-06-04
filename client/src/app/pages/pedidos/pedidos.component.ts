@@ -44,6 +44,10 @@ export class PedidosComponent implements OnInit {
       this.pedidos = res.docs.docs;
       this.total = res.docs.totalDocs;
 
+
+      //console.log(this.pedidos)
+
+
     });
 
   }
