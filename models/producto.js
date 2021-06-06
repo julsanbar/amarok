@@ -76,7 +76,7 @@ const ProductoScheme = new mongoose.Schema(
             type: String,
             required: [true, 'La descripción del producto es necesario.'],
             minLength: [5, 'La descripción debe de tener al menos 5 carácteres'],
-            maxLength: [300, 'La descripción debe de tener menos de 300 carácteres']
+            maxLength: [3000, 'La descripción debe de tener menos de 3000 carácteres']
 
         },
 

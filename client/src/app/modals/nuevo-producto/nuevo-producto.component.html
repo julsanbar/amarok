@@ -86,7 +86,7 @@
                     <div class="col-md-12">
 
                         <label for="inputDescripcion">Descripción</label>
-                         <textarea minlength="5" maxlength="300" class="form-control" formControlName="descripcion"
+                         <textarea minlength="5" maxlength="3000" class="form-control" formControlName="descripcion"
                          placeholder="Arma a media distancia, con cacha de cuero y percutor de martillo" [controlErrorsTpl]="campoDescripcion"
                          id="inputDescripcion" rows="4"></textarea>
                         <ng-container
@@ -345,7 +345,7 @@
 
         <!--<i>Incorrecto {{error?.pattern?.requiredPattern}}</i>-->
         <ul>
-            <li>Debe ser superior a 5 e inferior a 300 carácteres</li>
+            <li>Debe ser superior a 5 e inferior a 3000 carácteres</li>
         </ul>
 
     </div>

@@ -64,7 +64,7 @@ export class EditarProductoComponent implements OnInit, OnChanges {
       descripcion: ['',
         [
           Validators.minLength(5),
-          Validators.maxLength(300)
+          Validators.maxLength(3000)
         ]
       ],
       stockMinimo: ['',

@@ -62,7 +62,7 @@ export class NuevoProductoComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(5),
-          Validators.maxLength(300)
+          Validators.maxLength(3000)
         ]
       ],
       stockMinimo: ['',
