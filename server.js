@@ -33,6 +33,6 @@ app.use(pedidoRouters);
 app.use(proveedorRouters);
 app.use(usuarioRouters);
 
-server.listen(process.env.PORT);
+server.listen(process.env.PORT.(a) => console.log('Conexion', port));
 
 initDB();
