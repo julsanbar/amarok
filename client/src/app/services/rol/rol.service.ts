@@ -9,8 +9,9 @@ export class RolService {
 
   constructor(private sessionService: SesionService, private http: HttpClient) { }
 
-  uri: String = 'http://localhost:8080/';
+  //uri: String = 'http://localhost:8080/';
   token: string = 'authRol';
+  uri: String = 'https://api.amarok.digital/';
 
   getRol(): any{
 

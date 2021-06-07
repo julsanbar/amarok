@@ -11,7 +11,8 @@ export class ProductoService {
     private http: HttpClient
   ) { }
 
-  uri: String = 'http://localhost:8080/';
+  //uri: String = 'http://localhost:8080/';
+  uri: String = 'https://api.amarok.digital/';
 
   productosMasVendidos(): any{
     
