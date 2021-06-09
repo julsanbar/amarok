@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const DB_URI = "mongodb+srv://usuario:usuario@cluster0.py60o.mongodb.net/amarok?retryWrites=true&w=majority";
+//const DB_URI = "mongodb+srv://<USUARIO  BASE DE DATOS>:<CONTRASEÑA>@cluster0.py60o.mongodb.net/amarok?retryWrites=true&w=majority";
 
-//const DB_URI = 'mongodb://localhost:27017/amarok';
+const DB_URI = 'mongodb://localhost:27017/amarok';
 
 /**
  * 
