@@ -11,8 +11,8 @@ export class ProveedorService {
     private http: HttpClient
   ) { }
 
-  //uri: String = 'http://localhost:8080/';
-  uri: String = 'https://api.amarok.digital/';
+  uri: String = 'http://localhost:8080/';
+  //uri: String = 'https://api.amarok.digital/';
 
   getPaginationProveedores(pagina: number): any{
 

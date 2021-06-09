@@ -11,8 +11,8 @@ export class PedidoService {
     private http: HttpClient
   ) { }
 
-  //uri: String = 'http://localhost:8080/';
-  uri: String = 'https://api.amarok.digital/';
+  uri: String = 'http://localhost:8080/';
+  //uri: String = 'https://api.amarok.digital/';
 
   getFactura(idCliente: String|null, pedido: Pedido): any{
     

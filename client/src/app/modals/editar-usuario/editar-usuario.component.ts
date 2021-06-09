@@ -22,6 +22,8 @@ export class EditarUsuarioComponent implements OnInit, OnChanges {
   public perfil: Usuario = new Usuario();
   public rolUsuario!: string|null;
 
+  public format: any;
+
   constructor(private rolService: RolService,private router: Router ,private sessionService: SesionService ,private usuarioService: UsuarioService, private formBuilder: FormBuilder) { }
   
   ngOnChanges(changes: SimpleChanges): void {
@@ -31,6 +33,12 @@ export class EditarUsuarioComponent implements OnInit, OnChanges {
     this.rolUsuario = this.rolService.devuelveRolSesion();
 
     this.perfil = this.editaUsuario;
+
+    //console.log((this.perfil.nacimiento !== undefined)?this.perfil.nacimiento.toString().substring(0,10):'');
+
+    this.format = (this.perfil.nacimiento !== undefined)?this.perfil.nacimiento.toString().substring(0,10):'';
+
+    this.perfil.nacimiento = this.format;
 
     this.registroForm = this.formBuilder.group({
 

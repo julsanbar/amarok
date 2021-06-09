@@ -3,7 +3,7 @@ const initDB = require('./config/db');
 const cors = require('cors');
 
 const app = express();
-const server = require('http').createServer(app);
+//const server = require('http').createServer(app);
 const port = 8080 || process.env.PORT;
 
 const productoRouters = require('./routes/producto');
@@ -33,6 +33,15 @@ app.use(pedidoRouters);
 app.use(proveedorRouters);
 app.use(usuarioRouters);
 
-server.listen(process.env.PORT, (a) => console.log('Conexion', port));
+//server.listen(process.env.PORT, (a) => console.log('Conexion', port));
+app.listen(port, () => {
+    
+    if(!app){
+        console.log("ERROR SERVER",500);
+    }else{
+        console.log("SERVER ONLINE",200);
+    }
+
+});
 
 initDB();
