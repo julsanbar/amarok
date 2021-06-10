@@ -15,7 +15,7 @@ const htmlTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional/
 
 const createTrans = () => {
 
-    var transport = nodemailer.createTransport({
+    const transport = nodemailer.createTransport({
         host: "smtp.mailtrap.io",
         port: 2525,
         auth: {
@@ -23,6 +23,24 @@ const createTrans = () => {
         pass: "6d038a330ce727"
         }
     });
+
+    /*const transport = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'armeria.amarok@gmail.com',
+          pass: 'Armeria*36'
+        }
+    });*/
+
+    /*const transport = nodemailer.createTransport({
+        host: "amarok.digital",
+        port: 465,
+        secure: false,
+        auth: {
+            user: "info@amarok.digital",
+            pass: "****"
+        }
+    });*/
 
     return transport;
 
@@ -34,7 +52,7 @@ const sendMail = async (correo) => {
     
     const info  = await transporter.sendMail({
 
-        from: '"info@amarok.es"', //quien lo envia
+        from: '"Amarok" <armeria.amarok@gmail.com>', //quien lo envia
         to: correo, //["",""] lista o a quien va a ser enviado
         subject: "Gracias por confiar en Armería Amarok", //Asunto
         html: htmlTemplate //apto para plantillas html, se puede conseguir en stripo, válidas para buzones de entrada
@@ -44,7 +62,7 @@ const sendMail = async (correo) => {
 
     console.log("Message send:",info.messageId);
 
-    return
+    return "ok";
 
 }
 
@@ -64,7 +82,7 @@ const sendPass = async (user) => {
 
     console.log("Message send:",info.messageId);
 
-    return
+    return "ok";
 
 }
 

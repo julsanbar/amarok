@@ -8,6 +8,7 @@ const enviaEmail = async (req, res) => {
     console.log(req.body.correo)
     emailer.sendMail(req.body.correo);
 
+    return res.status(200).send({email:'ok'});
 };
 
 /**
@@ -384,6 +385,38 @@ const iniciarSesion = async (req,res) => {
     }else{
 
         if(checkUsuario.comparePasswords(data.password)){
+
+            if(checkUsuario.tipo === 'registrado' && checkUsuario.pedidos.length !== 0){
+
+                console.log('Pedidos---',checkUsuario.pedidos)
+
+                const pedidos = await pedido.find({referencia:{$in:checkUsuario.pedidos},estado:'enviado'});
+
+                console.log('Pedidos---',(pedidos.length === 0)?'holi':'adio')
+
+                if(pedidos.length !== 0){
+                
+                    let mayor = pedidos[0].createdAt;
+                    let id = pedidos[0]._id;
+
+                    for (const iterator of pedidos) {
+                        
+                        if(iterator.createdAt <= mayor){
+
+                            id = iterator._id;
+
+                            console.log("FECH",iterator.referencia)
+
+                        }
+
+                    }
+
+                    await pedido.findByIdAndUpdate(id,{estado: 'entregado'},{new: true, upsert:true});
+
+                }
+
+            }
+
 
             return res.status(200).send({data:checkUsuario});
             
