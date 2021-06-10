@@ -10,3 +10,27 @@
   border: 0;
 
 }
+
+#linkdedin{
+  text-decoration: none!important;
+  color: rgb(236, 181, 78)!important;;
+}
+
+#linkdedin:hover{
+
+  color: rgb(230, 198, 134)!important;
+  text-decoration: underline!important;
+
+}
+
+#linkdedin:active{
+
+  color: rgb(105, 86, 49)!important;
+
+}
+
+#linkdedin:focus{
+
+  color: rgb(236, 181, 78)!important;
+
+}
