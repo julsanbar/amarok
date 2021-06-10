@@ -7,7 +7,8 @@ const getPaginationProductos = async (req,res) => {
     const options = {
         //empieza por 1
         page: req.params.page,
-        limit: 10
+        limit: 10,
+        sort:{referencia:1}
     
     };
     //{stock:{$lt:6},referencia:500} <--- menor que
@@ -27,7 +28,8 @@ const getPagination = async (req,res) => {
     const options = {
         //empieza por 1
         page: req.params.page,
-        limit: 6
+        limit: 6,
+        sort:{stock:-1}
     
     };
     //{stock:{$lt:6},referencia:500} <--- menor que
@@ -47,7 +49,8 @@ const getPaginationCompeticion = async (req,res) => {
     const options = {
         //empieza por 1
         page: req.params.page,
-        limit: 6
+        limit: 6,
+        sort:{referencia:1}
     
     };
 
@@ -67,7 +70,8 @@ const getPaginationFuego = async (req,res) => {
     const options = {
         //empieza por 1
         page: req.params.page,
-        limit: 6
+        limit: 6,
+        sort:{referencia:1}
     
     };
 
@@ -87,7 +91,8 @@ const getPaginationSeguridad = async (req,res) => {
     const options = {
         //empieza por 1
         page: req.params.page,
-        limit: 6
+        limit: 6,
+        sort:{referencia:1}
     
     };
 
@@ -107,7 +112,8 @@ const getPaginationDefensa = async (req,res) => {
     const options = {
         //empieza por 1
         page: req.params.page,
-        limit: 6
+        limit: 6,
+        sort:{referencia:1}
     
     };
 

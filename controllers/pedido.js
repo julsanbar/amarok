@@ -194,7 +194,8 @@ const getPaginationPedidos = async (req,res) => {
     const options = {
         //empieza por 1
         page: req.params.page,
-        limit: 10
+        limit: 10,
+        sort:{_id:1}
     
     };
 
@@ -213,8 +214,8 @@ const paginationPedidosAdmin = async (req,res) => {
     const options = {
         //empieza por 1
         page: req.params.page,
-        limit: 10
-        //sort:{estado:-1}
+        limit: 10,
+        sort:{_id:1}
     
     };
     //{stock:{$lt:6},referencia:500} <--- menor que

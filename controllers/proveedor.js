@@ -46,7 +46,8 @@ const getPaginationProveedores = async (req,res) => {
     const options = {
         //empieza por 1
         page: req.params.page,
-        limit: 10
+        limit: 10,
+        sort:{referencia:1}
     
     };
     //{stock:{$lt:6},referencia:500} <--- menor que

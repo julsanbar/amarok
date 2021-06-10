@@ -125,8 +125,8 @@ const paginationUsuariosEmpleado = async (req,res) => {
     const options = {
         
         page: req.params.page,
-        limit: 10
-        //sort:{estado:-1}
+        limit: 10,
+        sort:{tipo:1}
     
     };
     //{stock:{$lt:6},referencia:500} <--- menor que
@@ -146,8 +146,8 @@ const paginationUsuariosAdmin = async (req,res) => {
     const options = {
         //empieza por 1
         page: req.params.page,
-        limit: 10
-        //sort:{estado:-1}
+        limit: 10,
+        sort:{tipo:1}
     
     };
     //{stock:{$lt:6},referencia:500} <--- menor que
