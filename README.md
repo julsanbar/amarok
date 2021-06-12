@@ -6,7 +6,7 @@ Este proyecto a sido desplegado por medio de nginx y PM2, a traves de un droplet
 
 Los envios de emails se realizan por medio de MAILTRAP simulando un SMTP, debido a los costos adicionales que supone un servidor de correo adicional se ha optado por esta vía.
 
-Se podrá ver el resultado del mismo en https://amarok.digital/ 
+Se podrá ver el resultado del mismo en https://amarok.digital/  Web apta para resoluciones de 1366x768 px
 
 Dicho proyecto ira evolucionando con una fecha límite de 07-06-2022, por lo que se pueden experimentar anomalías mientras se este testeando dicho proyecto.
 
