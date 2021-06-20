@@ -28,7 +28,7 @@ const createTrans = () => {
         service: 'gmail',
         auth: {
           user: 'armeria.amarok@gmail.com',
-          pass: 'Armeria*36'
+          pass: '---------'
         }
     });*/
 
